@@ -1,0 +1,1025 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+#preloader {
+	text-align: center; 
+    background-color:#FBFBFB;	
+    color:#959595;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:5000;
+	width: 100%;
+	height: 100%;
+	
+ 	opacity:100; 
+	
+	display: table;
+	
+	vertical-align:middle;
+	
+	top:0%;
+	left:0%;
+}
+
+#divLogin, #divDatos {
+	text-align: center; 
+    background-color:#585A54;	
+    color:#FFFFFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:5001;
+	width: 20%;
+	height: auto;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:101%;
+	left:40%;
+}
+
+
+.shadow {
+    -moz-box-shadow: 0px 50px 50px #111;
+    -webkit-box-shadow: 0px 50px 50px #111;
+    box-shadow: 0px 50px 50px #111;
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=15, Direction=0, Color='#111111')";
+    /* IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=15, Direction=0, Color='#111111');
+	
+	
+	
+}
+
+
+.shadowDos {
+    -moz-box-shadow: 0px 10px 10px #2F2F2F;
+    -webkit-box-shadow: 0px 10px 10px #2F2F2F;
+    box-shadow: 0px 10px 10px #2F2F2F;
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=15, Direction=0, Color='#2F2F2F')";
+    /* IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=10, Direction=0, Color='#2F2F2F');
+	
+	
+	
+}
+
+.shadowTres {
+    -moz-box-shadow: 0px 5px 5px #2F2F2F;
+    -webkit-box-shadow: 0px 5px 5px #2F2F2F;
+    box-shadow: 0px 5px 5px #2F2F2F;
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=15, Direction=0, Color='#2F2F2F')";
+    /* IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=10, Direction=0, Color='#2F2F2F');
+	
+	
+	
+}
+
+
+#bt3, #bt32, #bt4, #bt42, #bt5, #bt52, #bt6, #bt8, #bt10, #bt12, #bt13, #bt16, #bt17, #btLogin, #bt1001, #bt1002, #bt1003, #bt1001b, #bt1001c{
+	width:40%;  
+	background-color:#CCFF66;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	align:center;
+	
+}
+
+#x006{
+	
+	background-color:#CCFF66;
+	-webkit-border-radius:10px;  
+
+	align:center;	
+}
+#x007{
+	
+	background-color:#993300;
+	color:#FFF;
+	-webkit-border-radius:10px;  
+
+	align:center;	
+}
+
+#x008{
+	
+	background-color:#006699;
+	color:#FFF;
+	-webkit-border-radius:10px;  
+
+	align:center;	
+}
+
+
+
+#bt66{
+	width:40%;  
+	color:#FFFFFF;
+	background-color:#018786;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	align:center;
+	
+}
+
+#bt7{
+	width:40%; 
+	color:#FFEEEE;
+	background-color:#555555;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	align:center;
+	
+}
+
+#bt14{
+	width:10%;  
+	background-color:#CCFF66;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	align:center;
+	
+}
+
+
+#bt15{
+	width:10%; 
+	color:#FFEEEE;
+	background-color:#555555;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	align:center;
+	
+}
+
+#reporteador_cajaForm {
+	text-align: center; 
+    background-color:#333333;	
+    color:#959595;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:1000;
+	width: 100%;
+	height: 10%;
+	
+ 	
+	
+	top:0%;
+	left:0%;
+}
+
+#reporteador_cajaFormAbajo {
+	text-align: center; 
+    background-color:#262626;	
+    color:#959595;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:1000;
+	width: 100%;
+	height: 20%;
+	
+ 	
+	
+	top:80%;
+	left:0%;
+}
+
+#resultadoReporte {
+	text-align: center; 
+    
+    color:#959595;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:1000;
+	width: 100%;
+	height: 70%;
+	
+ 	
+	
+	top:11%;
+	left:0%;
+}
+
+#divsubprecio{
+	width:30%;  
+	background-color:#4D4D4D;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	
+}
+
+#divAsignarMedicamento {
+	text-align: center; 
+    background-color:#FBFBFB;	
+    color:#959595;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:1000;
+	width: 50%;
+	height: 40%;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:105%;
+	left:25%;
+}
+
+#divpTextoDetalle{
+	margin-top: 1%;
+	text-align:left; 
+    background-color:#EAEAEA;	
+    color:#4D4D4D;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 20px;
+	
+	
+	float:left;
+
+
+	height: auto;
+	-webkit-border-radius:3px;  
+}
+
+#divpTextoDetallePrecio{
+	margin-top: 1%;
+	text-align:center; 
+    background-color:#EAEAEA;	
+    color:#4D4D4D;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 20px;
+	
+	
+	float:left;
+
+
+	height: auto;
+	-webkit-border-radius:3px;  
+}
+
+
+#divpTextoDetalleDos{
+	margin-top: 1%;
+	text-align:left; 
+    
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    
+	
+	
+	float:left;
+
+
+	height: auto;
+	
+}
+
+#despliegueDetalle{
+	
+    background-color:#D9D9D9;	
+    color:#333333;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+	margin-top: 1%;
+	position:static;
+
+	margin-right:1%;
+	margin-left:1%;
+	
+	height: auto;
+	-webkit-border-radius:3px;  
+	
+	width:100%;
+}
+
+#divNuevaEstadia {
+	text-align: center; 
+    background-color:#F6DD84;	
+    color:#FFFFFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:700;
+	width: 76%;
+	height: 70%;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:115%;
+	left:12%;
+}
+
+#divMedicamentosFaltantes {
+	
+	text-align:left; 
+    
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    background-color:#FFFFFF;	
+	
+	
+	float:left;
+	
+	margin-top: 3%;
+	
+	
+
+	width:95%;
+	height: auto;
+	-webkit-border-radius:2%;  
+	
+	height: auto;
+}
+
+#separadorEste{
+	background-color:#404040;
+	color:#FFFFFF;
+	-webkit-border-radius:2%;  
+
+	text-align:left; 
+	
+	
+	margin-top: 1%;
+    
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    
+	
+	
+	float:left;
+
+
+	height: auto;
+	
+}
+
+
+
+#divNuevaInfo{
+	text-align: center; 
+    background-color:#585A54;	
+    color:#FFFFFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:1000;
+	width: 50%;
+	height: auto;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:105%;
+	left:25%;
+}
+
+#divDetalleHonorario{
+	text-align: center; 
+    background-color:#585A54;	
+    color:#FFFFFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:1000;
+	width: 50%;
+	height: auto;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:105%;
+	left:25%;
+}
+
+#divNuevoPaciente{
+	text-align: center; 
+    background-color:#585A54;	
+    color:#FFFFFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:1000;
+	width: 50%;
+	height: auto;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:105%;
+	left:25%;
+}
+
+
+
+#divNuevoDoctor, #divNuevoProd{
+	text-align: center; 
+    background-color:#585A54;	
+    color:#FFFFFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:1000;
+	width: 50%;
+	height: auto;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:105%;
+	left:25%;
+}
+
+
+#divNuevoServicio{
+	text-align: center; 
+    background-color:#585A54;	
+    color:#FFFFFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:1000;
+	width: 50%;
+	height: 50%;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:105%;
+	left:25%;
+}
+
+
+#separador{
+	background-color:#404040;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	
+}
+
+
+
+#divprecio{
+	width:30%;  
+	background-color:#404040;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	
+}
+
+#divprecioServForm{
+	width:20%;  
+	background-color:#404040;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	
+}
+
+#divprecioServFormCheck{
+	width:15%;  
+	background-color:#FFFF66;
+	color:#767601;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	
+}
+
+#divsubprecio{
+	width:30%;  
+	background-color:#4D4D4D;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	
+}
+
+
+
+#divPacientesSelect {
+	text-align: center; 
+    background-color:#FBFBFB;	
+    color:#959595;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:1000;
+	width: 50%;
+	height: 40%;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:105%;
+	left:25%;
+}
+#divSelectMedico {
+	text-align: center; 
+    background-color:#FBFBFB;	
+    color:#959595;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:1000;
+	width: 50%;
+	height: 40%;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:105%;
+	left:25%;
+}
+
+#divSelectServicio, #divSelectMedicamento {
+	text-align: center; 
+    background-color:#FBFBFB;	
+    color:#959595;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:1000;
+	width: 50%;
+	height: 40%;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:105%;
+	left:25%;
+}
+
+#divConfirmServicio, #divConfirmMedicamento, #divConfirmEliminado {
+	text-align: center; 
+    background-color:#585A54;	
+    color:#FFFFFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:1000;
+	width: 50%;
+	height: auto;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:105%;
+	left:25%;
+}
+
+#divAsignarMedicamento {
+	text-align: center; 
+    background-color:#FBFBFB;	
+    color:#959595;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:1000;
+	width: 50%;
+	height: 40%;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:105%;
+	left:25%;
+}
+
+
+#divFamiliarSelect {
+	text-align: center; 
+    background-color:#FBFBFB;	
+    color:#959595;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:1000;
+	width: 50%;
+	height: 40%;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:105%;
+	left:25%;
+}
+
+
+
+#buscador{
+	background-color:#404040;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	
+	overflow: auto; 
+	overflow-y: auto;
+	overflow-x: hidden;
+	
+}
+
+#buscador2, #buscador3, #buscador4, #buscador5{
+	background-color:#FBFBFB;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	
+	color:#333333;
+	overflow: auto; 
+	overflow-y: auto;
+	overflow-x: hidden;
+	
+}
+
+#buscador4{
+	background-color:#FFC;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	
+	color:#333333;
+	overflow: auto; 
+	overflow-y: auto;
+	overflow-x: hidden;
+	
+}
+
+#buscadorServBol{
+	-webkit-border-radius:10px;  
+	position:absolute;
+	
+	color:#EAEAEA;
+	overflow: auto; 
+	overflow-y: auto;
+	overflow-x: hidden;
+	
+}
+
+
+
+#contenidog{
+	background-color:#F2F2F2;
+	-webkit-border-radius:30px;  
+	position:absolute;
+	color:#7B7B7B;
+	
+	
+}
+
+#cajaPaciente{
+	background-color:#FBFBFB;
+	-webkit-border-radius:10px;  
+	position:static;
+	
+	color:#333333;
+	
+	margin-top: 1%;
+	margin-down: 1%;
+
+	margin-right:1%;
+	margin-left:1%;
+}
+
+#cajaPacienteEmergencia{
+	background-color:#F4F3A4;
+	-webkit-border-radius:10px;  
+	position:static;
+	
+	color:#333333;
+	
+	margin-top: 1%;
+	margin-down: 1%;
+
+	margin-right:1%;
+	margin-left:1%;
+}
+
+.centrar-imagen {
+text-align: center; 
+}
+
+#despliegueImgText{
+	text-align:center; 
+    background-color:#D9D9D9;	
+    color:#333333;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+	margin-top: 1%;
+	position:static;
+
+	margin-right:1%;
+	margin-left:1%;
+	
+	height: auto;
+	-webkit-border-radius:3px;  
+	
+	
+}
+
+#divpNombre{
+	margin-top: 1%;
+	text-align:center; 
+    background-color:#5991C8;	
+    color:#CCCCCC;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+		
+	float:left;
+
+	
+}
+
+#divpNombreEmergencia{
+	margin-top: 1%;
+	text-align:center; 
+    background-color:#CC3333;	
+    color:#CCCCCC;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+		
+	float:left;
+
+	
+}
+
+#divpHospital{
+	margin-top: 1%;
+	text-align:left; 
+    background-color:#3399CC;	
+    color:#CCCCCC;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+	
+	
+	float:left;
+
+
+	height: auto;
+	-webkit-border-radius:3px;  
+}
+
+#contenidoestadia{
+	background-color:#339999;
+	-webkit-border-radius:30px;  
+	position:absolute;
+	
+	
+}
+
+#contenidoestadiaServicios{
+	background-color:#2B2B2B;
+	-webkit-border-radius:30px;  
+	position:absolute;
+	
+	
+}
+
+
+#despliegue{
+	text-align:left; 
+    background-color:#D9D9D9;	
+    color:#333333;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+	margin-top: 1%;
+	position:static;
+
+	margin-right:1%;
+	margin-left:1%;
+	
+	height: auto;
+	-webkit-border-radius:3px;  
+	
+	
+}
+
+
+
+#despliegueImgTextboleta{
+	text-align:left; 
+    background-color:#D9D9D9;	
+    color:#333333;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+	margin-top: 1%;
+	position:static;
+
+	margin-right:1%;
+	margin-left:1%;
+	
+	height: auto;
+	-webkit-border-radius:3px;  
+	
+	
+}
+
+#divpPrecioReporte{
+	margin-top: 1%;
+	text-align:right; 
+    background-color:#5991C8;	
+    color:#CCCCCC;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+		
+	float:left;
+
+	
+}
+
+#divpHospitalShow{
+	margin-top: 1%;
+	text-align:left; 
+    background-color:#A2A2A2;	
+    color:#000000;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+	
+	
+	float:left;
+
+
+	height: auto;
+	-webkit-border-radius:3px;  
+}
+
+#divpTexto{
+	margin-top: 1%;
+	text-align:left; 
+    background-color:#EAEAEA;	
+    color:#4D4D4D;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+	
+	
+	float:left;
+
+
+	height: auto;
+	-webkit-border-radius:3px;  
+}
+
+#despliegue{
+	text-align:left; 
+    background-color:#D9D9D9;	
+    color:#333333;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+	margin-top: 1%;
+	position:static;
+
+	margin-right:1%;
+	margin-left:1%;
+	
+	height: auto;
+	-webkit-border-radius:3px;  
+	
+	
+}
+#despliegueGeneral{
+	background-color:#FFFFFF;	
+	display: table;
+	text-align:left; 
+   
+    color:#EAEAEA;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+  
+	margin-top: 1%;
+	position:static;
+
+	margin-right:1%;
+	margin-left:1%;
+	width:95%;
+	
+	height: auto;
+	-webkit-border-radius:10px;  
+	
+}
+
+#listadoGeneral{
+	display: table-cell;
+    vertical-align: middle;
+	text-align:left; 
+ 
+    color:#333333;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+ 
+	margin-top: 1%;
+
+	margin-right:1%;
+	margin-left:1%;
+	
+	height: auto;
+	
+	
+}
+
+
+##divMedicamentos {
+	text-align: center; 
+    background-color:#F7F7F7;	
+    color:#7B7B7B;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:700;
+	width: 76%;
+	height: 70%;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:110%;
+	left:12%;
+}
+
+#divPacientes {
+	text-align: center; 
+    background-color:#F7F7F7;	
+    color:#7B7B7B;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:700;
+	width: 20%;
+	height: 70%;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:110%;
+	left:12%;
+}
+#contenidoe{
+	background-color:#F7F7F7;
+	color:#6F6F6F;
+	-webkit-border-radius:30px;  
+	position:absolute;
+	
+	
+}
+
+#buscadorThr{
+	background-color:#EBD076;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	
+	overflow: auto; 
+	overflow-y: auto;
+	overflow-x: hidden;
+	
+}
+
+#divServicios {
+	text-align: center; 
+    background-color:#F7F7F7;	
+    color:#FFFFFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:700;
+	width: 76%;
+	height: 70%;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:110%;
+	left:12%;
+}
+
+#buscadorGhr{
+	background-color:#419BA5;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	
+	overflow: auto; 
+	overflow-y: auto;
+	overflow-x: hidden;
+	
+}
+
+#divDoctores {
+	text-align: center; 
+    background-color:#585A54;	
+    color:#FFFFFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:700;
+	width: 76%;
+	height: 70%;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:110%;
+	left:12%;
+}
+
+
+
+

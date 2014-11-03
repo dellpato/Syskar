@@ -1,0 +1,469 @@
+@charset "utf-8";
+/* CSS Document */
+
+.shadow {
+    -moz-box-shadow: 0px 50px 50px #111;
+    -webkit-box-shadow: 0px 50px 50px #111;
+    box-shadow: 0px 50px 50px #111;
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=15, Direction=0, Color='#111111')";
+    /* IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=15, Direction=0, Color='#111111');
+	
+	
+	
+}
+
+#divNuevoProd, #divDatos {
+	text-align: center; 
+    background-color:#585A54;	
+    color:#FFFFFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:700;
+	width: 50%;
+	height: auto;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:103%;
+	left:25%;
+}
+#divNuevoProv, #divDatosProv, #divDevolucion {
+	text-align: center; 
+    background-color:#585A54;	
+    color:#FFFFFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:1000;
+	width: 50%;
+	height: auto;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:103%;
+	left:25%;
+}
+
+#divNuevaCompraProv {
+	text-align: center; 
+    background-color:#585A54;	
+    color:#FFFFFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:700;
+	width: 76%;
+	height: 70%;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:103%;
+	left:12%;
+}
+#divNuevaVenta {
+	text-align: center; 
+    background-color:#585A54;	
+    color:#FFFFFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:500;
+	width: 76%;
+	height: 70%;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:103%;
+	left:12%;
+}
+
+#divFacturas {
+	text-align: center; 
+    background-color:#585A54;	
+    color:#FFFFFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:500;
+	width: 76%;
+	height: 70%;
+ 	-webkit-border-radius:10px;  
+	
+	top:103%;
+	left:12%;
+
+}
+#divCompras {
+	text-align: center; 
+    background-color:#585A54;	
+    color:#FFFFFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:500;
+	width: 76%;
+	height: 70%;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:103%;
+	left:12%;
+}
+#divMedicamentos {
+	text-align: center; 
+    background-color:#585A54;	
+    color:#FFFFFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: fixed;
+	z-index:500;
+	width: 76%;
+	height: 70%;
+	
+ 	-webkit-border-radius:10px;  
+	
+	top:103%;
+	left:12%;
+}
+#divCargoFactura {
+	text-align: center; 
+   
+    color:#FFFFFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+  
+ 	-webkit-border-radius:30px;  
+	
+}
+
+
+
+
+body {
+	background-color: #FFF;
+}
+
+#mapa, #elementos_titulares{
+	height:100%; 
+	overflow: hidden; 
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+#divNuevoProd #form2 p label {
+	text-align: center;
+}
+
+#divprecio{
+	width:30%;  
+	background-color:#404040;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	
+}
+
+#divsubprecio{
+	width:30%;  
+	background-color:#4D4D4D;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	
+}
+
+#separador{
+	background-color:#404040;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	
+}
+#buscador{
+	background-color:#404040;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	
+	overflow: auto; 
+	overflow-y: auto;
+	overflow-x: hidden;
+	
+}
+
+
+#contenido{
+	background-color:#F2F2F2;
+	color:#7B7B7B;
+	position:absolute;
+	
+}
+
+#contenidoe{
+	background-color:#132639;
+	-webkit-border-radius:30px;  
+	position:absolute;
+	
+	
+}
+
+#contenidob{
+	background-color:#666666;
+	color:#EAEAEA;
+	position:absolute;
+	-webkit-border-radius:10px;  
+	overflow: auto; 
+	overflow-y: hidden;
+	overflow-x: hidden;
+	
+}
+#contenidoz{
+	background-color:#D9D9D9;
+	color:#666666;
+	position:absolute;
+	-webkit-border-radius:10px;  
+	overflow: auto; 
+	overflow-y: hidden;
+	overflow-x: hidden;
+	
+}
+
+#bt2, #bt3, #bt7, #bt12, #bt66, #bt4, #bt44, #bt99{
+	width:40%;  
+	background-color:#CCFF66;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	align:center;
+	
+}
+
+#bt44, #bt100, #bt101{
+	width:40%;  
+	background-color:#993300;
+	color:#FFFFFF;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	align:center;
+	
+}
+
+
+#divEsquinero {
+	text-align: center; 
+    background-color:#BFBFBF;	
+    color:#FFFFFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+	position: absolute;
+	height: auto;
+	
+}
+
+#textoDespliegue{
+	width:30%;
+	
+	
+}
+#despliegue{
+	text-align:left; 
+    background-color:#D9D9D9;	
+    color:#333333;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+	margin-top: 1%;
+	position:static;
+
+	margin-right:1%;
+	margin-left:1%;
+	
+	height: auto;
+	-webkit-border-radius:3px;  
+	
+	
+}
+#despliegueDetalleDev{
+	text-align:left; 
+    background-color:#FFFE65;	
+    color:#333333;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+	margin-top: 1%;
+	position:static;
+
+	margin-right:1%;
+	margin-left:1%;
+	
+	height: auto;
+	-webkit-border-radius:3px;  
+	
+	
+}
+
+#despliegueUnidad{
+	text-align:left; 
+    background-color:#252930;	
+    color:#CCCCCC;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+	margin-top: 1%;
+	position:static;
+	white-space: nowrap;
+	margin-right:1%;
+	margin-left:1%;
+	
+	height: auto;
+	-webkit-border-radius:3px;  
+}
+#divpPublico{
+	margin-top: 1%;
+	text-align:left; 
+    background-color:#666699;	
+    color:#CCCCCC;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+
+	
+	float:left;
+
+
+	height: auto;
+	-webkit-border-radius:3px;  
+}
+#divpPublicoShow{
+	margin-top: 1%;
+	text-align:left; 
+    background-color:#C4C4C4;	
+    color:#000000;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+
+	
+	float:left;
+
+
+	height: auto;
+	-webkit-border-radius:3px;  
+}
+
+#divpHospitalShow{
+	margin-top: 1%;
+	text-align:left; 
+    background-color:#A2A2A2;	
+    color:#000000;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+	
+	
+	float:left;
+
+
+	height: auto;
+	-webkit-border-radius:3px;  
+}
+#divpHospital{
+	margin-top: 1%;
+	text-align:left; 
+    background-color:#3399CC;	
+    color:#CCCCCC;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+	
+	
+	float:left;
+
+
+	height: auto;
+	-webkit-border-radius:3px;  
+}
+#divpTexto{
+	margin-top: 1%;
+	text-align:left; 
+    background-color:#EAEAEA;	
+    color:#4D4D4D;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+	
+	
+	float:left;
+
+
+	height: auto;
+	-webkit-border-radius:3px;  
+}
+
+
+#divpSubTexto{
+	margin-top: 1%;
+	text-align:left; 
+    background-color:#252930;	
+    color:#CCCCCC;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+	
+	
+	float:left;
+
+
+	height: auto;
+	-webkit-border-radius:3px;  
+}
+
+
+#divpTextoDetalle{
+	margin-top: 1%;
+	text-align:left; 
+    background-color:#EAEAEA;	
+    color:#4D4D4D;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 20px;
+	
+	
+	float:left;
+
+
+	height: auto;
+	-webkit-border-radius:3px;  
+}
+
+#divpTextoDetalleDev{
+	margin-top: 1%;
+	text-align:left; 
+    background-color:#FFFE65;	
+    color:#4D4D4D;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 20px;
+	
+	
+	float:left;
+
+
+	height: auto;
+	-webkit-border-radius:3px;  
+}
+
+
+#despliegueDetalle{
+	
+    background-color:#D9D9D9;	
+    color:#333333;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+	margin-top: 1%;
+	position:static;
+
+	margin-right:1%;
+	margin-left:1%;
+	
+	height: auto;
+	-webkit-border-radius:3px;  
+	
+	width:100%;
+}
+
+
