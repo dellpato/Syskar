@@ -1,0 +1,684 @@
+<html>
+    <head>
+        <title>Recursos Humanos</title> 
+        <meta charset="utf-8"> 
+        <link rel="stylesheet" href="css/formato.css" type="text/css" /> 
+        
+        <script src="js/jquery-1.8.1.js" type="text/javascript"></script>
+        <script src="js/jquery.easing.1.3.js" type="text/JavaScript"></script>
+        <script src="js/jquery.form.js" type="text/JavaScript"></script> 
+    </head>
+ 
+    <body onLoad="calculo()" oncontextmenu='return false' ondragstart='return false' onselectstart='return false'>
+
+      <div id="preloader" >
+      <div id="contenedorLoader" style="opacity:100; ">
+      <br/>Accediendo
+      <br/><img src="botones/loading.gif" style="width:18%; height:auto; position:relative;vertical-align:middle;text-align:center;"/>
+      <br/>(Si es primera vez que accede desde este equipo, pueda que tome unos minutos)
+      </div>
+      </div>
+
+      <!--====================FONDO===========================-->
+      <div id="mapa" style="left:0; top:0; height:100%; width:100%; position:fixed; z-index:0;">
+        <img src="map.png" style="left:0; top:0; height:100%; float:right; ">
+        </div>
+        <div id="mapa" style="left:0; top:55%; height:35%; width:auto; position:fixed; ; z-index:2;">
+        <img src="logo_muni.png" style="left:0; top:0; height:100%; float:right; ">
+      </div>
+
+      <!--=======================================TAPADOR========================================================-->
+      <div id="tapador" style="left:0; top:0; height:100%; width:100%; position:fixed; ; z-index:2; opacity: 0; ">
+      <img src="tapador.png" style="left:0; top:0; height:100%; width:100%; ">
+      </div>
+
+      <div id="tapadorLeve" style="left:0; top:0; height:100%; width:100%; position:fixed; ; z-index:2; opacity: 0; ">
+      <img src="tapador.png" style="left:0; top:0; height:100%; width:100%; ">
+      </div>
+
+      <!-----------------------BUSCADOR Y AJUSTES------------------------------>
+      <div id="divBuscadorAll" style="left:70%; top:1%; height:66%; width:25%; position:fixed; z-index:200; overflow-y: auto; text-align:center;">
+
+        <form method="get" action="">
+            <img src="botones/lupina.png" style="width:5%; height:auto; top:1%;  left:20%; position:absolute;">
+          <input type="text" id="boxbuscarall" name="boxbuscarall"   style= "-webkit-border-radius:10px;  top:1%; left:25%; width:60%; position:absolute"  onkeypress="if (event.keyCode == 13) return false"/> 
+              
+        </form>  
+      </div>
+
+      <div id="resultsBusquedaGeneral"  style="width:30%; height:50%; top:5%; left:140%; position:fixed;  overflow-y: auto; color:#FFFFFF; z-index:1001;"></div>   
+
+
+
+       <!--=======================================BOTONES========================================================-->
+
+      <div onClick='voyModEmpleadoNuevo()' style="left:1%; top:88%; height:10%; width:auto; position:fixed; ; z-index:2;">
+      <img src="botones/venta.png" style="left:0; top:0; height:100%; width:auto; ">
+      </div>
+
+      <!--================DIV EMPLEADO==========================-->
+    
+<div id="divNuevaEstadia" class="shadow">
+
+      <div id="" style="top:-10%; left:47%; height:10%; width:50%; position:absolute;">
+      <img src="botones/pestana.png" style="left:0; top:0; height:100%; width:100%; ">
+      <div id="nombrePestana" style="text-align: center; left:15%; top:6%; position:absolute; color:#604406; font-size: 20px;">Empleado - Archivo Digital</div>
+      </div>
+    
+
+      
+      <div style="left:2%; top:2%; height:23%; width:auto; position:absolute; ; z-index:200;">
+            <img src="botones/empleado.png" style="left:0; top:0; height:100%; width:auto; ">
+      </div>
+
+      
+      <div id="" style="left:4%; top:27%; height:23%; width:auto; position:absolute; text-align:center;">
+                <form id="form_general_archivo" name="form_general_archivo" method="post" action="">
+                Empleado Cód.<br>
+                <input type="text" name="global_emp_cod" id="global_emp_cod" readonly="TRUE" size="6" />
+                </form>      
+      </div>   
+      
+
+
+      <div onClick='escogiModificarEmpleado()' style="left:15%; top:-3%; height:6%; width:auto; position:absolute; ; z-index:200;">
+      <img src="botones/edit.png" style="left:0; top:0; height:100%; width:auto; ">
+      </div>        
+      <div id="contenedorInfoEmpleado">
+            
+      </div>
+
+
+      <div id="contenedorFormEmpleado">
+            <form id="form_mod_empleado" name="form_mod_empleado" method="post" action="">
+            <p>
+            <label for="codigo_empleado_sistema_form">Código en Sistema</label>
+            <input type="text" name="codigo_empleado_sistema_form" id="codigo_empleado_sistema_form"  readonly="TRUE" />
+            </p>
+            <p>
+            <label for="fecha_nac_form">Fecha de Nacimiento:</label>
+            <input type="date" name="fecha_nac_form" id="fecha_nac_form" />
+            </p>
+            <p>
+            <label for="no_afiliacion_igss_form">No. Afiliacion IGSS:</label> 
+            <input type="text" name="no_afiliacion_igss_form" id="no_afiliacion_igss_form" />
+            </p>
+            <p>
+            <label for="primer_apellido_form">Primer Apellido:</label>          
+            <input type="text" name="primer_apellido_form" id="primer_apellido_form" />
+            </p>
+            <p>
+            <label for="segundo_apellido_form">Segundo Apellido:</label>
+            <input type="text" name="segundo_apellido_form" id="segundo_apellido_form" />
+            </p>
+            <p>
+            <label for="nombre_empleado_form">Nombres:</label>
+            <input type="text" name="nombre_empleado_form" id="nombre_empleado_form" />
+            </p>
+            <p>
+            <label for="nit_empleado_form">Nit:</label>
+            <input type="text" name="nit_empleado_form" id="nit_empleado_form" />
+            </p>
+            <p>
+            <label for="genero_empleado_form">Genero:</label>
+            <input type="text" name="genero_empleado_form" id="genero_empleado_form" />
+            </p>
+            <p>
+            <label for="email_empleado_form">Email:</label>
+            <input type="text" name="email_empleado_form" id="email_empleado_form" />
+            </p>
+            <p>
+            <label for="telefono_casa_form">Teléfono de Casa:</label>
+            <input type="text" name="telefono_casa_form" id="telefono_casa_form" />
+            </p>
+            <p>
+            <label for="telefono_celular_form">Teléfono Celular:</label>
+            <input type="text" name="telefono_celular_form" id="telefono_celular_form" />
+            </p>
+            <p>
+            <label for="telefono_oficina_form">Teléfono Oficina:</label>
+            <input type="text" name="telefono_oficina_form" id="telefono_oficina_form" />
+            </p>
+            <p>
+            <label for="direccion_form">Direccion:</label>
+            <input type="text" name="direccion_form" id="direccion_form" />
+            </p>
+            <p>
+            <label for="nacionalidad_form">Nacionalidad:</label>
+            <input type="text" name="nacionalidad_form" id="nacionalidad_form" />
+            </p>
+            <p>
+            <input type="button" name="guardar_info_empleado" id="guardar_info_empleado" value="Guardar" />
+            <input type="button" name="cancelar_info_empleado" id="cancelar_info_empleado" value="Cancelar" />
+            </p>
+
+
+            </form>
+
+      </div>
+
+      <div id="buscador3" style="top:66%; left:1%; height:32%; width:20%;"> 
+       <div onClick='inMedicosSelect()' id='btAddMedicoBoleta' style="left:90%; top:1%; height:15%; width:auto; position:absolute; ; z-index:200;">
+      <img src="botones/edit.png" style="left:0; top:0; height:100%; width:auto; ">
+      </div>         
+      <b>CONTRATO ACTUAL</b>
+      <div id="datosAdicionales"></div>
+      </div>
+    
+
+      <div id="buscador5" style="top:66%; left:22%; height:32%; width:20%; overflow-y: auto;">
+     
+      <div onClick='inMedicosSelect()' id='btAddMedicoBoleta' style="left:90%; top:1%; height:15%; width:auto; position:absolute; ; z-index:200;">
+      <img src="botones/minimas.png" style="left:0; top:0; height:100%; width:auto; ">
+      </div>
+      <b>COMPETENCIAS</b>
+      <div id="doctoresImplicados" style="position:absolute; width:98%;"></div>
+      </div>
+
+
+      <div id="buscador5" style="top:66%; left:43%; height:32%; width:20%; overflow-y: auto;">
+      <div onClick='inMedicosSelect()' id='btAddMedicoBoleta' style="left:90%; top:1%; height:15%; width:auto; position:absolute; ; z-index:200;">
+      <img src="botones/minimas.png" style="left:0; top:0; height:100%; width:auto; ">
+      </div>
+      <b>PERMISOS Y FALTAS</b>
+      <div id="doctoresImplicados" style="position:absolute; width:98%;"></div>
+      </div>
+
+
+      <div id="contenidoestadia" style="top:1%; left:46%; height:25%; width:21%; overflow-y: auto; overflow-x: hidden;">   
+      <div onClick='inMedicosSelect()' id='btAddMedicoBoleta' style="left:89%; top:2%; height:15%; width:auto; position:absolute; ; z-index:200;">
+      <img src="botones/minimas.png" style="left:0; top:0; height:100%; width:auto; ">
+      </div>
+      <b>Puesto(s)</b>
+      <div id="divListoServicios" style="position:absolute; width:98%;"></div>
+      </div>
+
+
+      <div id="contenidoestadia" style="top:28%; left:46%; height:25%; width:21%; overflow-y: auto; overflow-x: hidden;">   
+     <div onClick='inSelectDpto()' id='btAddMedicoBoleta' style="left:89%; top:2%; height:15%; width:auto; position:absolute; ; z-index:200;">
+      <img src="botones/edit.png" style="left:0; top:0; height:100%; width:auto; ">
+      </div>
+      <b>Departamento</b>
+      <div id="divListoDepartamento" style="position:absolute; width:98%;"></div>
+      </div>
+
+
+
+      <div id="contenidoestadia" style="top:1%; left:68%; height:64%; width:31%; overflow-y: auto; overflow-x: hidden;">   
+      <div onClick='inServicioSelect()'  id='btAddServicio' style="left:85%; top:1%; height:10%; width:auto; position:absolute; ; z-index:200;">  
+      </div>
+      <b>Archivos Adjuntos</b>
+      <div id="divListoServicios" style="position:absolute; width:98%;"></div>
+      </div>
+
+
+
+      <form id="formNuevaEstadia" name="formNuevaEstadia" method="post" action=""> 
+
+      <label>
+      <input type="button" name="bt7" id="bt7" value="Eliminar" style="left:68%; top:98%; width:10%; position:absolute;">
+      </label>
+
+      <label>
+      <input type="button" name="bt72" id="bt72" value="Guardar Cambios" style="left:80%; top:98%; width:10%; position:absolute;">
+      </label>
+
+      </form>
+
+
+      <div id='' onClick="outModEmpleado();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+
+
+<div id="divDepartamentoSelect" class="shadow">
+
+        <div id="buscador2" style="top:0%; left:0%; height:99%; width:99%;">
+
+          <div onClick='inCreateDpto()' id='btAddMedicoBoleta' style="left:87%; top:1%; height:9%; width:auto; position:absolute; ; z-index:200;">
+          <img src="botones/minimas.png" style="left:0; top:0; height:100%; width:auto; ">
+          </div>
+
+          <form method="get" action="">
+          
+            <input type="text" id="boxdptoselect" name="boxdptoselect"  onkeypress="if (event.keyCode == 13) return false"/>
+          
+          </form>    
+                        
+               <div id="resultsDptoSelect"></div>        
+        </div>
+
+        <div id='' onClick="outSelectDpto();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+
+<div id="divDepartamentoCreate" class="shadow">
+
+        <form id="form_dpto_create" name="form_dpto_create" method="post" action="">
+            
+            <p>
+            <label for="form_nombre_dpto">Nombre Departamento:</label> 
+            <input type="text" name="form_nombre_dpto" id="form_nombre_dpto" />
+            </p>
+            <p>
+            <label for="form_descripcion_dpto">Descripción Departamento:</label>          
+            <input type="text" name="form_descripcion_dpto" id="form_descripcion_dpto" />
+            </p>
+            <p>
+            <label for="form_jefe_inmediato_dpto">Jefe Inmediato:</label>
+            <input type="text" name="form_jefe_inmediato_dpto" id="form_jefe_inmediato_dpto" />
+            </p>
+            <p>
+            <label for="form_puestos_dpto">Número de Puestos:</label>
+            <input type="text" name="form_puestos_dpto" id="form_puestos_dpto" />
+            </p>
+            <p>
+            <input type="button" name="bt_crear_dpto_flow" id="bt_crear_dpto_flow" value="Crear y Escoger" />
+            </p>
+
+
+        </form>
+</div>
+       
+    </body>
+</html>
+
+<script type="text/JavaScript">
+
+$(window).load(function() {
+    outLoadingBarra();
+    outLoading(); 
+});
+
+document.getElementById("guardar_info_empleado").onclick = function () {
+   guardarDatosEmpleado();
+}
+
+document.getElementById("bt_crear_dpto_flow").onclick = function () {
+   guardarDatosDptoEsc();
+}
+
+
+function voyModEmpleadoNuevo(){
+  solicitoNuevoEmpleado();
+  inModEmpleado();
+}
+
+function escogiModificarEmpleado(){
+  $("#contenedorFormEmpleado").css("display", "block");
+  $("#contenedorInfoEmpleado").css("display", "none");
+
+  cargarDatosaFormEmpleado();
+}
+
+function solicitoNuevoEmpleado(){
+                    $.ajax({ 
+                          data: "id=0", 
+                          type: "POST", 
+                          dataType: "html", 
+                          url: "php/SolicitarNuevoEmpleado.php", 
+                          success: function(data){    
+                              document.form_mod_empleado.codigo_empleado_sistema_form.value = parseInt(data);
+                              document.form_general_archivo.global_emp_cod.value = parseInt(data);
+
+                              escogiModificarEmpleado(); 
+                          },
+                          error:function(objXMLHttpRequest){alert("Error Creando! Intente de nuevo.");}
+
+                    });
+
+}
+
+function guardarDatosEmpleado(){
+
+   var formularioEmpleado = $(form_mod_empleado).serialize();
+                    $.ajax({ 
+                          data: formularioEmpleado, 
+                          type: "POST", 
+                          dataType: "html", 
+                          async: false,
+                          url: "php/guardarCambiosEmpleado.php", 
+                          success: function(data){    
+
+                                enlistarDatosEmpleado(document.form_mod_empleado.codigo_empleado_sistema_form.value);
+
+                                $("#contenedorFormEmpleado").css("display", "none");
+                                $("#contenedorInfoEmpleado").css("display", "block");
+
+                          },
+                          error:function(objXMLHttpRequest){alert("Error Guardando! Intente de nuevo.");}
+
+                    });
+
+}
+
+
+function eliminarEmpleado(){
+
+}
+
+function cargarDatosaFormEmpleado(){
+                    $.ajax({
+                      data: "id="+document.form_mod_empleado.codigo_empleado_sistema_form.value, 
+                      type: "GET",
+                      dataType: "json", 
+                      url:"php/getDatosEmpleado.php",
+                      async: false,
+                      success: function(data){ 
+                        document.form_mod_empleado.nombre_empleado_form.value = data.nombre_completo; 
+                        document.form_mod_empleado.primer_apellido_form.value = data.primer_apellido; 
+                        document.form_mod_empleado.segundo_apellido_form.value = data.segundo_apellido; 
+                        document.form_mod_empleado.fecha_nac_form.value = data.fecha_nacimiento; 
+                        document.form_mod_empleado.direccion_form.value = data.direccion; 
+                        document.form_mod_empleado.nit_empleado_form.value = data.nit; 
+                        document.form_mod_empleado.email_empleado_form.value = data.sancion; 
+                        document.form_mod_empleado.nacionalidad_form.value = data.nacionalidad; 
+                        document.form_mod_empleado.telefono_celular_form.value = data.telefono_celular; 
+                        document.form_mod_empleado.telefono_casa_form.value = data.telefono_casa; 
+                        document.form_mod_empleado.telefono_oficina_form.value = data.telefono_oficina; 
+                        document.form_mod_empleado.genero_empleado_form.value = data.sexo; 
+                        document.form_mod_empleado.no_afiliacion_igss_form.value = data.no_afiliacion_igss; 
+            
+                      },
+                      error:function(objXMLHttpRequest){alert("Error! Intente de nuevo.");}
+
+                    });
+
+}
+
+function enlistarDatosEmpleado(recibo){
+  $("#contenedorFormEmpleado").css("display", "none");
+  $("#contenedorInfoEmpleado").css("display", "block");
+
+var miHtml="";
+                    $.ajax({
+                      data: "id="+recibo, 
+                      type: "GET",
+                      dataType: "json", 
+                      url:"php/getDatosEmpleado.php",
+                      async: false,
+                      success: function(data){
+                        miHtml=''; 
+                        miHtml+= "<br><strong>Nombre:</strong>&nbsp"+data.nombre_completo+"&nbsp"+data.primer_apellido+"&nbsp"+data.segundo_apellido;         
+                        miHtml+= "<br><strong>Fecha de Nacimiento:</strong>&nbsp"+data.fecha_nacimiento; 
+                        miHtml+= "<br><strong>Dirección:</strong>&nbsp"+data.direccion; 
+                        miHtml+= "<br><strong>Nit:</strong>&nbsp"+data.nit; 
+                        miHtml+= "<br><strong>Nacionalidad:</strong>&nbsp"+data.nacionalidad; 
+                        miHtml+= "<br><strong>Teléfono Celular:</strong>&nbsp"+data.telefono_celular; 
+                        miHtml+= "<br><strong>Teléfono Casa:</strong>&nbsp"+data.telefono_casa; 
+                        miHtml+= "<br><strong>Teléfono Oficina:</strong>&nbsp"+data.telefono_oficina; 
+                        miHtml+= "<br><strong>Género:</strong>&nbsp"+data.sexo; 
+                        miHtml+= "<br><strong>No. de Afiliación IGSS:</strong>&nbsp"+data.no_afiliacion_igss;
+                        miHtml+= "<br><strong>Email:</strong>&nbsp"+data.email; 
+
+                        $('div#contenedorInfoEmpleado').html(miHtml);
+            
+                      },
+                      error:function(objXMLHttpRequest){alert("Error! Intente de nuevo.");}
+
+                    });
+
+}
+
+
+function guardarDatosDptoEsc(){
+
+   var formularioDepartamento = $(form_dpto_create).serialize();
+                    $.ajax({ 
+                          data: formularioDepartamento, 
+                          type: "POST", 
+                          dataType: "html", 
+                          async: false,
+                          url: "php/guardarDatosDpto.php", 
+                          success: function(data){    
+                                outSelectDpto();
+                                SelectDptoEmpleado(parseInt(data));
+                          },
+                          error:function(objXMLHttpRequest){alert("Error Guardando! Intente de nuevo.");}
+
+                    });
+
+}
+
+function SelectDptoEmpleado(recibo){
+  outSelectDpto();
+  var formularioArchivo = $(form_general_archivo).serialize();
+                    $.ajax({ 
+                          data: formularioArchivo, 
+                          type: "POST", 
+                          dataType: "html", 
+                          async: false,
+                          url: "php/selectDptoEmpleado.php?dpto="+recibo, 
+                          success: function(data){    
+                               listarDptoEmpleado();
+                          },
+                          error:function(objXMLHttpRequest){alert("Error Guardando! Intente de nuevo.");}
+
+                    });
+}
+
+function listarDptoEmpleado(){
+
+  var miHtml="";
+                    $.ajax({
+                      data: "id="+document.form_general_archivo.global_emp_cod.value, 
+                      type: "GET",
+                      dataType: "json", 
+                      url:"php/getDatosDepartamento.php",
+                      async: false,
+                      success: function(data){
+                        miHtml=''; 
+                        miHtml+= "<br><strong>Nombre:</strong>&nbsp"+data.nombre_departamento;         
+                        miHtml+= "<br><strong>Descripción:</strong>&nbsp"+data.descripcion; 
+                        miHtml+= "<br><strong>Jefe Inmediato:</strong>&nbsp"+data.jefe_inmediato; 
+                        
+
+                        $('div#divListoDepartamento').html(miHtml);
+            
+                      },
+                      error:function(objXMLHttpRequest){alert("Error! Intente de nuevo.");}
+
+                    });
+
+}
+
+
+
+//------------------------BUSCADOR GENERAL-------------------------//
+var runningRequestGeneral = false;
+var requestGeneral; //Identify the typing action
+$('#boxbuscarall').keyup(function(eGeneral){            
+  eGeneral.preventDefault();
+  var $qGeneral = $(this);
+
+  if($qGeneral.val() == "" || $qGeneral.val() == " "){
+    outBoxbusqueda();
+    $('div#resultsBusquedaGeneral').html(" ");
+    return false;
+  }
+//Abort opened requests to speed it up
+  if(runningRequestGeneral){
+    requestGeneral.abort();
+  }
+
+  runningRequestGeneral=true;
+  requestGeneral = $.getJSON('php/searchGeneral.php',{q:$qGeneral.val()},function(data){showResultsGeneral(data,$qGeneral.val());runningRequestGeneral=false;});
+  
+//Create HTML structure for the results and insert it on the result div
+function showResultsGeneral(data, highlight){
+  var resultHtml = '';
+  $.each(data, function(i,item){
+              
+      if(item.tipo==1){
+        
+      
+            resultHtml+="<div  onClick=voyEmpleado("+item.reciboid+") id='despliegueGeneral'>";
+            resultHtml+="<div id='listadoGeneral' style='position:static; top:1%; left:1%; width:100%; font-size:"+document.body.clientWidth/80 + "px";
+            resultHtml+="'> <img src='botones/foldercito.png' style='width:10%; height:auto; position:static; top:1%; left:1%; '> &nbsp&nbsp" +item.nombre+  "&nbsp&nbsp"+item.apellido1+  "&nbsp&nbsp"+item.apellido2+"</div> </div>";
+        
+      
+      }
+      
+      
+  });
+  
+  inBoxbusqueda();
+  $('div#resultsBusquedaGeneral').html(resultHtml);
+}
+});
+
+
+function voyEmpleado(recibo){
+  outBoxbusqueda();
+  enlistarDatosEmpleado(recibo);
+  inModEmpleado();
+}
+
+//--------------BUSCADOR DEPARTAMENTO EN SELECT DPTO--------------//
+var runningRequestDptoSelect = false;
+var requestDptoSelect; //Identify the typing action
+$('#boxdptoselect').keyup(function(eDptoSelect){
+  eDptoSelect.preventDefault();
+  var $qDptoSelect = $(this);
+  
+  if($qDptoSelect.val() == ""){
+    $('div#resultsDptoSelect').html("Busque un Departamento y escójalo.");
+    return false;
+  }
+//Abort opened requests to speed it up
+  if(runningRequestDptoSelect){
+    requestDptoSelect.abort();
+  }
+
+  runningRequestDptoSelect=true;
+  requestDptoSelect = $.getJSON('php/searchdepartamentos.php',{q:$qDptoSelect.val()},function(data){showResults(data,$qDptoSelect.val());runningRequestDptoSelect=false;});
+  
+//Create HTML structure for the results and insert it on the result div
+function showResults(data, highlight){
+  var resultHtml = '';
+  $.each(data, function(i,item){
+    resultHtml+="<div onClick=SelectDptoEmpleado("+item.id_departamento+") id='despliegue'>&nbsp&nbsp"+item.nombre_departamento+"</div>";
+  });
+  
+  $('div#resultsDptoSelect').html(resultHtml);
+}
+
+$('form').submit(function(e){
+  eDpto.preventDefault();
+});
+
+});
+
+
+function inModEmpleado(){
+  inTapadorLeve();
+  $("#divNuevaEstadia").animate({
+         "top": centroModEmp+"px"
+      }, 777, "easeOutQuint")  
+}
+
+function outModEmpleado(){
+  outTapadorLeve();
+ 
+  document.getElementById("divNuevaEstadia").style.top="-"+parseInt(document.getElementById("divNuevaEstadia").offsetHeight)+"%";
+  
+  jQuery('#form2b').clearForm();  
+}
+
+function inBoxbusqueda(){
+  $("#resultsBusquedaGeneral").animate({
+         "left": 70+"%"
+      }, 666, "easeOutBack")  
+}
+
+function outBoxbusqueda(){
+  $("#resultsBusquedaGeneral").animate({
+         "left": 140+"%"
+      }, 1500, "easeOutBack");
+  
+  $('div#resultsBusquedaGeneral').html("");   
+}
+
+
+function inTapador(){
+  document.getElementById("tapador").style.zIndex=701;
+  $("#tapador").animate({
+         "opacity": 100
+      }, 666, "easeOutBack")  
+}
+
+function outTapador(){
+  document.getElementById("tapador").style.zIndex=200;
+  $("#tapador").animate({
+         "opacity": 0
+      }, 666, "easeOutBack")  
+}
+
+function inTapadorLeve(){
+  document.getElementById("tapadorLeve").style.zIndex=600;
+  $("#tapadorLeve").animate({
+         "opacity": 0.66
+      }, 666, "easeOutBack")  
+}
+
+function outTapadorLeve(){
+  document.getElementById("tapadorLeve").style.zIndex=200;
+  $("#tapadorLeve").animate({
+         "opacity": 0
+      }, 666, "easeOutBack")  
+}
+
+function inSelectDpto(){
+  inTapador();
+  $("#divDepartamentoSelect").animate({
+         "top": centroSelectDepto+"px"
+      }, 777, "easeOutQuint")  
+}
+
+function outSelectDpto(){
+  outTapador();
+  outCreateDpto();
+ 
+  document.getElementById("divDepartamentoSelect").style.top="-"+parseInt(document.getElementById("divDepartamentoSelect").offsetHeight)+"%";
+  
+}
+
+
+function inCreateDpto(){
+  inTapador();
+  $("#divDepartamentoCreate").animate({
+         "top": centroCreateDepto+"px"
+      }, 777, "easeOutQuint")  
+}
+
+function outCreateDpto(){
+  outTapador();
+ 
+  document.getElementById("divDepartamentoCreate").style.top="-"+parseInt(document.getElementById("divDepartamentoCreate").offsetHeight)+"%";
+  
+}
+
+function outLoading(){
+  document.getElementById("preloader").style.zIndex=0;
+  $("#preloader").animate({
+         "opacity": 0
+      }, 666, "easeOutBack")  
+}
+
+function outLoadingBarra(){
+  
+  $("#contenedorLoader").animate({
+         "opacity": 0
+      }, 666, "easeOutBack")  
+}
+
+
+function calculo(){  
+  centroModEmp=(parseInt(window.innerHeight )-parseInt(document.getElementById("divNuevaEstadia").offsetHeight))/2;
+
+  centroSelectDepto=(parseInt(window.innerHeight )-parseInt(document.getElementById("divDepartamentoSelect").offsetHeight))/2;
+
+  centroCreateDepto=(parseInt(window.innerHeight )-parseInt(document.getElementById("divDepartamentoCreate").offsetHeight))/2;
+}
+</script>
+
