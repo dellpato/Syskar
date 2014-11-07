@@ -1,0 +1,2048 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Sistema</title>
+
+<link rel="stylesheet" href="css/farmacia.css" type="text/css" /> 
+<script src="js/jquery-1.8.1.js" type="text/javascript"></script>
+<script src="js/jquery.easing.1.3.js" type="text/JavaScript"></script>
+<script src="js/jquery.form.js" type="text/JavaScript"></script>
+</head>
+
+
+
+
+<body onLoad="calculo();">
+
+<!--=======================================FONDO========================================================-->
+<div id="mapa" style="left:0; top:0; height:100%; width:100%; position:fixed; ; z-index:1;">
+<img src="map.png" style="left:0; top:0; height:100%; float:right; ">
+</div>
+<!--=======================================MEDICINA PENDIENTE========================================================-->
+<div onClick="obtendoMedicamentoPendiente();" id="divMedicamentoPendiente" style="left:1%; top:1%; height:75%; width:30%; position:fixed; z-index:200; overflow-y: auto; color:#CCCCCC;">AQUI</div>
+<!--=======================================TAPADOR========================================================-->
+<div id="tapador" style="left:0; top:0; height:100%; width:100%; position:fixed; ; z-index:200; opacity: 0; ">
+<img src="tapador.png" style="left:0; top:0; height:100%; width:100%; ">
+</div>
+<!--=======================================BOTONES========================================================-->
+
+
+<div onClick='inMedicamentos()' style="left:50%; top:90%; height:10%; width:auto; position:fixed; ; z-index:200;">
+<img src="botones/medicamento.png" style="left:0; top:0; height:100%; width:auto; ">
+</div>
+
+<div onClick='inCompras()' style="left:65%; top:90%; height:10%; width:auto; position:fixed; ; z-index:200;">
+<img src="botones/compras.png" style="left:0; top:0; height:100%; width:auto; ">
+</div>
+
+<div onClick='inBoletaEstadia()' style="left:80%; top:90%; height:10%; width:auto; position:fixed; ; z-index:200;">
+<img src="botones/facturas.png" style="left:0; top:0; height:100%; width:auto; ">
+</div>
+
+
+<div onClick='inNuevaVenta()' style="left:1%; top:84%; height:15%; width:auto; position:fixed; ; z-index:200;">
+<img src="botones/venta.png" style="left:0; top:0; height:100%; width:auto; ">
+</div>
+
+
+
+
+<!--==============================================================================================================================================================================-->
+<!--==============================================================================================================================================================================-->
+<!--===============================================================PRODUCTO=============================================================================================-->
+<!--==============================================================================================================================================================================-->
+<div id="divNuevoProd" class="shadow">
+
+<form id="form2" name="form2" method="post" action="">
+
+<div id="divEsquinero" style="width:10%; height:20%; top:2%; left:100%;">
+	<label>Existencias 
+      <input name="existencia_inicial" type="text" id="existencia_inicial" size="50" maxlength="200" style="width:66%">
+      (Esta caja es temporal)
+    </label>
+</div>
+
+
+
+  <p>
+    <label>Nombre Comercial: 
+      <input name="nombre_comercial" type="text" id="nombre_comercial" size="50" maxlength="200" style="width:25%">
+    </label>
+    <label>Nombre Generico:
+      <input name="nombre_generico" type="text" id="nombre_generico" size="50" maxlength="200" style="width:25%">
+    </label>
+  </p>
+  <p>
+    <label>Descripción:<br />
+      <textarea name="descripcion" cols="46" id="descripcion" style="width:90%"></textarea>
+    </label>
+  </p>
+  <p>&nbsp;</p>
+  <p>
+    <label>Fecha Caducidad:
+      <input type="text" name="fecha_caducidad" id="fecha_caducidad" style="width:30%">
+    </label>
+  </p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>
+    <label><br>
+    </label>
+  </p>
+  
+  <div id="divprecio" style="left:2%; top:45%">
+  Precio Costo
+    <input name="precio_costo" type="text" id="precio_costo" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+  
+  <div id="divprecio" style="left:35%; top:45%">
+  Precio Hospital
+      <input name="precio_hospital" type="text" id="precio_hospital" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+  
+  <div id="divprecio" style="left:68%; top:45%">
+  Precio Público
+    <input name="precio_publico" type="text" id="precio_publico" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+  
+<div id="separador" style="top:60%; height:37%; width:100%;">
+   <div id="divsubprecio" style="left:35%; top:70%">
+  Precio Hospital
+      <input name="precio_hospitalu" type="text" id="precio_hospitalu" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+  
+  <div id="divsubprecio" style="left:68%; top:70%">
+  Precio Público
+    <input name="precio_publicou" type="text" id="precio_publicou" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+  <p>Contenido de la Unidad</p>
+  <p>
+    <label>Unidades por caja:
+      <input type="text" name="unidades" id="unidades" />
+    </label>
+    <label>Tipo:
+      <input type="text" name="tipo_unidad" id="tipo_unidad" />
+    </label>
+    <label>Anotaciones:
+      <input type="text" name="anotacion" id="anotacion" />
+    </label>
+  </p>
+</div>
+ 
+  <p>
+    <label><br>
+    </label>
+    <label>
+      <input type="button" name="bt2" id="bt2" value="Crear Nuevo" style="left:30%; top:98%">
+    </label>
+  </p>
+
+  
+  
+</form>
+
+<div id='' onClick="outformNuevoProd();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+<!--=====================================================================-->
+<div id="divMedicamentos" class="shadow">
+
+	<div id="buscador" style="top:0%; left:0%; height:99%; width:35%;">
+		<form method="get" action="">
+		<input type="text" id="boxprod15" name="boxprod15" />
+		<input type="submit" value="Buscar Medicamento" />
+		</form>    
+        
+        <div onClick='informNuevoProd()' style="z-index:200;">
+			CREAR NUEVO
+		</div>
+            
+         <div id="resultsMedicamentos"></div>        
+	</div>
+    
+    
+  
+<div id="contenidoe" style="top:0%; left:36%; height:100%; width:63%;">   
+ 		<form id="formEditProd" name="formEditProd" method="post" action="">
+
+		<div id="divEsquinero" style="width:10%; height:20%; top:2%; left:100%;">
+			<label>Existencias 
+     		 <input name="existencia_inicial" type="text" id="existencia_inicial" size="50" maxlength="200" style="width:66%">
+      		(Esta caja es temporal)
+    		</label>
+		</div>
+
+
+
+ 		 <p>
+   		 <label>Nombre Comercial: 
+      <input name="nombre_comercial" type="text" id="nombre_comercial" size="50" maxlength="200" style="width:25%">
+    		</label>
+   		 <label>Nombre Generico:
+     		 <input name="nombre_generico" type="text" id="nombre_generico" size="50" maxlength="200" style="width:25%">
+    		</label>
+            
+            
+  		</p>
+  		<p>
+   		 <label>Descripción:<br />
+     		 <textarea name="descripcion" cols="46" id="descripcion" style="width:90%"></textarea>
+    		</label>
+  		</p>
+  		
+  		<p>
+  		  <label>Fecha Caducidad:
+    		  <input type="text" name="fecha_caducidad" id="fecha_caducidad" style="width:30%">
+   		 </label>
+  
+  		</p>
+  		
+        
+        <label>Código en Sistema:
+     		 <input name="codigo_sistema" type="text" id="codigo_sistema" size="50" maxlength="200"  readonly="TRUE" style="width:25%">
+    	</label>
+  		<p>&nbsp;</p>
+  		<p>&nbsp;</p>
+ 		 <p>&nbsp;</p>
+ 		 <p>&nbsp;</p>
+  		<p>
+    		<label><br>
+    	</label>
+  		</p>
+  
+  <div id="divprecio" style="left:2%; top:45%">
+  Precio Costo
+    <input name="precio_costo" type="text" id="precio_costo" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+  
+  <div id="divprecio" style="left:35%; top:45%">
+  Precio Hospital
+      <input name="precio_hospital" type="text" id="precio_hospital" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+  
+  <div id="divprecio" style="left:68%; top:45%">
+  Precio Público
+    <input name="precio_publico" type="text" id="precio_publico" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+  
+		<div id="separador" style="top:60%; height:37%; width:100%;">
+   		<div id="divsubprecio" style="left:35%; top:70%">
+  		Precio Hospital
+      		<input name="precio_hospitalu" type="text" id="precio_hospitalu" size="10" style="width:90%; margin-bottom: 3%;" />
+  		</div>
+  
+  		<div id="divsubprecio" style="left:68%; top:70%">
+  		Precio Público
+    		<input name="precio_publicou" type="text" id="precio_publicou" size="10" style="width:90%; margin-bottom: 3%;" />
+  		</div>
+  		<p>Contenido de la Unidad</p>
+ 		 <p>
+    		<label>Unidades por caja:
+     		 <input type="text" name="unidades" id="unidades" />
+    		</label>
+    		<label>Tipo:
+      		<input type="text" name="tipo_unidad" id="tipo_unidad" />
+    		</label>
+    		<label>Anotaciones:
+     		 <input type="text" name="anotacion" id="anotacion" />
+    		</label>
+ 		 </p>
+        </div>
+ 
+ 		 <p>
+   		 <label><br>
+   		 </label>
+         
+          <label>
+      		<input type="button" name="bt100" id="bt100" value="BORRAR" style="left:1%; top:98%; width:10%;">
+   		 </label>
+         
+   		 <label>
+      		<input type="button" name="bt99" id="bt99" value="GUARDAR CAMBIOS" style="left:30%; top:98%">
+   		 </label>
+  		</p>
+
+  
+  
+</form>
+
+</div>
+
+<div id='' onClick="outMedicamentos();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+
+<script type="text/JavaScript">
+function grabarNuevoProducto(){
+	//envío peticion a un .php, el cual comprueba el usuario y la contraseña, y devuelve la funcion conectar() con los permisos que este usuario tiene
+	//de acuerdo a los permisos que devuelva este se imprimira en pantalla el menú. Si no conecta php devuelve la funcion noConecto()
+	
+	//enviamos formulario a yoconecto.php, por medio de ajax
+	var datos = $(form2).serialize();
+	$.ajax({
+        type: "POST",
+        url:"php/nuevo_producto.php",
+		data: datos,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		   outformNuevoProd();	
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+
+var runningRequestMedici = false;
+var requestMedici; //Identify the typing action
+$('#boxprod15').keyup(function(eMedici){
+							  
+	eMedici.preventDefault();
+	var $qMedici = $(this);
+	
+	if($qMedici.val() == ""){
+		$('div#resultsMedicamentos').html("Busque su factura, luego seleccionela para visualizarla.");
+		return false;
+	}
+//Abort opened requests to speed it up
+	if(runningRequestMedici){
+		requestMedici.abort();
+	}
+
+	runningRequestMedici=true;
+	requestMedici = $.getJSON('php/searchproductoAvanzado.php',{q:$qMedici.val()},function(data){showResultsMedici(data,$qMedici.val());runningRequestMedici=false;});
+	
+//Create HTML structure for the results and insert it on the result div
+function showResultsMedici(data, highlight){
+	var resultHtml = '';
+	$.each(data, function(i,item){
+		if(parseInt(item.unidades)>1){
+			resultHtml+="<div onClick=getDatosProductoShow("+item.idmedicamento+") id='despliegue'><div id='divpTexto' style='position:static; top:1%; left:1%; width:60%'>&nbsp&nbsp"+item.nombre_comercial+"&nbsp&nbsp"+item.nombre_generico+"</div><div id='divpHospitalShow' style='position:static; top:1%; left:59%; width:20%' >&nbsp&nbspHosp. Q."+item.precio_hospital+"</div> <div id='divpPublicoShow' style='position:static; left:81%; width:20%'>&nbsp&nbspPubl. Q."+item.precio_publico+"</div></div>";
+		
+			resultHtml+="<div  onClick=getDatosProductoShow("+item.idmedicamento+") id='despliegueUnidad'><div id='divpSubTexto' style='position:static; top:1%; left:1%; width:60%'>&nbsp&nbsp"+item.nombre_comercial+"&nbsp&nbsp"+item.nombre_generico+" -SUELTO</div><div id='divpHospitalShow' style='position:static; top:1%; left:59%; width:20%'>&nbsp&nbspHosp. Q."+item.detalle_hospital+"</div> <div id='divpPublicoShow' style='position:static; left:81%; width:20%'  >&nbsp&nbspPubl. Q."+item.detalle_publico+"</div></div>";
+			
+		}else{
+			
+			resultHtml+="<div  onClick=getDatosProductoShow("+item.idmedicamento+") id='despliegue'><div id='divpTexto' style='position:static; top:1%; left:1%; width:60%'>&nbsp&nbsp"+item.nombre_comercial+"&nbsp&nbsp"+item.nombre_generico+"</div><div id='divpHospitalShow' style='position:static; top:1%; left:59%; width:20%' >&nbsp&nbspHosp. Q."+item.precio_hospital+"</div> <div id='divpPublicoShow' style='position:static; left:81%; width:20%' >&nbsp&nbspPubl. Q."+item.precio_publico+"</div></div>";
+		
+		}
+		//"+item.nombre_comercial+"','"+item.idmedicamento+"','divDatosProducto
+		//getDatosProducto(id)
+		//escogimedicamento();
+		//resultHtml+=item.idmedicamento+"<br>";
+	});
+	
+	$('div#resultsMedicamentos').html(resultHtml);
+}
+
+$('form').submit(function(e){
+	eMedici.preventDefault();
+});
+
+});
+
+
+function getDatosProductoShow(recibo){	
+	//request = $.getJSON('php/getDatosProducto.php',{id:recibo},llegadadatos);
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "php/getDatosProducto.php", 
+        success: function(data){ 
+		formNuevaCompra
+			
+			document.formEditProd.existencia_inicial.value = data.existencias; 
+			document.formEditProd.nombre_comercial.value = data.nombre_comercial; 
+			document.formEditProd.nombre_generico.value = data.nombre_generico; 
+			document.formEditProd.descripcion.value = data.descripcion; 
+			document.formEditProd.fecha_caducidad.value = data.fecha_caducidad; 
+			document.formEditProd.precio_costo.value = data.precio_costo; 
+			document.formEditProd.precio_hospital.value = data.precio_hospital; 
+			document.formEditProd.precio_publico.value = data.precio_publico; 
+			document.formEditProd.precio_hospitalu.value = data.detalle_hospital; 
+			document.formEditProd.precio_publicou.value = data.detalle_publico; 
+			document.formEditProd.unidades.value = data.unidades; 
+			document.formEditProd.tipo_unidad.value = data.tipo; 
+			document.formEditProd.anotacion.value = data.detalle; 
+			document.formEditProd.codigo_sistema.value = data.idmedicamento; 
+			
+			
+		
+        } 
+    }); 
+	
+}
+
+function actualizarProducto(){
+	var datosocho = $(formEditProd).serialize();
+	$.ajax({
+        type: "POST",
+        url:"php/actualizarProducto.php",
+		data: datosocho,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		   //llenarFactura_Detalle(document.formNuevaFact.greciboNuevoId.value);
+		   
+		  alert('Cambios realizados!');
+		 
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+function borrarProducto(){
+	var datosnueve = $(formEditProd).serialize();
+	$.ajax({
+        type: "POST",
+        url:"php/borrarProducto.php",
+		data: datosnueve,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		   //llenarFactura_Detalle(document.formNuevaFact.greciboNuevoId.value);
+		   
+		  	document.formEditProd.existencia_inicial.value =""; 
+			document.formEditProd.nombre_comercial.value = ""; 
+			document.formEditProd.nombre_generico.value = ""; 
+			document.formEditProd.descripcion.value = ""; 
+			document.formEditProd.fecha_caducidad.value = ""; 
+			document.formEditProd.precio_costo.value = ""; 
+			document.formEditProd.precio_hospital.value = ""; 
+			document.formEditProd.precio_publico.value = ""; 
+			document.formEditProd.precio_hospitalu.value = ""; 
+			document.formEditProd.precio_publicou.value = ""; 
+			document.formEditProd.unidades.value = ""; 
+			document.formEditProd.tipo_unidad.value = ""; 
+			document.formEditProd.anotacion.value = ""; 
+			document.formEditProd.codigo_sistema.value = ""; 
+		  
+		  alert('Listo. Si no se ha borrado significa que está sujeto a otras transacciones.');
+		  
+		 
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+
+var runningRequestProd = false;
+var requestProd; //Identify the typing action
+$('#boxprod').keyup(function(eProd){
+	eProd.preventDefault();
+	var $qProd = $(this);
+	
+	if($qProd.val() == ""){
+		$('div#resultsProd').html("Escoja un Producto. Si aún no lo ha creado, créelo.");
+		return false;
+	}
+//Abort opened requests to speed it up
+	if(runningRequestProd){
+		requestProd.abort();
+	}
+
+	runningRequestProd=true;
+	requestProd = $.getJSON('php/searchproducto.php',{q:$qProd.val()},function(data){showResults(data,$qProd.val());runningRequestProd=false;});
+	
+//Create HTML structure for the results and insert it on the result div
+function showResults(data, highlight){
+	var resultHtml = '';
+	$.each(data, function(i,item){
+		resultHtml+="<div onClick=getDatosProducto("+item.idmedicamento+") id='despliegue'>&nbsp&nbsp"+item.nombre_comercial+"&nbsp&nbsp"+item.nombre_generico+"</div>";
+		//"+item.nombre_comercial+"','"+item.idmedicamento+"','divDatosProducto
+		//getDatosProducto(id)
+		//escogimedicamento();
+		//resultHtml+=item.idmedicamento+"<br>";
+	});
+	
+	$('div#resultsProd').html(resultHtml);
+}
+
+$('form').submit(function(e){
+	eProd.preventDefault();
+});
+
+});
+
+function getDatosProducto(recibo){
+	
+	
+	//request = $.getJSON('php/getDatosProducto.php',{id:recibo},llegadadatos);
+	
+	
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "php/getDatosProducto.php", 
+        success: function(data){ 
+		formNuevaCompra
+			document.getElementById('divDatosProducto').innerHTML="ID:  <input name='escogiIdProducto' type='text' id='escogiIdProducto' style='width:10%;' readonly=TRUE value='"+data.idmedicamento+"'/><br>NOMBRE COMERCIAL: "+data.nombre_comercial+"<br>NOMBRE GENERICO: "+data.nombre_generico;
+			
+			document.formNuevaCompra.compra_precio_hospital.value = data.precio_hospital; 
+			document.formNuevaCompra.compra_precio_publico.value = data.precio_publico; 
+		
+        } 
+    }); 
+	
+}
+</script>
+
+
+<!--==============================================================================================================================================================================-->
+<!--==============================================================================================================================================================================-->
+<!--===============================================================PEDIDOS=============================================================================================-->
+<script type="text/JavaScript">
+setInterval("obtendoMedicamentoPendiente()",10000);
+
+function obtendoMedicamentoPendiente(){
+	
+	
+	
+	$.ajax({ 
+        data: "id=0", 
+        type: "GET", 
+        dataType: "json", 
+        url: "php/getMedicamentosPententesUno.php", 
+        success: function(data){ 
+			var resultHtml = '';
+			resultHtml+="<div id='divMedicamentosFaltantes'" ;	
+			grabo=0;
+			cosa=0;
+			
+			$.each(data, function(i,item){
+				
+				if(parseInt(item.idboleta)==parseInt(grabo) || parseInt(grabo)==0){	
+				
+					if(parseInt(grabo)==0){	resultHtml+="onClick=preguntarAsignacionMedicamento("+item.idboleta+") >";	}	
+				
+				//resultHtml+="<div onClick=borrarMedicodeLista("+item.idboleta_medicos+") id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:10%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				//resultHtml+="'><img src='botones/x.png' style='width:50%; height:auto;'> </div> ";
+				
+				resultHtml+="<div id='divpTextoDetalleDosPend' style='width:100%;'>";
+				
+				resultHtml+="<div id='divpTextoDetalleDosPend' style='position:static; top:1%; left:1%; width:10%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.cantidad+"</div>";
+				
+				resultHtml+="<div id='divpTextoDetalleDosPend' style='position:static; top:1%; left:1%; width:60%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp"+item.nombre_comercial+"</div>";
+				
+				resultHtml+="<div id='divpTextoDetalleDosPend' style='position:static; top:1%; left:1%; width:20%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp Q."+item.total+"</div> ";	
+				cosa+=parseInt(item.total);
+				
+				resultHtml+="</div>";
+				
+				}else{
+					resultHtml+="<div id='divpTextoDetalleDosPend' style='width:100%;'>";
+					resultHtml+="<div id='separadorEste' style='position:static; top:1%; left:1%; width:100%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+					resultHtml+="'>PACIENTE: "+item.nombres+" "+item.apellidos+"  --MONTO Q."+cosa;
+					resultHtml+="</div>";
+					resultHtml+="</div>";
+					
+					resultHtml+="</div>";
+					
+					
+					cosa=0;
+					resultHtml+="<div id='divMedicamentosFaltantes' onClick=preguntarAsignacionMedicamento("+item.idfactura+") >";	
+					
+				
+				//resultHtml+="<div onClick=borrarMedicodeLista("+item.idboleta_medicos+") id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:10%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				//resultHtml+="'><img src='botones/x.png' style='width:50%; height:auto;'> </div> ";
+				resultHtml+="<div id='divpTextoDetalleDosPend' style='width:100%;'>";
+				
+				resultHtml+="<div id='divpTextoDetalleDosPend' style='position:static; top:1%; left:1%; width:10%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.cantidad+"</div>";
+				
+				resultHtml+="<div id='divpTextoDetalleDosPend' style='position:static; top:1%; left:1%; width:68%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp"+item.nombre_comercial+"</div>";
+				
+				resultHtml+="<div id='divpTextoDetalleDosPend' style='position:static; top:1%; left:1%; width:20%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp Q."+item.total+"</div> ";
+				cosa+=parseInt(item.total);
+				
+				resultHtml+="</div>";
+					
+				}
+				
+				grabo=item.idboleta;
+				
+				
+			
+				
+			});
+					resultHtml+="<div id='divpTextoDetalleDosPend' style='width:100%;'>";
+					resultHtml+="<div id='separadorEste' style='position:static; top:1%; left:1%; width:100%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+					resultHtml+="'>&nbsp&nbsp&nbspMONTO Q."+cosa;
+					resultHtml+="</div>";
+					resultHtml+="</div>";
+					
+			resultHtml+="</div>";
+			
+			
+			$('div#divMedicamentoPendiente').html(resultHtml);		
+		
+        } 
+		
+		
+    }); 
+
+	
+}
+
+</script>
+<!--==============================================================================================================================================================================-->
+<!--==============================================================================================================================================================================-->
+<!--=============================================================== PROVEEDOR================================================================================================-->
+<!--==============================================================================================================================================================================-->
+<div id="divNuevoProv" class="shadow">
+<form id="form3" name="form3" method="post" action="">
+
+  <p>
+    <label>Proveedor: 
+      <input name="proveedor" type="text" id="proveedor" size="50" maxlength="200" style="width:25%">
+    </label>
+    <label>Dirección:
+      <input name="direccion_proveedor" type="text" id="direccion_proveedor" size="50" maxlength="200" style="width:25%">
+    </label>
+  </p>
+  <p>
+    <label>Descripción:<br />
+      <textarea name="descripcion_proveedor" cols="46" id="descripcion_proveedor" style="width:90%"></textarea>
+    </label>
+  </p>
+  
+  <p>&nbsp;</p>
+   
+<div id="separador" style="top:60%; height:37%; width:100%;">
+Números Telefónicos
+   <div id="divsubprecio" style="left:2%; top:40%">
+   Celular
+      <input name="celular" type="text" id="celular" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+  
+  <div id="divsubprecio" style="left:35%; top:40%">
+  Oficinas
+    <input name="trabajo" type="text" id="trabajo" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+  
+  <div id="divsubprecio" style="left:68%; top:40%">
+  Otro
+    <input name="otro" type="text" id="otro" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+</div>
+
+  <p>
+    <label><br>
+    </label>
+    <label>
+      <input type="button" name="bt3" id="bt3" value="Crear Nuevo" style="left:30%; top:98%">
+    </label>
+  </p>
+
+</form>
+<div id='' onClick="outformNuevoProv();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+<!--=====================================================================================================-->
+<div id="divNuevaCompraProv" class="shadow">
+
+	<div id="buscador" style="top:0%; left:0%; height:49%; width:35%;">
+		<form method="get" action="">
+		<input type="text" id="boxprod" name="boxprod" />
+		<input type="submit" value="Buscar Medicamento" />
+        
+        <div onClick='informNuevoProd()' style="z-index:200;">
+			CREAR NUEVO
+		</div>
+		</form>
+         <div id="resultsProd"></div>
+	</div>
+    
+    <div id="buscador" style="top:50%; left:0%; height:50%; width:35%;">
+		<form method="get" action="">
+		<input type="text" id="q" name="q" />
+		<input type="submit" value="Buscar Proveedor" />
+        
+        
+         <div onClick='informNuevoProv()' style="z-index:200;">
+			CREAR NUEVO
+		</div>
+		</form>
+         <div id="results"></div>
+	</div>
+    
+<form id="formNuevaCompra" name="formNuevaCompra" method="post" action="">  
+   	 <div id="divsubprecio" style="top:1%; left:70%; width:29%; height:10%;">
+     
+  		Fecha
+   		 <input name="compra_fecha" type="text" id="compra_fecha" size="10" style="width:50%; margin-bottom: 3%;" />
+ 	 </div>
+     
+
+	<div id="contenido" style="top:10%; left:36%; height:20%; width:31%;">
+   
+ 		
+  		<div id="divDatosProducto">
+		1. Escoja un Medicamento
+        </div>
+	</div>
+    
+    <div id="contenido" style="top:10%; left:68%; height:20%; width:31%;">
+    	<div id="divDatosProveedor">
+		2. Escoja un Proveedor
+        </div>
+	</div>
+    
+    <div id="contenido" style="top:31%; left:36%; height:auto; width:63%;">
+       3. Datos de esta compra
+		<br /><br />Cantidad
+   		 <input name="compra_cantidad" type="text" id="compra_cantidad" size="10" style="width:20%; margin-bottom: 3%;" />
+         
+         Precio Costo
+   		 <input name="compra_costo" type="text" id="compra_costo" size="10" style="width:20%; margin-bottom: 3%;" />
+         
+         Total
+   		 <input name="compra_total" type="text" id="compra_total" size="10" style="width:20%; margin-bottom: 3%;" />
+         
+   		<label><br />Descripción:<br />
+     	 <textarea name="compra_descripcion" cols="46" id="compra_descripcion" style="width:90%"></textarea>
+   		 </label>
+	</div>
+    
+    <div id="contenido" style="top:75%; left:36%; height:20%; width:63%;">
+    	4. Si desea, proporcione nuevos precios:
+		<div id="divprecio" style="left:35%; top:35%">
+  			Precio Hospital
+     		<input name="compra_precio_hospital" type="text" id="compra_precio_hospital" size="10" style="width:90%; margin-bottom: 3%;" />
+  		</div>
+  
+  		<div id="divprecio" style="left:68%; top:35%">
+  			Precio Público
+    		<input name="compra_precio_publico" type="text" id="compra_precio_publico" size="10" style="width:90%; margin-bottom: 3%;" />
+  		</div>
+	</div>
+    
+    <label>
+      <input type="button" name="bt7" id="bt7" value="Listo" style="left:80%; top:98%; width:20%; position:absolute;">
+    </label>
+
+</form>
+<div id='' onClick="outNuevaCompraProv();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+<script type="text/JavaScript">
+function grabarNuevoProveedor(){
+	//envío peticion a un .php, el cual comprueba el usuario y la contraseña, y devuelve la funcion conectar() con los permisos que este usuario tiene
+	//de acuerdo a los permisos que devuelva este se imprimira en pantalla el menú. Si no conecta php devuelve la funcion noConecto()
+	
+	//enviamos formulario a yoconecto.php, por medio de ajax
+	var datos2 = $(form3).serialize();
+	$.ajax({
+        type: "POST",
+        url:"php/nuevo_proveedor.php",
+		data: datos2,
+        async: true,
+        success: function(recibo){    
+           //eval(recibo);	
+		   outformNuevoProv();
+		   
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+var runningRequest = false;
+var request; //Identify the typing action
+$('#q').keyup(function(e){
+	e.preventDefault();
+	var $q = $(this);
+	
+	if($q.val() == ""){
+		$('div#results').html("Escoja un Proveedor. Si aún no lo ha creado, créelo.");
+		return false;
+	}
+//Abort opened requests to speed it up
+	if(runningRequest){
+		request.abort();
+	}
+
+	runningRequest=true;
+	request = $.getJSON('php/searchproveedor.php',{q:$q.val()},function(data){showResults(data,$q.val());runningRequest=false;});
+	
+//Create HTML structure for the results and insert it on the result div
+function showResults(data, highlight){
+	var resultHtml = '';
+	$.each(data, function(i,item){
+		resultHtml+="<div  onClick=getDatosProveedor("+item.idproveedor+") id='despliegue'>&nbsp&nbsp"+item.nombre+"</div>";
+		//resultHtml+=item.idproveedor+"<br>";
+	});
+	
+	$('div#results').html(resultHtml);
+}
+
+$('form').submit(function(e){
+	e.preventDefault();
+});
+
+});
+
+function getDatosProveedor(recibo){
+	
+	
+	//request = $.getJSON('php/getDatosProducto.php',{id:recibo},llegadadatos);
+	
+	
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "php/getDatosProveedor.php", 
+        success: function(data){ 
+		//formNuevaCompra
+			document.getElementById('divDatosProveedor').innerHTML="ID:  <input name='escogiIdProveedor' type='text' id='escogiIdProveedor' style='width:10%;' readonly=TRUE value='"+data.idproveedor+"'/><br>NOMBRE: "+data.nombre+"<br>Dirección: "+data.direccion+"<br>Descripción: "+data.descripcion;
+		
+        } 
+    }); 
+	
+}
+
+</script>
+
+<!--==============================================================================================================================================================================-->
+<!--==============================================================================================================================================================================-->
+<!--===============================================================NUEVA VENTA====================================================================================================-->
+<!--===================================================================================================================================================================================-->
+<div id="divNuevaVenta" class="shadow">
+
+	<div id="buscador" style="top:0%; left:0%; height:49%; width:35%;">
+		<form method="get" action="">
+		<input type="text" id="boxprod2" name="boxprod2" />
+		
+        
+        <div onClick='informNuevoProd()' style="z-index:200;">
+			CREAR NUEVO
+		</div>
+		</form>        
+         <div id="resultsProdAvanzado"></div>        
+	</div>
+    
+    
+    <div id="contenidob" style="top:49%; left:0%; height:50%; width:35%;">
+		<div id="preAddProducto"></div>
+         <form id="miniformPre" name="miniformPre" method="post" action=""> 
+         		<br>Serie No.
+     			<input name="escogiIdProductoAvanzado" type="text" id="escogiIdProductoAvanzado" size="10" value="" readonly="TRUE" style="width:20%; margin-bottom: 3%;" />
+                -
+     			<input name="escogiIdDetalleProductoAvanzado" type="text" id="escogiIdDetalleProductoAvanzado" size="10" value="" readonly="TRUE" style="width:20%; margin-bottom: 3%;" />
+                -
+     		    <input name="guardoFacturaViendo" type="text" id="guardoFacturaViendo" size="10" value="" readonly="TRUE" style="width:20%; margin-bottom: 3%;" />
+                
+                
+        		 <div id="divprecio" style="left:35%; top:62%">
+  				Cant.
+     			<input name="miniform_cantidad" type="text" id="miniform_cantidad" size="10" value="1" style="width:90%; margin-bottom: 3%;" />
+  				</div>
+  
+  				<div id="divprecio" style="left:68%; top:62%">
+  				Precio
+    			<input name="miniform_precio" type="text" id="miniform_precio" size="10" style="width:90%; margin-bottom: 3%;" />
+  				</div>
+                
+                 <label>
+      			<input type="button" name="bt12" id="bt12" value="CARGAR >" style="left:49%; top:88%; width:50%; position:absolute;">
+    			</label>
+         </form>
+	</div>
+    
+ <form id="formNuevaFact" name="formNuevaFact" method="post" action=""> 
+ 
+	 <div id="divsubprecio" style="top:1%; left:40%; width:15%; height:10%;">
+  		ID Venta: 
+   		 <input name="greciboNuevoId" type="text" id="greciboNuevoId" size="10" readonly="TRUE" style="width:50%; margin-bottom: 3%;" />
+ 	 </div>
+   
+   	 <div id="divsubprecio" style="top:1%; left:70%; width:29%; height:10%;">
+  		Fecha
+   		 <input name="fecha_nuevaFact" type="text" id="fecha_nuevaFact"  readonly="TRUE" size="10" style="width:50%; margin-bottom: 3%;" />
+ 	 </div>
+    
+     
+	<div id="contenido" style="top:10%; left:36%; height:20%; width:63%;">
+    Datos de Venta
+    	<br />Nombre 
+   		<input name="nombre_nuevaFact" type="text" id="nombre_nuevaFact" size="15" style="width:50%; margin-bottom: 3%;" />
+ 		<br><label>Descripción:<br>
+      	<textarea name="descripcion_nuevaFact" cols="46" id="descripcion_nuevaFact" style="width:90%"></textarea>
+    	</label>
+                 
+	</div>
+    
+    
+    
+    <div id="contenido" style="top:31%; left:36%; height:53%; width:63%;  overflow-y: auto;">
+    Detalle Esta Venta
+     <div id="contenedor_detalleFactura" style='position:absolute; width:98%;'> </div>
+      
+	</div>
+    
+    <div id="contenido" style="top:85%; left:36%; height:10%; width:63%;">
+    
+    	<input type="checkbox" value="1" name="Hospital_box" id="Hospital_box"/> Hospital
+
+   		 <br />Factura Adjunta 
+   		<input name="facturaAdjunta_nuevaFact" type="text" id="facturaAdjunta_nuevaFact" size="15" style="width:20%; margin-bottom: 3%;" />
+  		<div id="divprecio" style="left:68%; top:2%">
+  			Total Factura
+    		<input name="totalFactura_nuevaFact" type="text" id="totalFactura_nuevaFact" size="10" readonly="TRUE" style="width:90%; margin-bottom: 3%;" />
+  		</div>
+	</div>
+    
+    <label>
+      <input type="button" name="bt66" id="bt66" value="Listo" style="left:80%; top:98%; width:20%; position:absolute;">
+    </label>
+
+</form>
+
+<div id='' onClick="outNuevaVenta();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+
+</div>
+
+
+<script type="text/JavaScript">
+var runningRequestProd = false;
+var requestProd; //Identify the typing action
+$('#boxprod2').keyup(function(eProd){
+	eProd.preventDefault();
+	var $qProd = $(this);
+	
+	if($qProd.val() == ""){
+		$('div#resultsProdAvanzado').html("Escoja un Producto. Si aún no lo ha creado, créelo.");
+		return false;
+	}
+//Abort opened requests to speed it up
+	if(runningRequestProd){
+		requestProd.abort();
+	}
+
+	runningRequestProd=true;
+	requestProd = $.getJSON('php/searchproductoAvanzado.php',{q:$qProd.val()},function(data){showResults2(data,$qProd.val());runningRequestProd=false;});
+	
+//Create HTML structure for the results and insert it on the result div
+function showResults2(data, highlight){
+	var resultHtml = '';
+	$.each(data, function(i,item){
+		
+			resultHtml+="<div id='despliegue'><div id='divpTexto' style='position:static; top:1%; left:1%; width:60%'>&nbsp&nbsp"+item.nombre_comercial+"&nbsp&nbsp"+item.nombre_generico+"</div><div id='divpHospital' style='position:static; top:1%; left:59%; width:20%' onClick=preaddP("+item.idmedicamento+",1)>&nbsp&nbspHosp. Q."+item.precio_hospital+"</div> <div id='divpPublico' style='position:static; left:81%; width:20%' onClick=preaddP("+item.idmedicamento+",2)>&nbsp&nbspPubl. Q."+item.precio_publico+"</div></div>";
+		
+		//"+item.nombre_comercial+"','"+item.idmedicamento+"','divDatosProducto
+		//getDatosProducto(id)
+		//escogimedicamento();
+		//resultHtml+=item.idmedicamento+"<br>";
+	});
+	
+	$('div#resultsProdAvanzado').html(resultHtml);
+}
+
+$('form').submit(function(e){
+	eProd.preventDefault();
+});
+
+});
+
+
+
+function llenarFactura_Detalle(recibo){
+	var cosa=0;
+	
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "php/facturaDetalle.php", 
+        success: function(data){ 
+		
+			var resultHtml = '';
+			
+			$.each(data, function(i,item){
+				if(parseInt(item.devuelto)==1){
+				resultHtml+="<div id='despliegueDetalleDev'> ";
+				
+				resultHtml+="<div id='divpTextoDetalleDev' style='position:static; top:1%; left:1%; width:15%; height:10%'>&nbsp&nbsp"+item.cantidad+"</div>";
+				resultHtml+="<div id='divpTextoDetalleDev' style='position:static; top:1%; left:1%; width:65%; height:10%'>&nbsp&nbsp&nbsp"+item.nombre_comercial+"</div>";
+				resultHtml+="<div id='divpTextoDetalleDev' style='position:static; top:1%; left:1%; width:20%; height:10%'>&nbsp&nbsp&nbsp Q."+item.subtotal+"</div> </div>";
+				resultHtml+="<div id='divpTextoDetalleDev' style='position:static; top:1%; left:1%; width:100%; height:10%'>&nbsp&nbsp&nbsp <b>DEVUELTO DEBIDO A:</b> "+item.descripcion_devolucion+"</div> </div>";	
+				
+				//cosa+=parseInt(item.subtotal);
+				
+				}
+				
+				
+				
+				if(parseInt(item.devuelto)==0){
+				resultHtml+="<div id='despliegueDetalle'> ";
+				resultHtml+="<div onClick=desacivarDetalle_a("+item.iddetalle+","+item.idfactura+") id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:10%; height:10%'><img src='botones/x.png' style='height:6%; width:auto;'> </div> ";
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:10%; height:10%'>&nbsp&nbsp"+item.cantidad+"</div>";
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:60%; height:10%'>&nbsp&nbsp&nbsp"+item.nombre_comercial+"</div>";
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:20%; height:10%'>&nbsp&nbsp&nbsp Q."+item.subtotal+"</div> </div>";	
+				cosa+=parseInt(item.subtotal);
+				
+				}
+				
+			});
+		
+			$('div#contenedor_detalleFactura').html(resultHtml);
+			document.formNuevaFact.totalFactura_nuevaFact.value=cosa;
+			document.formNuevaFact2.totalFactura_nuevaFact.value=cosa;
+        } 
+    }); 
+	
+	/*<div onClick='informNuevoProd()' style="left:50%; top:90%; height:10%; width:auto; position:fixed; ; z-index:200;">
+<img src="botones/medicamento.png" style="left:0; top:0; height:100%; width:auto; ">
+</div>*/
+
+	/*var qProd = recibo;
+	
+	$.getJSON('php/facturaDetalle.php',{id:qProd},function(data){showResults67(data,qProd);});
+	
+	
+	function showResults67(data, highlight){
+		
+		var resultHtml = '';
+		
+		$.each(data, function(i,item){
+		
+			resultHtml+="<br>"+item.cantidad+"&nbsp&nbsp&nbsp"+item.nombre_comercial+"&nbsp&nbsp&nbsp"+item.subtotal;
+
+		});
+	
+		$('div#contenedor_detalleFactura').html(resultHtml);
+	}	*/
+	
+}
+
+function borrarDetalle(recibo, factura){
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "php/borrarDetalle.php", 
+        success: function(data){ 
+			
+			llenarFactura_Detalle(factura);
+			
+		
+        } 
+    }); 
+}
+
+function activarFactura(){
+	var datossiete = $(formNuevaFact).serialize();
+	$.ajax({
+        type: "POST",
+        url:"php/activarFactura.php",
+		data: datossiete,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		   //llenarFactura_Detalle(document.formNuevaFact.greciboNuevoId.value);
+		   
+		  outNuevaVenta();
+		 
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+
+
+function preaddP(recibo, dato){
+	
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "php/getDatosProducto.php", 
+        success: function(data){ 
+		//formNuevaCompra
+			
+			document.getElementById('preAddProducto').innerHTML="<br>NOMBRE COMERCIAL: </br>"+data.nombre_comercial+"<br>NOMBRE GENERICO: "+data.nombre_generico+"<br>Descripción : </br>"+data.descripcion;
+			
+			//document.miniformPre.miniform_cantidad.value = data.precio_hospital; 
+			document.miniformPre.escogiIdProductoAvanzado.value = data.idmedicamento; 
+			document.miniformPre.escogiIdDetalleProductoAvanzado.value = "000"; 
+			
+			if(dato==1){
+			document.miniformPre.miniform_precio.value = data.precio_hospital;
+			}
+			
+			if(dato==2){
+			document.miniformPre.miniform_precio.value = data.precio_publico;
+			}
+			
+			
+		
+        } 
+    }); 
+	
+}
+
+function preaddPSuelto(recibo, dato){
+	
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "php/getDatosProducto.php", 
+        success: function(data){ 
+		//formNuevaCompra
+			document.getElementById('preAddProducto').innerHTML="<br>NOMBRE COMERCIAL: "+data.nombre_comercial+"<br>NOMBRE GENERICO: "+data.nombre_generico+"<br><br>Descripción : "+data.descripcion;
+			
+			//document.miniformPre.miniform_cantidad.value = data.precio_hospital; 
+			document.miniformPre.escogiIdProductoAvanzado.value = data.idmedicamento; 
+			document.miniformPre.escogiIdDetalleProductoAvanzado.value = data.idmedicamento; 
+			
+			if(dato==1){
+			document.miniformPre.miniform_precio.value = data.detalle_hospital; 
+			}
+			
+			if(dato==2){
+			document.miniformPre.miniform_precio.value = data.detalle_publico; 
+			}
+	
+		
+        } 
+    }); 
+	
+}
+
+function cargaraFactura(){
+	var datosseis = $(miniformPre).serialize();
+	$.ajax({
+        type: "POST",
+        url:"php/cargaraFactura.php",
+		data: datosseis,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		   llenarFactura_Detalle(document.formNuevaFact.greciboNuevoId.value);
+		 
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+	
+}
+
+function solicitarNuevaFactura(){
+	
+	$.ajax({ 
+        //data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "php/solicitarNuevaFactura.php", 
+        success: function(data){ 
+		//formNuevaCompra
+			document.formNuevaFact.greciboNuevoId.value = data.nuevoid; 
+			
+			document.miniformPre.guardoFacturaViendo.value = data.nuevoid; 	
+        } 
+    }); 
+	
+}
+
+
+
+function preguntarEliminarFactura(){
+	confirmar=confirm("¿Borrar Factura?"); 
+	if (confirmar) 
+	confirmarEliminacionFactura();
+	
+}
+
+function confirmarEliminacionFactura(){
+	var datossiete = $(formNuevaFact2).serialize();
+	$.ajax({
+        type: "POST",
+        url:"php/desactivarFactura.php",
+		data: datossiete,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		  	//cargaraFactura();
+		   //llenarFactura_Detalle(document.formNuevaFact2.greciboNuevoId.value);
+		   
+		   $('div#divCargoFactura').html("FACTURA BORRADA!");
+		    $('div#contenedor_detalleFactura').html("");
+		   
+		   document.formNuevaFact2.greciboNuevoId.value=0;
+		 
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+function desacivarDetalle_a(recibo, factura){
+	document.form62.detalle_devolucion.value=recibo;
+	document.form62.factura_devolucion.value=factura;
+	inDevoluciones();
+}
+
+</script>
+
+<!--======Div VENTAS==================================================-->
+<div id="divNuevaEstadia" class="shadow">
+
+	<div id="" style="top:-10%; left:47%; height:10%; width:50%; position:absolute;">
+            <img src="botones/pestana.png" style="left:0; top:0; height:100%; width:100%; ">
+			<div id="nombrePestana" style="text-align: center; left:15%; top:6%; position:absolute; color:#604406; font-size: 20px;">VENTAS REALIZADAS EL DÍA DE HOY</div>
+	</div>
+    
+  
+<div style="left:-2%; top:30%; height:18%; width:auto; position:absolute; ; z-index:250;">
+            <img src="botones/clip.png" style="left:0; top:0; height:100%; width:auto; ">
+</div> 
+<div style="left:28%; top:94%; height:18%; width:auto; position:absolute; ; z-index:250;">
+            <img src="botones/clipdatos.png" style="left:0; top:0; height:100%; width:auto; ">
+</div>
+
+
+<div id="botonImprimirBoleta" onClick="printBoleta();" style="top:3%; left:3%; width:10%; height:auto; position:absolute;">
+  		 <img src="botones/nventa.png" style="left:0; top:0; width:100%; height:auto; position:relative;">
+</div>
+
+<div id="botonImprimirBoleta" onClick="printBoleta();" style="top:3%; left:13%; width:10%; height:auto; position:absolute;">
+  		 <img src="botones/buscarventa.png" style="left:0; top:0; width:100%; height:auto; position:relative;">
+</div>
+
+
+    
+<!--<div style="left:55%; top:90%; height:18%; width:auto; position:absolute; ; z-index:250;">
+            <img src="botones/clipdr.png" style="left:0; top:0; height:100%; width:auto; ">
+</div>-->
+
+    
+    
+<div id="contenidoestadia" style="top:35%; left:1%; height:64%; width:33%; overflow-y: auto; overflow-x: hidden;">   
+		<b>Ventas finalizadas</b>
+		<div id="divListoMedicamentos" style="position:absolute; width:98%;"></div>
+</div>
+
+
+
+<div id="contenidoestadia" style="top:35%; left:35%; height:64%; width:33%; overflow-y: auto; overflow-x: hidden;">  
+    	<b>Ventas al crédito</b>
+		<div id="divListoServicios" style="position:absolute; width:98%;"></div>
+</div>
+
+
+
+<form id="formNuevaEstadia" name="formNuevaEstadia" method="post" action=""> 
+
+
+<div id="" style="top:85%; left:68%; height:auto; width:31%; position:absolute;">
+  			Fecha de Creación
+    		<input name="fecha_creacion" type="text" id="fecha_creacion" size="10"  readonly="TRUE"  style="left:80%; top:88%; width:20%; margin-bottom: 3%;" />
+</div>
+
+
+
+<div id="botonImprimirBoleta" onClick="printBoleta();" style="top:67%; left:95%; width:4%; height:auto; position:absolute;">
+  		 <img src="botones/detalle.png" style="left:0; top:0; width:100%; height:auto; position:relative;">
+</div>
+<div id="botonImprimirBoletaB" onClick="printRecibo();" style="top:67%; left:88%; width:4%; height:auto; position:absolute;">
+  		 <img src="botones/recibo.png" style="left:0; top:0; width:100%; height:auto; position:relative;">
+</div>
+        
+<!--<label>
+      <input type="button" name="bt6" id="bt6" value="Ok" style="left:80%; top:98%; width:20%; position:absolute;">
+</label>-->
+<label>
+      <input type="button" name="bt7" id="bt7" value="Eliminar" style="left:68%; top:98%; width:10%; position:absolute;">
+</label>
+
+<label>
+      <input type="button" name="bt72" id="bt72" value="Dar por Finalizada" style="left:80%; top:98%; width:10%; position:absolute;">
+</label>
+
+</form>
+<div id='' onClick="outNuevaEstadia();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+<!--==============================================================================================================================================================================-->
+<!--==============================================================================================================================================================================-->
+<!--===============================================================FACTURAS CONTROL====================================================================================================-->
+<!--===================================================================================================================================================================================-->
+<div id="divFacturas" class="shadow">
+
+	<div id="buscador" style="top:0%; left:0%; height:99%; width:35%;">
+		<form method="get" action="">
+		<input type="text" id="boxprod4" name="boxprod4" />
+		<input type="submit" value="Buscar Factura" />
+		</form>        
+         <div id="resultsFacturas"></div>        
+	</div>
+    
+    
+  
+    
+ <form id="formNuevaFact2" name="formNuevaFact2" method="post" action=""> 
+ 
+	 <div id="divsubprecio" style="top:1%; left:40%; width:15%; height:10%;">
+  		ID Esta Factura: 
+   		 <input name="greciboNuevoId" type="text" id="greciboNuevoId" size="10" readonly="TRUE" style="width:50%; margin-bottom: 3%;" />
+ 	 </div>
+   
+   	<!-- <div id="divsubprecio" style="top:1%; left:70%; width:29%; height:10%;">
+  		Fecha
+   		 <input name="fecha_nuevaFact" type="text" id="fecha_nuevaFact" size="10" style="width:50%; margin-bottom: 3%;" />
+ 	 </div> -->
+    
+     
+	<div id="contenidoe" style="top:10%; left:36%; height:20%; width:63%;">
+   
+    	<!--<br />Nombre 
+   		<input name="nombre_nuevaFact" type="text" id="nombre_nuevaFact" size="15" style="width:50%; margin-bottom: 3%;" />
+ 		<br /><label>Descripción:<br />
+      	<textarea name="descripcion_nuevaFact" cols="46" id="descripcion_nuevaFact" style="width:90%"></textarea>
+    	</label> -->
+        <div id="divCargoFactura"> </div>
+                 
+	</div>
+    
+    
+    
+    <div id="contenido" style="top:31%; left:36%; height:53%; width:63%;  overflow-y: auto;">
+    Detalle Factura
+     <div id="contenedor_detalleFactura" style='position:absolute; width:98%;'> </div>
+      
+	</div>
+    
+    <div id="contenido" style="top:85%; left:36%; height:10%; width:63%;">
+    	 <div id="botonPagarFactura" style="left:5%; top:2%; width:30%; position:absolute;"> </div>
+    
+  		<div id="divprecio" style="left:68%; top:2%">
+  			Total Factura
+    		<input name="totalFactura_nuevaFact" type="text" id="totalFactura_nuevaFact" size="10" style="width:90%; margin-bottom: 3%;" />
+  		</div>
+	</div>
+    
+    
+    <label>
+      <input type="button" name="bt44" id="bt44" value="ELIMINAR FACTURA" style="left:80%; top:98%; width:20%; position:absolute;">
+    </label>
+
+</form>
+<div id='' onClick="outFacturas();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+
+<script type="text/JavaScript">
+
+var runningRequestFact = false;
+var requestFact; //Identify the typing action
+$('#boxprod4').keyup(function(eFact){
+							  
+	eFact.preventDefault();
+	var $qFact = $(this);
+	
+	if($qFact.val() == ""){
+		$('div#resultsFacturas').html("Busque su factura, luego seleccionela para visualizarla.");
+		return false;
+	}
+//Abort opened requests to speed it up
+	if(runningRequestFact){
+		requestFact.abort();
+	}
+
+	runningRequestFact=true;
+	requestFact = $.getJSON('php/searchFactura.php',{q:$qFact.val()},function(data){showResultsFact(data,$qFact.val());runningRequestFact=false;});
+	
+//Create HTML structure for the results and insert it on the result div
+function showResultsFact(data, highlight){
+	var resultHtml = '';
+	$.each(data, function(i,item){
+			resultHtml+="<div  onClick=llenarFactura('"+item.idfactura+"') id='despliegue'><div id='divpTexto' style='position:static; top:1%; left:1%; width:99%'>&nbsp&nbsp<b>"+item.fecha+"</b><br>&nbsp <b>ID: </b>"+item.idfactura+"&nbsp&nbsp&nbsp<b>Nombre:</b> "+item.nombre+"<br>&nbsp&nbsp<b>Descripción: </b>"+item.descripcion+"&nbsp&nbsp&nbsp&nbsp <br><b>&nbsp&nbspMonto: </b> Q."+item.monto+"</div></div>";
+		
+	});
+	
+	$('div#resultsFacturas').html(resultHtml);
+}
+
+$('form').submit(function(e){
+	eFact.preventDefault();
+});
+
+});
+
+function llenarFactura(id){
+	htmlito='';
+	
+	$.ajax({ 
+        data: "id="+id, 
+        type: "GET", 
+        dataType: "json", 
+        url: "php/searchFacturaOne.php", 
+        success: function(data){ 
+			//alert('la encontre!');
+			var resultHtml = '';
+			
+			$.each(data, function(i,item){
+
+				htmlito+="<b>FECHA: </b>"+item.fecha;
+				htmlito+="<br><b>A nombre de: </b>"+item.nombre;
+				htmlito+="<br><b>DESCRIPCIÓN: </b>"+item.descripcion;
+				htmlito+="<br><b>Factura Adjunta: </b>"+item.factura_adjunta;
+				htmlito+="<br><b>TOTAL: </b>Q."+item.monto;
+				
+				document.formNuevaFact2.greciboNuevoId.value=item.idfactura;
+				
+				if(parseInt(item.cancelada)==0){
+				$('div#botonPagarFactura').html("ESTA FACTURA NO HA SIDO PAGADA: <div id='divpPublico' onClick=pagarFactura("+id+")> PAGAR  </div>");
+	
+				}else{
+				$('div#botonPagarFactura').html("ESTADO: PAGADA.");	
+				}
+	
+				if(parseInt(item.tipo)==1){
+		//document.formNuevaFact2.Hospital_box.checked=true;
+		
+					htmlito+="<br><b>Tipo Factura: </b>"+"Hospital";
+				}else{
+		//document.formNuevaFact2.Hospital_box.checked=false;
+		
+					htmlito+="<br><b>Tipo Factura: </b>"+"Pública";
+				}
+	
+				$('div#divCargoFactura').html(htmlito);
+				
+			});
+			llenarFactura_DetalleMD(id);
+		
+			
+        } 
+		
+    }); 
+
+	
+}
+
+function pagarFactura(recibo){
+	$.ajax({ 
+        data: "id="+recibo,
+        type: "GET", 
+        dataType: "json", 
+        url: "php/pagarFactura.php", 
+        success: function(data){ 
+			
+			alert('Listo, factura pagada.');
+			$('div#botonPagarFactura').html("ESTADO: PAGADA.");
+			
+		
+        } 
+    }); 
+	
+}
+
+function llenarFactura_DetalleMD(recibo){
+	var cosa=0;
+	
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "php/facturaDetalle.php", 
+        success: function(data){ 
+		
+			var resultHtml = '';
+			
+			$.each(data, function(i,item){
+								  
+				if(parseInt(item.devuelto)==1){
+				resultHtml+="<div id='despliegueDetalleDev'> ";
+				
+				resultHtml+="<div id='divpTextoDetalleDev' style='position:static; top:1%; left:1%; width:15%; height:10%'>&nbsp&nbsp"+item.cantidad+"</div>";
+				resultHtml+="<div id='divpTextoDetalleDev' style='position:static; top:1%; left:1%; width:65%; height:10%'>&nbsp&nbsp&nbsp"+item.nombre_comercial+"</div>";
+				resultHtml+="<div id='divpTextoDetalleDev' style='position:static; top:1%; left:1%; width:20%; height:10%'>&nbsp&nbsp&nbsp Q."+item.subtotal+"</div> </div>";
+				resultHtml+="<div id='divpTextoDetalleDev' style='position:static; top:1%; left:1%; width:100%; height:10%'>&nbsp&nbsp&nbsp <b>DEVUELTO DEBIDO A:</b> "+item.descripcion_devolucion+"</div> </div>";	
+				
+				//cosa+=parseInt(item.subtotal);
+				
+				}
+				
+				
+				
+				if(parseInt(item.devuelto)==0){
+				resultHtml+="<div id='despliegueDetalle'> ";
+				resultHtml+="<div onClick=desacivarDetalle_a("+item.iddetalle+","+item.idfactura+") id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:10%; height:10%'><img src='botones/x.png' style='height:6%; width:auto;'> </div> ";
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:10%; height:10%'>&nbsp&nbsp"+item.cantidad+"</div>";
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:60%; height:10%'>&nbsp&nbsp&nbsp"+item.nombre_comercial+"</div>";
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:20%; height:10%'>&nbsp&nbsp&nbsp Q."+item.subtotal+"</div> </div>";	
+				cosa+=parseInt(item.subtotal);
+				
+				}
+				
+			});
+		
+			$('div#contenedor_detalleFactura').html(resultHtml);
+			document.formNuevaFact.totalFactura_nuevaFact.value=cosa;
+			document.formNuevaFact2.totalFactura_nuevaFact.value=cosa;
+        } 
+    }); 
+	
+	
+}
+
+function desactivarDetalle(recibo, factura){
+	
+	$.ajax({ 
+        data: "id="+recibo+"&razon="+document.form62.descripcion_devolucion.value,
+        type: "GET", 
+        dataType: "json", 
+        url: "php/desactivarDetalle.php", 
+        success: function(data){ 
+			
+			outDevoluciones();
+			llenarFactura_DetalleMD(factura);
+			
+		
+        } 
+    }); 
+}
+
+
+
+
+
+</script>
+
+<!--==============================================================================================================================================================================-->
+<!--==============================================================================================================================================================================-->
+<!--===============================================================MINI FORM DEVOLUCION===========================================================================================-->
+<!--==============================================================================================================================================================================-->
+<div id="divDevolucion" class="shadow">
+<form id="form62" name="form62" method="post" action="">
+				<br>Serie No.
+     			<input name="detalle_devolucion" type="text" id="detalle_devolucion" size="10" value="" readonly="TRUE" style="width:20%; margin-bottom: 3%;" />
+                -
+     			<input name="factura_devolucion" type="text" id="factura_devolucion" size="10" value="" readonly="TRUE" style="width:20%; margin-bottom: 3%;" />
+                
+    <label><br />¿Por qué razón se está devolviendo este medicamento?<br />
+      <textarea name="descripcion_devolucion" cols="46" id="descripcion_devolucion" style="width:90%"></textarea>
+    </label>
+ 
+  	<label>
+      <input type="button" name="bt23" id="bt23" value="Cancelar" style="left:30%; top:98%">
+    </label>	
+    <label>
+      <input type="button" name="bt22" id="bt22" value="Ok" style="left:30%; top:98%">
+    </label>
+  </p> 
+</form>
+</div>
+
+
+<!--==============================================================================================================================================================================-->
+<!--==============================================================================================================================================================================-->
+<!--===============================================================COMPRAS CONTROL================================================================================================-->
+<!--==============================================================================================================================================================================-->
+<div id="divCompras" class="shadow">
+
+	<div id="buscador" style="top:0%; left:0%; height:99%; width:35%;">
+		<form method="get" action="">
+		<input type="text" id="boxprod32" name="boxprod32" />
+		<input type="submit" value="Buscar Compra" />
+		</form>    
+        
+        <div onClick='inNuevaCompraProv()' style="z-index:200;">
+			NUEVA COMPRA
+		</div>
+            
+         <div id="resultsCompras"></div>        
+	</div>
+    
+    
+  
+<div id="contenidoz" style="top:0%; left:36%; height:100%; width:63%;">   
+ 		<form id="formEditCompr" name="formEditCompr" method="post" action="">
+		
+        <label>Compra Serie:
+      		<input type="text" name="id_serie_compra" id="id_serie_compra"  readonly="TRUE" />
+    	</label>
+            
+        <div id="resultCompraOne"></div>      
+        
+          <label>
+      		<input type="button" name="bt101" id="bt101" value="BORRAR" style="position:absolute; left:85%; top:0%; width:15%;">
+   		 </label>
+   		 
+		</form>
+
+</div>
+
+<div id='' onClick="outCompras();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+<script type="text/JavaScript">
+function grabarNuevaCompra(){
+
+	var datos3 = $(formNuevaCompra).serialize();
+	$.ajax({
+        type: "POST",
+        url:"php/nueva_compra.php",
+		data: datos3,
+        async: true,
+        success: function(recibo){    
+           //eval(recibo);	
+		   outNuevaCompraProv();
+		   
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+
+var runningRequestCompr = false;
+var requestCompr; //Identify the typing action
+$('#boxprod32').keyup(function(eCompr){
+							  
+	eCompr.preventDefault();
+	var $qCompr = $(this);
+	
+	if($qCompr.val() == ""){
+		$('div#resultsCompras').html("Busque su factura, luego seleccionela para visualizarla.");
+		return false;
+	}
+//Abort opened requests to speed it up
+	if(runningRequestCompr){
+		requestCompr.abort();
+	}
+
+	runningRequestCompr=true;
+	requestCompr = $.getJSON('php/searchCompras.php',{q:$qCompr.val()},function(data){showResultsCompr(data,$qCompr.val());runningRequestCompr=false;});
+	
+//Create HTML structure for the results and insert it on the result div
+function showResultsCompr(data, highlight){
+	var resultHtml = '';
+	$.each(data, function(i,item){
+
+			resultHtml+="<div onClick=getDatosCompraShow("+item.idcompra+") id='despliegue'> <b>FECHA: </b>"+item.fecha+"</br> &nbsp"+item.cantidad+" - "+item.nombre_comercial+"(Q."+item.precio_costo+")"+" - Q."+item.total_compra+"<br>&nbsp<b> PROVEEDOR: </b>"+item.nombre+"</div>";
+		
+			
+	
+	});
+	
+	$('div#resultsCompras').html(resultHtml);
+}
+
+$('form').submit(function(e){
+	eCompr.preventDefault();
+});
+
+});
+
+	
+function getDatosCompraShow(recibo){	
+	//request = $.getJSON('php/getDatosProducto.php',{id:recibo},llegadadatos);
+	var resultHtml = '';
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "php/getDatosCompra.php", 
+        success: function(data){ 
+			
+			
+			document.formEditCompr.id_serie_compra.value =data.idcompra; 
+			
+			resultHtml+="<b>FECHA: </b>"+data.fecha+"</br> &nbsp"+data.cantidad+" - "+data.nombre_comercial+" - Q."+data.total_compra+"<br>&nbsp<b> PROVEEDOR: </b>"+data.nombre+"<br>&nbsp<b> DESCRIPCIÓN: </b>"+data.descripcion;
+			
+			
+			$('div#resultCompraOne').html(resultHtml);
+        } 
+    }); 
+	
+}
+
+
+function borrarCompra(){
+	var datostesh = $(formEditCompr).serialize();
+	$.ajax({
+        type: "POST",
+        url:"php/borrarCompra.php",
+		data: datostesh,
+        async: true,
+        success: function(recibo){    
+          	
+			document.formEditCompr.id_serie_compra.value =""; 
+			
+			
+			$('div#resultCompraOne').html("");
+		  
+		  alert('Listo. Si no se ha borrado significa que está sujeto a otras transacciones.');
+		  
+		 
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+
+</script>
+
+<!--=========================DIVS VACIOS, PARA CARGAR DATOS=============================================-->
+<div id="divDatos" style="top:0; left:0; position:fixed;">
+</div>
+<!--====================================================================================================-->
+
+<script src="js/jquery-1.8.1.js" type="text/javascript"></script>
+<script src="js/jquery.easing.1.3.js" type="text/JavaScript"></script>
+
+<script type="text/JavaScript">
+calculo();
+<!--=====================================MOVIMIENTOS=========================================================-->
+function informNuevoProd(){
+	inTapador();
+	$("#divNuevoProd").animate({
+         "top": hcentronp+"px"
+      }, 777, "easeOutQuint")	
+	
+}
+
+function outformNuevoProd(){
+	outTapador();
+	$("#divNuevoProd").animate({
+         "top": "-"+parseInt(document.getElementById("divNuevoProd").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	
+}
+
+function informNuevoProv(){
+	inTapador();
+	$("#divNuevoProv").animate({
+         "top": hcentronuevprov+"px"
+      }, 777, "easeOutQuint")	
+}
+
+function outformNuevoProv(){
+	outTapador();
+	$("#divNuevoProv").animate({
+         "top": "-"+parseInt(document.getElementById("divNuevoProv").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	
+}
+function inNuevaCompraProv(){
+	inTapador();
+	$("#divNuevaCompraProv").animate({
+         "top": hcentronuevcomprov+"px"
+      }, 777, "easeOutQuint")	
+}
+
+function outNuevaCompraProv(){
+	outTapador();
+	$("#divNuevaCompraProv").animate({
+         "top": "-"+parseInt(document.getElementById("divNuevaCompraProv").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	
+}
+function inNuevaVenta(){
+	
+		var f = new Date();
+		document.formNuevaFact.fecha_nuevaFact.value=(f.getFullYear() + "/" + (f.getMonth() +1) + "/" + f.getDate());
+		
+	
+		
+	solicitarNuevaFactura();
+	//inTapador();
+	$("#divNuevaVenta").animate({
+         "top": hcentronuevaventa+"px"
+      }, 777, "easeOutQuint")	
+}
+
+function outNuevaVenta(){
+	//outTapador();
+	
+	
+	$("#divNuevaVenta").animate({
+         "top": "-"+parseInt(document.getElementById("divNuevaVenta").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	
+	
+	jQuery('#miniformPre').clearForm();  
+	jQuery('#formNuevaFact').clearForm();
+	
+	document.getElementById('contenedor_detalleFactura').innerHTML='';
+	
+}
+
+function inFacturas(){
+	//inTapador();
+	$("#divFacturas").animate({
+         "top": hcentroFacturas+"px"
+      }, 777, "easeOutQuint")	
+}
+
+function outFacturas(){
+	//outTapador();
+	$("#divFacturas").animate({
+         "top": "-"+parseInt(document.getElementById("divFacturas").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	
+}
+
+function inMedicamentos(){
+	//inTapador();
+	$("#divMedicamentos").animate({
+         "top": hcentroMedicamentos+"px"
+      }, 777, "easeOutQuint")	
+}
+
+function outMedicamentos(){
+	//outTapador();
+	$("#divMedicamentos").animate({
+         "top": "-"+parseInt(document.getElementById("divMedicamentos").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	
+}
+
+function inCompras(){
+	//inTapador();
+	$("#divCompras").animate({
+         "top": hcentroCompras+"px"
+      }, 777, "easeOutQuint")	
+}
+
+function outCompras(){
+	//outTapador();
+	$("#divCompras").animate({
+         "top": "-"+parseInt(document.getElementById("divCompras").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	
+}
+
+function inDevoluciones(){
+	inTapador();
+	$("#divDevolucion").animate({
+         "top": hcentroDevolucion+"px"
+      }, 777, "easeOutQuint")	
+}
+
+function outDevoluciones(){
+	outTapador();
+	$("#divDevolucion").animate({
+         "top": "-"+parseInt(document.getElementById("divDevolucion").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	
+}
+
+/*function inAlertaFactura(){
+	inTapador();
+	$("#alertaFactura").animate({
+         "top": hcentroElFactura+"px"
+      }, 666, "easeOutBack")	
+}
+
+function outAlertaFactura(){
+	outTapador();
+	$("#divDevolucion").animate({
+         "top": "-"+parseInt(document.getElementById("alertaFactura").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	
+}*/
+
+function inTapador(){
+	document.getElementById("tapador").style.zIndex=500;
+	$("#tapador").animate({
+         "opacity": 100
+      }, 666, "easeOutBack")	
+}
+
+function outTapador(){
+	document.getElementById("tapador").style.zIndex=200;
+	$("#tapador").animate({
+         "opacity": 0
+      }, 666, "easeOutBack")	
+}
+
+
+function inBoletaEstadia(){
+	//outBoxbusqueda();
+	//solicitarNuevaEstadia();
+	//inTapadorLeve();
+	$("#divNuevaEstadia").animate({
+         "top": hcentronestadia+"px"
+      }, 777, "easeOutQuint")	
+	
+	
+	
+}
+
+function outNuevaEstadia(){
+	//obtendoPacientesPendientes();
+	//outTapadorLeve();
+	/*$("#divNuevaEstadia").animate({
+         "top": "-"+parseInt(document.getElementById("divNuevaEstadia").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divNuevaEstadia").style.top="-"+parseInt(document.getElementById("divNuevaEstadia").offsetHeight)+"%";
+
+	jQuery('#formNuevaEstadia').clearForm(); ////////////////////////////// 
+	
+	$('div#divListoMedicamentos').html("");
+	$('div#divListoServicios').html("");
+}
+
+
+<!--=====================================FUNCIONES DE BOTONES=========================================================-->
+document.getElementById("bt2").onclick = function () {
+	grabarNuevoProducto();
+}
+document.getElementById("bt3").onclick = function () {
+	grabarNuevoProveedor();
+}
+document.getElementById("bt7").onclick = function () {
+	grabarNuevaCompra();
+}
+document.getElementById("bt12").onclick = function () {
+	cargaraFactura();
+}
+document.getElementById("bt66").onclick = function () {
+	activarFactura();
+}
+
+document.getElementById("bt22").onclick = function () {
+	desactivarDetalle(document.form62.detalle_devolucion.value, document.form62.factura_devolucion.value);
+}
+
+document.getElementById("bt23").onclick = function () {
+	outDevoluciones();
+}
+
+document.getElementById("bt44").onclick = function () {
+	preguntarEliminarFactura();
+}
+
+document.getElementById("bt99").onclick = function () {
+	actualizarProducto();
+}
+
+document.getElementById("bt100").onclick = function () {
+	borrarProducto();
+}
+
+document.getElementById("bt101").onclick = function () {
+	borrarCompra();
+}
+
+
+
+
+
+
+
+
+function conectar( rnombre, rcontra){
+	document.getElementById("divDatos").innerHTML="Bienvenido: "+rnombre+rcontra;
+	outformNuevoProd();	
+}
+
+function noConecto(){
+	//document.getElementById("divLogin").innerHTML='<form id="form2" name="form2" method="post" action="">  <p>    <label>Usuario      <input type="text" name="usuario" id="usuario" />    </label>  </p>  <p>    <label>ontraseña<input type="text" name="contrasena" id="contrasena" />    </label>  </p>  <p>    <label>      <input type="button" name="btLogin" id="btLogin" value="Login" />    </label>  </p></form>';  
+    outformNuevoProd();	
+}
+//=======================================================CARGASSSSSSSSSSSS==============================================================
+//=======================================================================================================================================
+function escogimedicamento(nombre, id, midiv){
+	//eval("$('div#"+midiv+"').html("+nombre+id+")");
+	document.getElementById(midiv).innerHTML="Usted escogio: "+nombre+"    Con un ID: "+id;
+}
+
+
+
+
+
+
+//=======================VARIABLES DE ENTORNO==========================================================================================
+
+function calculo(){
+	hcentronp=(parseInt(window.innerHeight )-parseInt(document.getElementById("divNuevoProd").offsetHeight))/2;
+	wcentronp=(parseInt(window.innerWidth )-parseInt(document.getElementById("divNuevoProd").offsetWidth))/2;
+	
+	hcentronestadia=(parseInt(window.innerHeight )-parseInt(document.getElementById("divNuevaEstadia").offsetHeight))/2;
+	
+	hcentronuevprov=(parseInt(window.innerHeight )-parseInt(document.getElementById("divNuevoProv").offsetHeight))/2;
+	wcentronuevoprov=(parseInt(window.innerWidth )-parseInt(document.getElementById("divNuevoProv").offsetWidth))/2;
+	
+	hcentronuevcomprov=(parseInt(window.innerHeight )-parseInt(document.getElementById("divNuevaCompraProv").offsetHeight))/2;
+	wcentronuevcomprov=(parseInt(window.innerWidth )-parseInt(document.getElementById("divNuevaCompraProv").offsetWidth))/2;
+	
+	
+	hcentronuevaventa=(parseInt(window.innerHeight )-parseInt(document.getElementById("divNuevaVenta").offsetHeight))/2;
+	wcentronuevaventa=(parseInt(window.innerWidth )-parseInt(document.getElementById("divNuevaVenta").offsetWidth))/2;
+	
+	hcentroFacturas=(parseInt(window.innerHeight )-parseInt(document.getElementById("divFacturas").offsetHeight))/2;
+	wcentrofacturas=(parseInt(window.innerWidth )-parseInt(document.getElementById("divFacturas").offsetWidth))/2;
+	
+	hcentroDevolucion=(parseInt(window.innerHeight )-parseInt(document.getElementById("divDevolucion").offsetHeight))/2;
+	wcentroDevolucion=(parseInt(window.innerWidth )-parseInt(document.getElementById("divDevolucion").offsetWidth))/2;
+	
+	hcentroMedicamentos=(parseInt(window.innerHeight )-parseInt(document.getElementById("divMedicamentos").offsetHeight))/2;
+	wcentroMedicamentos=(parseInt(window.innerWidth )-parseInt(document.getElementById("divMedicamentos").offsetWidth))/2;
+	
+	hcentroCompras=(parseInt(window.innerHeight )-parseInt(document.getElementById("divCompras").offsetHeight))/2;
+	wcentroCompras=(parseInt(window.innerWidth )-parseInt(document.getElementById("divCompras").offsetWidth))/2;
+	
+//	hcentroElFactura=(parseInt(window.innerHeight )-parseInt(document.getElementById("alertaFactura").offsetHeight))/2;
+//	wcentroElFactura=(parseInt(window.innerWidth )-parseInt(document.getElementById("alertaFactura").offsetWidth))/2;
+	
+	
+	document.getElementById("divNuevoProd").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("bt2").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("divEsquinero").style.fontSize = document.body.clientWidth/135 + 'px';
+	
+	document.getElementById("divNuevoProv").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("bt3").style.fontSize = document.body.clientWidth/80 + 'px';
+	
+	document.getElementById("divNuevaCompraProv").style.fontSize = document.body.clientWidth/115 + 'px';
+	document.getElementById("bt7").style.fontSize = document.body.clientWidth/80 + 'px';
+	
+	document.getElementById("bt12").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("bt66").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("divNuevaVenta").style.fontSize = document.body.clientWidth/115 + 'px';
+	document.getElementById("resultsProdAvanzado").style.fontSize = document.body.clientWidth/115 + 'px';
+	
+	document.getElementById("bt44").style.fontSize = document.body.clientWidth/80 + 'px';
+	
+	document.getElementById("bt99").style.fontSize = document.body.clientWidth/80 + 'px';
+	
+	document.getElementById("bt101").style.fontSize = document.body.clientWidth/80 + 'px';
+	//document.getElementById("despliegue").style.fontSize = document.body.clientWidth/115 + 'px';
+	
+	
+	
+	//document.getElementById("bt11").style.fontSize = document.body.clientWidth/80 + 'px';
+	//document.getElementById("textoformulario").style.fontSize = document.body.clientWidth/115 + 'px';
+	
+	
+
+	
+}
+
+
+</script>
+
+</body>
+</html>

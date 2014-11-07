@@ -1,0 +1,4869 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Sistema</title>
+
+<link rel="stylesheet" href="css/hospital.css" type="text/css" /> 
+<script src="js/jquery-1.8.1.js" type="text/javascript"></script>
+<script src="js/jquery.easing.1.3.js" type="text/JavaScript"></script>
+<script src="js/jquery.form.js" type="text/JavaScript"></script>
+</head>
+
+
+
+<!--<body onLoad="calculo();obtendoMedicamentoPendiente();obtendoPacientesPendientes();">-->
+<body onLoad="calculo();obtendoMedicamentoPendiente();obtendoPacientesPendientes()" oncontextmenu='return false' ondragstart='return false' onselectstart='return false'>
+
+<div id="preloader" >
+<div id="contenedorLoader" style="opacity:100; ">
+<br/>Accediendo
+<br/><img src="botones/loading.gif" style="width:18%; height:auto; position:relative;vertical-align:middle;text-align:center;"/>
+<br/>(Si es primera vez que accede desde este equipo, pueda que tome unos minutos)
+</div>
+</div>
+
+<!--=======================================FONDO========================================================-->
+<div id="mapa" style="left:0; top:0; height:100%; width:100%; position:fixed; ; z-index:1;">
+<img src="map.png" style="left:0; top:0; height:100%; float:right; ">
+</div>
+<!--=======================================TAPADOR========================================================-->
+<div id="tapador" style="left:0; top:0; height:100%; width:100%; position:fixed; ; z-index:200; opacity: 0; ">
+<img src="tapador.png" style="left:0; top:0; height:100%; width:100%; ">
+</div>
+
+<div id="tapadorLeve" style="left:0; top:0; height:100%; width:100%; position:fixed; ; z-index:200; opacity: 0; ">
+<img src="tapador.png" style="left:0; top:0; height:100%; width:100%; ">
+</div>
+<!--=======================================REPORTEADOR========================================================-->
+<div id="divReporteador" style="left:0; top:0; height:100%; width:100%; position:fixed; ; z-index:200; opacity: 0; ">
+<img src="tapador.png" style="left:0; top:0; height:100%; width:100%; ">
+	<div id="reporteador_cajaForm"> 
+		<form id="reporteForm" name="reporteForm" method="post" action=""> 
+         <div id="divsubprecio" style="top:20%; left:1%; width:29%; height:auto;">
+         De:
+   		 <input name="fechaDe" type="text" id="fechaDe" size="10" style="width:50%; margin-bottom: 3%;" />
+ 		 </div>
+         <div id="divsubprecio" style="top:20%; left:35%; width:29%; height:auto;">
+         A:
+   		 <input name="fechaA" type="text" id="fechaA" size="10" style="width:50%; margin-bottom: 3%;" />
+ 		 </div>
+         
+          <label>
+      		<input type="button" name="bt66" id="bt66" value="Cargar Boletas" style="left:75%; top:20%; width:20%; position:absolute;">
+    	  </label>
+         </form>
+         
+	</div>
+    
+    <div id="reporteador_cajaFormAbajo">
+     
+		<div id='' onClick="reportePacientesDoctor();" style='position:fixed; top:83%; left:3%; height:14%; width:auto; z-index:1001;'><img src='botones/pacientes_doctor.png' style='height:100%; width:auto;'> </div>   
+        
+        <div id='' onClick="reporteBoletas();" style='position:fixed; top:83%; left:25%; height:14%; width:auto; z-index:1001;'><img src='botones/boletas_general.png' style='height:100%; width:auto;'> </div>   
+        
+        <div id='' onClick="reporteServicios();" style='position:fixed; top:83%; left:47%; height:7%; width:auto; z-index:1001;'><img src='botones/ingresos_servicios.png' style='height:100%; width:auto;'> </div>   
+        
+        <div id='' onClick="reporteMedicamento();" style='position:fixed; top:90%; left:47%; height:7%; width:auto; z-index:1001;'><img src='botones/ingresos_medicamentos.png' style='height:100%; width:auto;'> </div>   
+        
+         <div id='' onClick="outReporteador();" style='position:fixed; top:83%; left:69%; height:14%; width:auto; z-index:1001;'><img src='botones/estadistico.png' style='height:100%; width:auto;'> </div>   
+         
+	</div>
+   
+    
+    <div id="resultadoReporte" style="overflow-y: auto;"> </div>
+    
+ 
+ <div id='' onClick="outReporteador();" style='position:fixed; top:0%; left:97%; width:5%; height:7%; z-index:1001;'><img src='botones/xmuda.png' style='height:66%; width:auto;'> </div>   
+</div>
+
+<!--=======================================BOTONES========================================================-->
+<div onClick='inMedicamentos()' style="left:25%; top:90%; height:10%; width:auto; position:fixed; ; z-index:200;">
+<img src="botones/medicamento.png" style="left:0; top:0; height:100%; width:auto; ">
+</div>
+
+<div onClick='inPacientes()' style="left:40%; top:90%; height:10%; width:auto; position:fixed; ; z-index:200;">
+<img src="botones/pacientes.png" style="left:0; top:0; height:100%; width:auto; ">
+</div>
+
+<div onClick='inDoctores()' style="left:55%; top:90%; height:10%; width:auto; position:fixed; ; z-index:200;">
+<img src="botones/medicos.png" style="left:0; top:0; height:100%; width:auto; ">
+</div>
+
+<div onClick='inServicios()' style="left:70%; top:90%; height:10%; width:auto; position:fixed; ; z-index:200;">
+<img src="botones/servicios.png" style="left:0; top:0; height:100%; width:auto; ">
+</div>
+
+<div onClick='inReporteador()' style="left:85%; top:90%; height:10%; width:auto; position:fixed; ; z-index:200;">
+<img src="botones/reportes.png" style="left:0; top:0; height:100%; width:auto; ">
+</div>
+
+
+<div onClick='inNuevaEstadia()' style="left:1%; top:84%; height:15%; width:auto; position:fixed; ; z-index:200;">
+<img src="botones/venta.png" style="left:0; top:0; height:100%; width:auto; ">
+</div>
+
+
+
+<!-----------------------BUSCADOR------------------------------>
+<div id="divBuscadorAll" style="left:70%; top:1%; height:66%; width:30%; position:fixed; z-index:200; overflow-y: auto; text-align:center;">
+
+	<form method="get" action="">
+    	<img src="botones/lupina.png" style="width:5%; height:auto; top:1%;  left:20%; position:absolute;">
+		<input type="text" id="boxbuscarall" name="boxbuscarall"   style= "-webkit-border-radius:10px;  top:1%; left:25%; width:50%; position:absolute"  onkeypress="if (event.keyCode == 13) return false"/>
+        
+        
+	</form>  
+
+
+</div>
+
+<div id="resultsBusquedaGeneral"  style="width:30%; height:50%; top:5%; left:140%; position:fixed;  overflow-y: auto; color:#FFFFFF; z-index:1001;"></div>   
+
+<script type="text/JavaScript">
+
+var runningRequestGeneral = false;
+var requestGeneral; //Identify the typing action
+$('#boxbuscarall').keyup(function(eGeneral){
+							  
+	eGeneral.preventDefault();
+	var $qGeneral = $(this);
+	
+	if($qGeneral.val() == "" || $qGeneral.val() == " "){
+		outBoxbusqueda();
+		$('div#resultsBusquedaGeneral').html(" ");
+		return false;
+	}
+//Abort opened requests to speed it up
+	if(runningRequestGeneral){
+		requestGeneral.abort();
+	}
+
+	runningRequestGeneral=true;
+	requestGeneral = $.getJSON('phpHosp/searchGeneral.php',{q:$qGeneral.val()},function(data){showResultsGeneral(data,$qGeneral.val());runningRequestGeneral=false;});
+	
+//Create HTML structure for the results and insert it on the result div
+function showResultsGeneral(data, highlight){
+	var resultHtml = '';
+	$.each(data, function(i,item){
+						  
+			if(item.tipo==1){
+				
+				if(global_tipo==0 || global_tipo==1){
+						resultHtml+="<div  onClick=voyBoleta("+item.reciboid+") id='despliegueGeneral'>";
+						resultHtml+="<div id='listadoGeneral' style='position:static; top:1%; left:1%; width:100%; font-size:"+document.body.clientWidth/80 + "px";
+						resultHtml+="'> <img src='botones/foldercito.png' style='width:10%; height:auto; position:static; top:1%; left:1%; '> &nbsp&nbsp" +item.reciboid+  "&nbsp&nbsp-&nbsp&nbsp"+item.nombre+"</div> </div>";
+				}
+			
+			}
+			
+			if(item.tipo==2){
+		
+			resultHtml+="<div  onClick=voyMedicamento("+item.reciboid+") id='despliegueGeneral'>";
+			resultHtml+="<div id='listadoGeneral' style='position:static; top:1%; left:1%; width:100%; font-size:"+document.body.clientWidth/80 + "px";
+			resultHtml+="'> <img src='botones/pastillas.png' style='width:10%; height:auto; position:static; top:1%; left:1%; '> &nbsp&nbsp"+item.nombre+"</div> </div>";
+			
+			}
+			
+			if(item.tipo==3){
+		
+			resultHtml+="<div  onClick=voyPaciente("+item.reciboid+") id='despliegueGeneral'>";
+			resultHtml+="<div id='listadoGeneral' style='position:static; top:1%; left:1%; width:100%; font-size:"+document.body.clientWidth/80 + "px";
+			resultHtml+="'> <img src='botones/usuario.png' style='width:10%; height:auto; position:static; top:1%; left:1%; '> &nbsp&nbsp"+item.nombre+"</div> </div>";
+			
+			}
+			
+			if(item.tipo==4){
+		
+			resultHtml+="<div  onClick=voyMedico("+item.reciboid+") id='despliegueGeneral'>";
+			resultHtml+="<div id='listadoGeneral' style='position:static; top:1%; left:1%; width:100%; font-size:"+document.body.clientWidth/80 + "px";
+			resultHtml+="'> <img src='botones/doctor.png' style='width:10%; height:auto; position:static; top:1%; left:1%; '> &nbsp&nbsp"+item.nombre+"</div> </div>";
+			
+			}
+			
+			if(item.tipo==5){
+		
+			resultHtml+="<div  onClick=voyServicio("+item.reciboid+") id='despliegueGeneral'>";
+			resultHtml+="<div id='listadoGeneral' style='position:static; top:1%; left:1%; width:100%; font-size:"+document.body.clientWidth/80 + "px";
+			resultHtml+="'> <img src='botones/servicio.png' style='width:10%; height:auto; position:static; top:1%; left:1%; '> &nbsp&nbsp"+item.nombre+"</div> </div>";
+			
+			}
+			
+					
+			//resultHtml+="<div  onClick=getDatosProductoShow("+item.idmedicamento+") id='despliegue'><div id='divpTexto' style='position:static; top:1%; left:1%; width:60%'>&nbsp&nbsp"+item.nombre+"</div><div id='divpHospitalShow' style='position:static; top:1%; left:59%; width:20%' >&nbsp&nbsp Q."+item.precio_sugerido+"</div></div>";
+		
+		
+		//"+item.nombre_comercial+"','"+item.idmedicamento+"','divDatosProducto
+		//getDatosProducto(id)
+		//escogimedicamento();
+		//resultHtml+=item.idmedicamento+"<br>";
+	});
+	
+	inBoxbusqueda();
+	$('div#resultsBusquedaGeneral').html(resultHtml);
+}
+
+});
+
+
+function voyMedicamento(recibo){
+	outBoxbusqueda();
+	inMedicamentos();
+	getDatosProductoShow(recibo);
+}
+
+function voyPaciente(recibo){
+	outBoxbusqueda();
+	inPacientes();
+	getDatosPaciente(recibo);
+}
+
+function voyMedico(recibo){
+	outBoxbusqueda();
+	inDoctores();
+	getDatosDoctor(recibo);
+}
+
+function voyServicio(recibo){
+	outBoxbusqueda();
+	inServicios();
+	getDatosServicio(recibo);
+}
+
+function voyBoleta(recibo){
+	outBoxbusqueda();
+	inBoletaEstadia();
+	cargarBoleta(recibo);
+}
+
+
+</script>
+
+<!--------------------------------------------------------------------------------->
+<!-----------------------para datos de sesion activa------------------------------>
+<!--<div id="divMedicamentoPendiente" style="left:70%; top:1%; height:75%; width:25%; position:fixed; z-index:200; overflow-y: auto;">
+<div style='color:#CCCCCC;'><b></b></div>
+
+<div onClick='desconectar()' id="divContenedorMedicamentoPendiente" style="width:100%; position:absolute; text-align:right;"> </div>
+
+</div>-->
+
+<!----------------Pacientes actualmente en el hospital----------------------------------->
+
+<div id="divMedicamentoPendiente" style="left:1%; top:1%; height:75%; width:35%; position:fixed; z-index:200; overflow-y: auto; color:#CCCCCC;">
+<b>Pacientes actualmente en el Hospital:</b>
+
+<div id="divContenedorPacientesPendientesDesk" style="width:100%; position:absolute; height:90%; "> </div>
+
+</div>
+
+<!--==============================================================================================================================================================================-->
+<!--=========div login============================================================================================================================================================-->
+<div id="divLogin" class="shadowTres">
+<form id="form2" name="form2" method="post">
+  <p>
+    <label>Usuario
+      <input type="text" name="usuario" id="usuario" />
+    </label>
+  </p>
+  <p>
+    <label>Contraseña
+      <input type="password" name="contrasena" id="contrasena" onkeypress="if (event.keyCode == 13) solicitarLogin()"/>
+    </label>
+  </p>
+  <p>
+    <label>
+      <input type="button" name="btLogin" id="btLogin" value="Login" />
+    </label>
+  </p>
+</form>
+<div id="yodigo" style="top:2%; position:absolute;"></div>
+</div>
+
+
+<!--==============================================================================================================================================================================-->
+<!--===============================================================ADMINISTRACION DE MEDICAMENTOS===================================================================================-->
+<!--==============================================================================================================================================================================-->
+<div id="divNuevoProd" class="shadow">
+
+<form id="form2b" name="form2b" method="post" action="">
+
+ <p>
+    <label>Nombre: 
+      <input name="nombre" type="text" id="nombre" size="70" maxlength="200" style="width:25%">
+    </label>
+     <br /><label>Descripción:<br />
+      <textarea name="descripcion" cols="46" id="descripcion" style="width:90%"></textarea>
+    </label>
+     <br /><label>Precio: Q.
+      <input name="precio" type="text" id="precio" size="50" maxlength="200" style="width:25%">
+    </label>
+    
+    </label>
+     <br /><label>Precio Farmacia: Q.
+      <input name="precio_farmacia" type="text" id="precio_farmacia" size="50" maxlength="200" style="width:25%">
+    </label>
+
+  </p>
+  
+  <p>&nbsp;</p>
+ 
+  <p>
+    <label><br>
+    </label>
+    <label>
+      <input type="button" name="bt1001b" id="bt1001b" value="Crear Nuevo" style="left:30%; top:98%">
+    </label>
+  </p>
+</form>
+
+<div id='' onClick="outformNuevoProd();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+<!--=====================================================================-->
+<div id="divMedicamentos" class="shadow">
+	<div id="" style="top:-10%; left:2%; height:10%; width:97%; position:absolute; text-align:left;">
+            <img src="botones/admon_medicamento.png" style="left:0; top:0; height:100%; width:auto; ">
+	</div>
+    
+
+	<div id="buscadorThr" style="top:0%; left:0%; height:100%; width:35%;">
+		<form method="get" action="">
+		<input type="text" id="boxprod15b" size="35" name="boxprod15b"  onkeypress="if (event.keyCode == 13) return false"/>
+		
+		</form>    
+        
+        <div onClick='informNuevoProd()' style="z-index:200;">
+			CREAR NUEVO
+		</div>
+            
+         <div id="resultsMedicamentos"></div>        
+	</div>
+    
+    
+  
+<div id="contenidoe" style="top:0%; left:36%; height:100%; width:63%;">   
+    <form id="formEditProd" name="formEditProd" method="post" action="">
+
+		 <p>
+         
+         
+      <label>Código: 
+      <input name="codigo_sistema" type="text" id="codigo_sistema" readonly="TRUE" size="10" maxlength="10" style="width:20%">
+    </label>
+    <label>Nombre: 
+      <input name="nombre" type="text" id="nombre" size="70" maxlength="200" style="width:25%">
+    </label>
+     <br /><label>Descripción:<br />
+      <textarea name="descripcion" cols="46" id="descripcion" style="width:90%"></textarea>
+    </label>
+     <br /><label>Precio: Q.
+      <input name="precio" type="text" id="precio" size="50" maxlength="200" style="width:25%">
+    </label>
+    
+    </label>
+     <br /><label>Precio Farmacia: Q.
+      <input name="precio_farmacia" type="text" id="precio_farmacia" size="50" maxlength="200" style="width:25%">
+    </label>
+
+  </p>
+  
+  <p>&nbsp;</p>
+ 
+  <p>
+    <label><br>
+    </label>
+    <label>
+      <input type="button" name="bt1001c" id="bt1001c" value="Guardar Cambios" style="left:30%; top:98%">
+    </label>
+  </p>
+</form>
+
+</div>
+
+<div id='' onClick="outMedicamentos();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+
+<script type="text/JavaScript">
+document.getElementById("bt1001b").onclick = function () {
+	grabarNuevoProducto();
+}
+
+document.getElementById("bt1001c").onclick = function () {
+	actualizarProducto();
+}
+
+function grabarNuevoProducto(){
+	//envío peticion a un .php, el cual comprueba el usuario y la contraseña, y devuelve la funcion conectar() con los permisos que este usuario tiene
+	//de acuerdo a los permisos que devuelva este se imprimira en pantalla el menú. Si no conecta php devuelve la funcion noConecto()
+	
+	//enviamos formulario a yoconecto.php, por medio de ajax
+	var datos = $(form2b).serialize();
+	$.ajax({
+        type: "POST",
+        url:"phpHosp/nuevo_medicamento.php",
+		data: datos,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		   outformNuevoProd();	
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+
+var runningRequestMedici = false;
+var requestMedici; //Identify the typing action
+$('#boxprod15b').keyup(function(eMedici){
+							  
+	eMedici.preventDefault();
+	var $qMedici = $(this);
+	
+	if($qMedici.val() == ""){
+		$('div#resultsMedicamentos').html("Busque el medicamento.");
+		return false;
+	}
+//Abort opened requests to speed it up
+	if(runningRequestMedici){
+		requestMedici.abort();
+	}
+
+	runningRequestMedici=true;
+	requestMedici = $.getJSON('phpHosp/searchmedicamentos.php',{q:$qMedici.val()},function(data){showResultsMedici(data,$qMedici.val());runningRequestMedici=false;});
+	
+//Create HTML structure for the results and insert it on the result div
+function showResultsMedici(data, highlight){
+	var resultHtml = '';
+	$.each(data, function(i,item){
+		
+			resultHtml+="<div  onClick=getDatosProductoShow("+item.idmedicamento+") id='despliegue'><div id='divpTexto' style='position:static; top:1%; left:1%; width:60%'>&nbsp&nbsp"+item.nombre+"</div><div id='divpHospitalShow' style='position:static; top:1%; left:59%; width:20%' >&nbsp&nbsp Q."+item.precio_sugerido+"</div></div>";
+		
+		
+		//"+item.nombre_comercial+"','"+item.idmedicamento+"','divDatosProducto
+		//getDatosProducto(id)
+		//escogimedicamento();
+		//resultHtml+=item.idmedicamento+"<br>";
+	});
+	
+	$('div#resultsMedicamentos').html(resultHtml);
+}
+
+$('form').submit(function(e){
+	eMedici.preventDefault();
+});
+
+});
+
+
+function getDatosProductoShow(recibo){	
+	//request = $.getJSON('php/getDatosProducto.php',{id:recibo},llegadadatos);
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/getDatosMedicamento.php", 
+        success: function(data){ 
+		
+			
+			document.formEditProd.nombre.value = data.nombre; 
+			document.formEditProd.descripcion.value = data.descripcion; 
+			document.formEditProd.precio.value = data.precio; 
+			document.formEditProd.precio_farmacia.value = data.precio_farmacia; 
+			document.formEditProd.codigo_sistema.value = data.idmedicamento; 
+			
+			
+			
+		
+        } 
+    }); 
+	
+}
+
+function actualizarProducto(){
+	var datosocho = $(formEditProd).serialize();
+	$.ajax({
+        type: "POST",
+        url:"phpHosp/actualizarProducto.php",
+		data: datosocho,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		   //llenarFactura_Detalle(document.formNuevaFact.greciboNuevoId.value);
+		   
+		  alert('Cambios realizados!');
+		 
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+/*function borrarProducto(){
+	var datosnueve = $(formEditProd).serialize();
+	$.ajax({
+        type: "POST",
+        url:"php/borrarProducto.php",
+		data: datosnueve,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		   //llenarFactura_Detalle(document.formNuevaFact.greciboNuevoId.value);
+		   
+		  	document.formEditProd.existencia_inicial.value =""; 
+			document.formEditProd.nombre_comercial.value = ""; 
+			document.formEditProd.nombre_generico.value = ""; 
+			document.formEditProd.descripcion.value = ""; 
+			document.formEditProd.fecha_caducidad.value = ""; 
+			document.formEditProd.precio_costo.value = ""; 
+			document.formEditProd.precio_hospital.value = ""; 
+			document.formEditProd.precio_publico.value = ""; 
+			document.formEditProd.precio_hospitalu.value = ""; 
+			document.formEditProd.precio_publicou.value = ""; 
+			document.formEditProd.unidades.value = ""; 
+			document.formEditProd.tipo_unidad.value = ""; 
+			document.formEditProd.anotacion.value = ""; 
+			document.formEditProd.codigo_sistema.value = ""; 
+		  
+		  alert('Listo. Si no se ha borrado significa que está sujeto a otras transacciones.');
+		  
+		 
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+*/
+/*
+var runningRequestProd = false;
+var requestProd; //Identify the typing action
+$('#boxprod').keyup(function(eProd){
+	eProd.preventDefault();
+	var $qProd = $(this);
+	
+	if($qProd.val() == ""){
+		$('div#resultsProd').html("Escoja un Producto. Si aún no lo ha creado, créelo.");
+		return false;
+	}
+//Abort opened requests to speed it up
+	if(runningRequestProd){
+		requestProd.abort();
+	}
+
+	runningRequestProd=true;
+	requestProd = $.getJSON('php/searchproducto.php',{q:$qProd.val()},function(data){showResults(data,$qProd.val());runningRequestProd=false;});
+	
+//Create HTML structure for the results and insert it on the result div
+function showResults(data, highlight){
+	var resultHtml = '';
+	$.each(data, function(i,item){
+		resultHtml+="<div onClick=getDatosProducto("+item.idmedicamento+") id='despliegue'>&nbsp&nbsp"+item.nombre_comercial+"&nbsp&nbsp"+item.nombre_generico+"</div>";
+		//"+item.nombre_comercial+"','"+item.idmedicamento+"','divDatosProducto
+		//getDatosProducto(id)
+		//escogimedicamento();
+		//resultHtml+=item.idmedicamento+"<br>";
+	});
+	
+	$('div#resultsProd').html(resultHtml);
+}
+
+$('form').submit(function(e){
+	eProd.preventDefault();
+});
+
+});
+*/
+/*
+function getDatosProducto(recibo){
+	
+	
+	//request = $.getJSON('php/getDatosProducto.php',{id:recibo},llegadadatos);
+	
+	
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "php/getDatosProducto.php", 
+        success: function(data){ 
+		formNuevaCompra
+			document.getElementById('divDatosProducto').innerHTML="ID:  <input name='escogiIdProducto' type='text' id='escogiIdProducto' style='width:10%;' readonly=TRUE value='"+data.idmedicamento+"'/><br>NOMBRE COMERCIAL: "+data.nombre_comercial+"<br>NOMBRE GENERICO: "+data.nombre_generico;
+			
+			document.formNuevaCompra.compra_precio_hospital.value = data.precio_hospital; 
+			document.formNuevaCompra.compra_precio_publico.value = data.precio_publico; 
+		
+        } 
+    }); 
+	
+}
+*/
+</script>
+<!--==============================================================================================================================================================================-->
+<!--==============================================================================================================================================================================-->
+<!--===============================================================ADMINISTRACION DE PACIENTES================================================================================================-->
+<!--==============================================================================================================================================================================-->
+
+<div id="divNuevoPaciente" class="shadow">
+<form id="form3" name="form3" method="post" action="">
+
+  <p>
+    <label>Nombres: 
+      <input name="nombres" type="text" id="nombres" size="50" maxlength="200" style="width:25%">
+    </label>
+    <label>Apellidos:
+      <input name="apellidos" type="text" id="apellidos" size="50" maxlength="200" style="width:25%">
+    </label>
+    <br /><label>Estado Civil:
+      <input name="estadocivil" type="text" id="estadocivil" size="50" maxlength="200" style="width:25%">
+    </label>
+     <br /><label>Direccion:
+      <input name="direccion" type="text" id="direccion" size="100" maxlength="200" style="width:25%">
+    </label>
+     <br /><label>Edad:
+      <input name="edad" type="text" id="edad" size="20" maxlength="200" style="width:25%">
+    </label>
+     <label>Ocupación:
+      <input name="ocupacion" type="text" id="ocupacion" size="50" maxlength="200" style="width:25%">
+    </label>
+  </p>
+    
+  <p>&nbsp;</p>
+   
+<div id="separador" style="top:60%; height:37%; width:100%;">
+Números Telefónicos
+   <div id="divsubprecio" style="left:2%; top:40%">
+   Celular
+      <input name="celular" type="text" id="celular" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+  
+  <div id="divsubprecio" style="left:35%; top:40%">
+  Casa
+    <input name="casa" type="text" id="casa" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+  
+  <div id="divsubprecio" style="left:68%; top:40%">
+  Otro
+    <input name="otro" type="text" id="otro" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+</div>
+
+  <p>
+    <label><br>
+    </label>
+    <label>
+      <input type="button" name="bt3" id="bt3" value="Crear Nuevo" style="left:30%; top:98%">
+    </label>
+  </p>
+
+</form>
+<div id='' onClick="outNuevoPaciente();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+<!--=================================================================================-->
+<div id="divPacientes" class="shadow">
+
+	<div id="" style="top:-10%; left:2%; height:10%; width:97%; position:absolute; text-align:left;">
+            <img src="botones/admon_pacientes.png" style="left:0; top:0; height:100%; width:auto; ">
+	</div>
+
+	<div id="buscador" style="top:0%; left:0%; height:100%; width:35%;">
+		<form method="get" action="">
+		<input type="text" id="boxpaci" size="35"  name="boxpaci"  onkeypress="if (event.keyCode == 13) return false"/>
+		</form>    
+        
+        <div onClick='inNuevoPaciente()' style="z-index:200;">
+			CREAR NUEVO
+		</div>
+            
+         <div id="resultsPacientes"></div>        
+	</div>
+    
+    
+  
+<div id="contenidoe" style="top:0%; left:36%; height:100%; width:63%;">   
+ 		<form id="formEditPaciente" name="formEditPaciente" method="post" action="">
+
+  <p>
+    <label>Nombres: 
+      <input name="nombres" type="text" id="nombres" size="50" maxlength="200" style="width:25%">
+    </label>
+     <br /><label>Apellidos:
+      <input name="apellidos" type="text" id="apellidos" size="50" maxlength="200" style="width:25%">
+    </label>
+    <br /><label>Estado Civil:
+      <input name="estadocivil" type="text" id="estadocivil" size="50" maxlength="200" style="width:25%">
+    </label>
+     <br /><label>Direccion:
+      <input name="direccion" type="text" id="direccion" size="100" maxlength="200" style="width:25%">
+    </label>
+     <br /><label>Edad:
+      <input name="edad" type="text" id="edad" size="20" maxlength="200" style="width:25%">
+    </label>
+     <br /><label>Ocupación:
+      <input name="ocupacion" type="text" id="ocupacion" size="50" maxlength="200" style="width:25%">
+    </label>
+    <label>Código: 
+      <input name="codigo" type="text" id="codigo" size="20" maxlength="200"  readonly="TRUE" style="width:25%">
+    </label>
+  </p>
+    
+  <p>&nbsp;</p>
+   
+<div id="separador" style="top:60%; height:37%; width:100%;">
+Números Telefónicos
+   <div id="divsubprecio" style="left:2%; top:40%">
+   Celular
+      <input name="celular" type="text" id="celular" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+  
+  <div id="divsubprecio" style="left:35%; top:40%">
+  Casa
+    <input name="casa" type="text" id="casa" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+  
+  <div id="divsubprecio" style="left:68%; top:40%">
+  Otro
+    <input name="otro" type="text" id="otro" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+</div>
+
+  <p>
+    <label><br>
+    </label>
+    <label>
+      <input type="button" name="bt32" id="bt32" value="Guardar Cambios" style="left:30%; top:98%">
+    </label>
+  </p>
+
+</form>
+
+</div>
+
+<div id='' onClick="outPacientes();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+
+
+
+<script type="text/JavaScript">
+document.getElementById("bt3").onclick = function () {
+	grabarNuevoPaciente();
+}
+
+document.getElementById("bt32").onclick = function () {
+	actualizarPaciente();
+}
+
+function grabarNuevoPaciente(){
+	//envío peticion a un .php, el cual comprueba el usuario y la contraseña, y devuelve la funcion conectar() con los permisos que este usuario tiene
+	//de acuerdo a los permisos que devuelva este se imprimira en pantalla el menú. Si no conecta php devuelve la funcion noConecto()
+	
+	//enviamos formulario a yoconecto.php, por medio de ajax
+	var datos = $(form3).serialize();
+	$.ajax({
+        type: "POST",
+        url:"phpHosp/nuevo_paciente.php",
+		data: datos,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		   outNuevoPaciente();	
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+var runningRequestPaci = false;
+var requestPaci; //Identify the typing action
+$('#boxpaci').keyup(function(ePaci){
+	ePaci.preventDefault();
+	var $qPaci = $(this);
+	
+	if($qPaci.val() == ""){
+		$('div#resultsPacientes').html("Escoja un Paciente. Si aún no lo ha creado, créelo.");
+		return false;
+	}
+//Abort opened requests to speed it up
+	if(runningRequestPaci){
+		requestPaci.abort();
+	}
+
+	runningRequestPaci=true;
+	requestPaci = $.getJSON('phpHosp/searchpacientes.php',{q:$qPaci.val()},function(data){showResults(data,$qPaci.val());runningRequestPaci=false;});
+	
+//Create HTML structure for the results and insert it on the result div
+function showResults(data, highlight){
+	var resultHtml = '';
+	$.each(data, function(i,item){
+		resultHtml+="<div onClick=getDatosPaciente("+item.idpaciente+") id='despliegue'>&nbsp&nbsp"+item.nombres+"&nbsp&nbsp"+item.apellidos+"</div>";
+		//"+item.nombre_comercial+"','"+item.idmedicamento+"','divDatosProducto
+		//getDatosProducto(id)
+		//escogimedicamento();
+		//resultHtml+=item.idmedicamento+"<br>";
+	});
+	
+	$('div#resultsPacientes').html(resultHtml);
+}
+
+$('form').submit(function(e){
+	ePaci.preventDefault();
+});
+
+});
+
+
+function getDatosPaciente(recibo){
+	
+	
+	//request = $.getJSON('php/getDatosProducto.php',{id:recibo},llegadadatos);
+	
+	
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/getDatosPaciente.php", 
+        success: function(data){ 
+						
+			document.formEditPaciente.nombres.value = data.nombres; 
+			document.formEditPaciente.apellidos.value = data.apellidos; 
+			document.formEditPaciente.estadocivil.value = data.estadocivil; 
+			document.formEditPaciente.direccion.value = data.direccion; 
+			document.formEditPaciente.edad.value = data.edad; 
+			document.formEditPaciente.ocupacion.value = data.ocupacion; 
+			document.formEditPaciente.celular.value = data.celular; 
+			document.formEditPaciente.casa.value = data.casa; 
+			document.formEditPaciente.otro.value = data.otro; 
+			document.formEditPaciente.codigo.value = data.idpaciente; 
+			
+		
+        } 
+    }); 
+	
+}
+
+function actualizarPaciente(){
+	var datosocho = $(formEditPaciente).serialize();
+	$.ajax({
+        type: "POST",
+        url:"phpHosp/actualizarPaciente.php",
+		data: datosocho,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		   //llenarFactura_Detalle(document.formNuevaFact.greciboNuevoId.value);
+		  
+		  alert('Cambios realizados!');
+		  
+		  getDatosPaciente(document.formEditPaciente.codigo.value);
+		 
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+</script>
+
+<!--==============================================================================================================================================================================-->
+<!--==============================================================================================================================================================================-->
+
+<!--==============================================================================================================================================================================-->
+<!--==============================================================================================================================================================================-->
+<!--===============================================================ADMINISTRACION DE DOCTORES================================================================================================-->
+<!--==============================================================================================================================================================================-->
+
+<div id="divNuevoDoctor" class="shadow">
+<form id="form4" name="form4" method="post" action="">
+
+  <p>
+    <label>Nombre: 
+      <input name="nombres" type="text" id="nombres" size="50" maxlength="200" style="width:25%">
+    </label>
+     <br /><label>Direccion:
+      <input name="direccion" type="text" id="direccion" size="100" maxlength="200" style="width:25%">
+    </label>
+     <br /><label>Especialidad:
+      <input name="especialidad" type="text" id="especialidad" size="50" maxlength="200" style="width:25%">
+    </label>
+
+  </p>
+    
+  <p>&nbsp;</p>
+   
+<div id="separador" style="top:60%; height:37%; width:100%;">
+Números Telefónicos
+   <div id="divsubprecio" style="left:2%; top:40%">
+   Celular
+      <input name="celular" type="text" id="celular" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+  
+  <div id="divsubprecio" style="left:35%; top:40%">
+  Casa
+    <input name="casa" type="text" id="casa" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+  
+  <div id="divsubprecio" style="left:68%; top:40%">
+  Otro
+    <input name="otro" type="text" id="otro" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+</div>
+
+  <p>
+    <label><br>
+    </label>
+    <label>
+      <input type="button" name="bt4" id="bt4" value="Crear Nuevo" style="left:30%; top:98%">
+    </label>
+  </p>
+
+</form>
+<div id='' onClick="outNuevoDoctor();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+<!--=================================================================================-->
+<div id="divDoctores" class="shadow">
+
+	<div id="" style="top:-10%; left:2%; height:10%; width:97%; position:absolute; text-align:left;">
+            <img src="botones/admon_medicos.png" style="left:0; top:0; height:100%; width:auto; ">
+	</div>
+
+	<div id="buscador" style="top:0%; left:0%; height:100%; width:35%;">
+		<form method="get" action="">
+		<input type="text" id="boxdr"  size="35" name="boxdr"  onkeypress="if (event.keyCode == 13) return false"/>
+		</form>    
+        
+        <div onClick='inNuevoDoctor()' style="z-index:200;">
+			CREAR NUEVO
+		</div>
+            
+         <div id="resultsDoctores"></div>        
+	</div>
+    
+    
+  
+<div id="contenidoe" style="top:0%; left:36%; height:100%; width:63%;">   
+<form id="formEditDoctor" name="formEditDoctor" method="post" action="">
+
+  <p>
+    <label>Nombre: 
+      <input name="nombres" type="text" id="nombres" size="50" maxlength="200" style="width:25%">
+    </label>
+     <br /><label>Direccion:
+      <input name="direccion" type="text" id="direccion" size="100" maxlength="200" style="width:25%">
+    </label>
+     <br /><label>Especialidad:
+      <input name="especialidad" type="text" id="especialidad" size="50" maxlength="200" style="width:25%">
+    </label>
+    
+    <label>Código: 
+      <input name="codigo" type="text" id="codigo" size="20" maxlength="200"  readonly="TRUE" style="width:25%">
+    </label>
+
+  </p>
+    
+  <p>&nbsp;</p>
+   
+<div id="separador" style="top:60%; height:37%; width:100%;">
+Números Telefónicos
+   <div id="divsubprecio" style="left:2%; top:40%">
+   Celular
+      <input name="celular" type="text" id="celular" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+  
+  <div id="divsubprecio" style="left:35%; top:40%">
+  Casa
+    <input name="casa" type="text" id="casa" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+  
+  <div id="divsubprecio" style="left:68%; top:40%">
+  Otro
+    <input name="otro" type="text" id="otro" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+</div>
+
+  <p>
+    <label><br>
+    </label>
+    <label>
+      <input type="button" name="bt42" id="bt42" value="Guardar Cambios" style="left:30%; top:98%">
+    </label>
+  </p>
+
+</form>
+    
+
+
+</div>
+
+<div id='' onClick="outDoctores();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+
+
+
+<script type="text/JavaScript">
+document.getElementById("bt4").onclick = function () {
+	grabarNuevoDoctor();
+}
+
+document.getElementById("bt42").onclick = function () {
+	actualizarDoctor();
+}
+
+function grabarNuevoDoctor(){
+	//envío peticion a un .php, el cual comprueba el usuario y la contraseña, y devuelve la funcion conectar() con los permisos que este usuario tiene
+	//de acuerdo a los permisos que devuelva este se imprimira en pantalla el menú. Si no conecta php devuelve la funcion noConecto()
+	
+	//enviamos formulario a yoconecto.php, por medio de ajax
+	var datos = $(form4).serialize();
+	$.ajax({
+        type: "POST",
+        url:"phpHosp/nuevo_doctor.php",
+		data: datos,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		   outNuevoDoctor();	
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+var runningRequestDr = false;
+var requestDr; //Identify the typing action
+$('#boxdr').keyup(function(eDr){
+	eDr.preventDefault();
+	var $qDr = $(this);
+	
+	if($qDr.val() == ""){
+		$('div#resultsDoctores').html("Escoja un Doctor. Si aún no lo ha creado, créelo.");
+		return false;
+	}
+//Abort opened requests to speed it up
+	if(runningRequestDr){
+		requestDr.abort();
+	}
+
+	runningRequestDr=true;
+	requestDr = $.getJSON('phpHosp/searchdoctores.php',{q:$qDr.val()},function(data){showResults(data,$qDr.val());runningRequestDr=false;});
+	
+//Create HTML structure for the results and insert it on the result div
+function showResults(data, highlight){
+	var resultHtml = '';
+	$.each(data, function(i,item){
+		resultHtml+="<div onClick=getDatosDoctor("+item.idmedico+") id='despliegue'>&nbsp&nbsp"+item.nombre+"</div>";
+		//"+item.nombre_comercial+"','"+item.idmedicamento+"','divDatosProducto
+		//getDatosProducto(id)
+		//escogimedicamento();
+		//resultHtml+=item.idmedicamento+"<br>";
+	});
+	
+	$('div#resultsDoctores').html(resultHtml);
+}
+
+$('form').submit(function(e){
+	eDr.preventDefault();
+});
+
+});
+
+
+function getDatosDoctor(recibo){
+	
+	
+	//request = $.getJSON('php/getDatosProducto.php',{id:recibo},llegadadatos);
+	
+	
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/getDatosDoctor.php", 
+        success: function(data){ 
+						
+			document.formEditDoctor.nombres.value = data.nombre; 
+			document.formEditDoctor.direccion.value = data.direccion; 
+			document.formEditDoctor.especialidad.value = data.especialidad; 
+
+			document.formEditDoctor.celular.value = data.celular; 
+			document.formEditDoctor.casa.value = data.casa; 
+			document.formEditDoctor.otro.value = data.otro; 
+			document.formEditDoctor.codigo.value = data.idmedico; 
+			
+		
+        } 
+    }); 
+	
+}
+
+function actualizarDoctor(){
+	var datosocho = $(formEditDoctor).serialize();
+	$.ajax({
+        type: "POST",
+        url:"phpHosp/actualizarDoctor.php",
+		data: datosocho,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		   //llenarFactura_Detalle(document.formNuevaFact.greciboNuevoId.value);
+		  
+		  alert('Cambios realizados!');
+		  
+		  getDatosPaciente(document.formEditDoctor.codigo.value);
+		 
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+</script>
+
+<!--==============================================================================================================================================================================-->
+<!--==============================================================================================================================================================================-->
+
+<!--==============================================================================================================================================================================-->
+<!--==============================================================================================================================================================================-->
+<!--===============================================================ADMINISTRACION DE SERVICIOS================================================================================================-->
+<!--==============================================================================================================================================================================-->
+
+<div id="divNuevoServicio" class="shadow">
+<form id="form5" name="form5" method="post" action="">
+
+  <p>
+    <label>Nombre: 
+      <input name="nombre" type="text" id="nombre" size="50" maxlength="200" style="width:25%">
+    </label>
+      <br /> <br /> <label>Descripción:<br />
+      <textarea name="descripcion" cols="46" id="descripcion" style="width:90%"></textarea>
+    </label>
+  <div id="divprecio" style="left:0%; top:95%">
+  Precio Sugerido Q.
+    <input name="precio" type="text" id="precio" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+  
+  <label>
+      <input type="button" name="bt5" id="bt5" value="Crear Nuevo" style="left:30%; top:98%">
+    </label>
+</form>
+<div id='' onClick="outNuevoServicio();" style='position:absolute; top:-2%; left:-40%; width:80%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+<!--=================================================================================-->
+<div id="divServicios" class="shadow">
+
+	<div id="" style="top:-10%; left:2%; height:10%; width:97%; position:absolute; text-align:left;">
+            <img src="botones/admon_servicios.png" style="left:0; top:0; height:100%; width:auto; ">
+	</div>
+
+	<div id="buscadorGhr" style="top:0%; left:0%; height:100%; width:35%;">
+		<form method="get" action="">
+		<input type="text" id="boxserv" size="35"  name="boxserv"  onkeypress="if (event.keyCode == 13) return false"/>
+		
+		</form>    
+        
+        <div onClick='inNuevoServicio()' style="z-index:200;">
+			CREAR NUEVO
+		</div>
+            
+         <div id="resultsServicios"></div>        
+	</div>
+    
+    
+  
+<div id="contenidoe" style="top:0%; left:36%; height:100%; width:63%;">   
+<form id="formEditServicio" name="formEditServicio" method="post" action="">
+
+  <p>
+    <label>Nombre: 
+      <input name="nombre" type="text" id="nombre" size="50" maxlength="200" style="width:25%">
+    </label>
+     <br /> <br /> <label>Descripción:<br />
+      <textarea name="descripcion" cols="46" id="descripcion" style="width:90%"></textarea>
+    </label>
+    <br /> <label>Código 
+     		 <input name="codigo" type="text" id="codigo" size="50" maxlength="200"  readonly="TRUE" style="width:25%">
+    	</label>
+        
+  <div id="divprecio" style="left:2%; top:45%">
+  Precio Sugerido Q.
+    <input name="precio" type="text" id="precio" size="10" style="width:90%; margin-bottom: 3%;" />
+  </div>
+  
+  <label>
+      <input type="button" name="bt52" id="bt52" value="Guardar Cambios" style="left:30%; top:98%">
+    </label>
+</form>
+
+
+</div>
+
+<div id='' onClick="outServicios();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+
+
+
+<script type="text/JavaScript">
+document.getElementById("bt5").onclick = function () {
+	grabarNuevoServicio();
+}
+
+document.getElementById("bt52").onclick = function () {
+	actualizarServicio();
+}
+
+function grabarNuevoServicio(){
+	//envío peticion a un .php, el cual comprueba el usuario y la contraseña, y devuelve la funcion conectar() con los permisos que este usuario tiene
+	//de acuerdo a los permisos que devuelva este se imprimira en pantalla el menú. Si no conecta php devuelve la funcion noConecto()
+	
+	//enviamos formulario a yoconecto.php, por medio de ajax
+	var datos = $(form5).serialize();
+	$.ajax({
+        type: "POST",
+        url:"phpHosp/nuevo_servicio.php",
+		data: datos,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		   outNuevoServicio();	
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+var runningRequestServ = false;
+var requestServ; //Identify the typing action
+$('#boxserv').keyup(function(eServ){
+	eServ.preventDefault();
+	var $qServ = $(this);
+	
+	if($qServ.val() == ""){
+		$('div#resultsServicios').html("Escoja un Servicio. Si aún no lo ha creado, créelo.");
+		return false;
+	}
+//Abort opened requests to speed it up
+	if(runningRequestServ){
+		requestServ.abort();
+	}
+
+	runningRequestServ=true;
+	requestServ = $.getJSON('phpHosp/searchservicios.php',{q:$qServ.val()},function(data){showResults(data,$qServ.val());runningRequestServ=false;});
+	
+//Create HTML structure for the results and insert it on the result div
+function showResults(data, highlight){
+	var resultHtml = '';
+	$.each(data, function(i,item){
+		resultHtml+="<div onClick=getDatosServicio("+item.idservicio+") id='despliegue'>&nbsp&nbsp"+item.nombre+"&nbsp&nbspQ."+item.precio_sugerido+"</div>";
+		//"+item.nombre_comercial+"','"+item.idmedicamento+"','divDatosProducto
+		//getDatosProducto(id)
+		//escogimedicamento();
+		//resultHtml+=item.idmedicamento+"<br>";
+	});
+	
+	$('div#resultsServicios').html(resultHtml);
+}
+
+$('form').submit(function(e){
+	eServ.preventDefault();
+});
+
+});
+
+
+function getDatosServicio(recibo){
+	
+	
+	//request = $.getJSON('php/getDatosProducto.php',{id:recibo},llegadadatos);
+	
+	
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/getDatosServicio.php", 
+        success: function(data){ 
+						
+			document.formEditServicio.nombre.value = data.nombre; 
+			document.formEditServicio.descripcion.value = data.descripcion; 
+			document.formEditServicio.precio.value = data.precio_sugerido; 
+			document.formEditServicio.codigo.value = data.idservicio; 
+
+	
+		
+        } 
+    }); 
+	
+}
+
+function actualizarServicio(){
+	var datosocho = $(formEditServicio).serialize();
+	$.ajax({
+        type: "POST",
+        url:"phpHosp/actualizarServicio.php",
+		data: datosocho,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		   //llenarFactura_Detalle(document.formNuevaFact.greciboNuevoId.value);
+		  
+		  alert('Cambios realizados!');
+		  
+		  getDatosServicio(document.formEditServicio.codigo.value);
+		 
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+</script>
+
+<!--==============================================================================================================================================================================-->
+<!--==============================================================================================================================================================================-->
+
+<!--==============================================================================================================================================================================-->
+<!--==============================================================================================================================================================================-->
+<!--===============================================================ADMINISTRACION DE ESTADÍA================================================================================================-->
+<!--==============================================================================================================================================================================-->
+<!--======Div contenedor==================================================-->
+<div id="divNuevaEstadia" class="shadow">
+
+	<div id="" style="top:-10%; left:47%; height:10%; width:50%; position:absolute;">
+            <img src="botones/pestana.png" style="left:0; top:0; height:100%; width:100%; ">
+			<div id="nombrePestana" style="text-align: center; left:15%; top:6%; position:absolute; color:#604406; font-size: 20px;"></div>
+	</div>
+    
+
+	<div id="buscador2"  style="top:1%; left:1%; height:32%; width:32%;">
+    	<div onClick='inPacientesSelect()' style="left:90%; top:1%; height:15%; width:auto; position:absolute; ; z-index:200;">
+            <img src="botones/edit.png" style="left:0; top:0; height:100%; width:auto; ">
+		</div>
+        
+
+    	<b>PACIENTE</b>
+		<div id="estePaciente" style="text-align: left; left:3%; position:absolute;"></div>
+	</div>
+    
+    
+    
+<div style="left:-2%; top:30%; height:18%; width:auto; position:absolute; ; z-index:250;">
+            <img src="botones/clip.png" style="left:0; top:0; height:100%; width:auto; ">
+</div>
+    
+    <div id="buscador3" style="top:34%; left:1%; height:32%; width:32%;">
+    	<div onClick='inFamiliarSelect()' style="left:90%; top:1%; height:15%; width:auto; position:absolute; ; z-index:200;">
+            <img src="botones/edit.png" style="left:0; top:0; height:100%; width:auto; ">
+		</div>
+        
+    	<b>Familiar más cercano</b>
+		<div id="esteFamiliar" style="text-align: left; left:3%; position:absolute;"></div>
+	</div>
+    
+    
+<div style="left:28%; top:94%; height:18%; width:auto; position:absolute; ; z-index:250;">
+            <img src="botones/clipdatos.png" style="left:0; top:0; height:100%; width:auto; ">
+</div>
+
+    <div id="buscador4" style="top:67%; left:1%; height:32%; width:32%;">
+    	<div onClick='inNuevaInfo()' style="left:90%; top:1%; height:15%; width:auto; position:absolute; ; z-index:200;">
+            <img src="botones/edit.png" style="left:0; top:0; height:100%; width:auto; ">
+		</div>
+        
+    	<b>Datos Adjuntos</b>
+		<div id="datosAdicionales"></div>
+	</div>
+    
+<!--<div style="left:55%; top:90%; height:18%; width:auto; position:absolute; ; z-index:250;">
+            <img src="botones/clipdr.png" style="left:0; top:0; height:100%; width:auto; ">
+</div>-->
+
+    <div id="buscador5" style="top:67%; left:34%; height:32%; width:33%; overflow-y: auto;">
+    	<div onClick='inMedicosSelect()' id='btAddMedicoBoleta' style="left:90%; top:1%; height:15%; width:auto; position:absolute; ; z-index:200;">
+            <img src="botones/minimas.png" style="left:0; top:0; height:100%; width:auto; ">
+		</div>
+        
+    	<b>Médicos Responsables</b>
+		<div id="doctoresImplicados" style="position:absolute; width:98%;"></div>
+	</div>
+    
+    
+    
+    
+  
+<div id="contenidoestadia" style="top:1%; left:34%; height:64%; width:33%; overflow-y: auto; overflow-x: hidden;">   
+	<div onClick='inMedicamentoSelect()' id='btAddMedicamento' style="left:85%; top:1%; height:10%; width:auto; position:absolute; ; z-index:200;">
+            <img src="botones/minimas.png" style="left:0; top:0; height:100%; width:auto; ">
+	</div>
+		<b>Pedidos de Medicamento</b>
+		<div id="divListoMedicamentos" style="position:absolute; width:98%;"></div>
+</div>
+
+
+
+<div id="contenidoestadia" style="top:1%; left:68%; height:64%; width:31%; overflow-y: auto; overflow-x: hidden;">   
+	<div onClick='inServicioSelect()'  id='btAddServicio' style="left:85%; top:1%; height:10%; width:auto; position:absolute; ; z-index:200;">
+            <img src="botones/minimas.png" style="left:0; top:0; height:100%; width:auto; ">
+	</div>
+        
+    	<b>Servicios Brindados</b>
+		<div id="divListoServicios" style="position:absolute; width:98%;"></div>
+</div>
+
+
+
+<form id="formNuevaEstadia" name="formNuevaEstadia" method="post" action=""> 
+
+<div id="divprecio" style="top:90%; left:68%; height:auto; width:31%;">
+  			Codigo Esta Boleta
+    		<input name="codigo_boleta" type="text" id="codigo_boleta" size="10"  readonly="TRUE" style="left:80%; top:88%; width:20%; margin-bottom: 3%;" />
+</div>
+
+<div id="" style="top:85%; left:68%; height:auto; width:31%; position:absolute;">
+  			Fecha de Creación
+    		<input name="fecha_creacion" type="text" id="fecha_creacion" size="10"  readonly="TRUE"  style="left:80%; top:88%; width:20%; margin-bottom: 3%;" />
+</div>
+
+<div id="divTotalBoleta" style="top:75%; left:60%; height:auto; width:31%; position:absolute;">
+  			Total Q.
+    		<input name="reciboTotal" type="text" id="reciboTotal" size="10"  readonly="TRUE"  style="left:80%; top:88%; width:20%; margin-bottom: 3%;" />
+</div>
+
+<div id="" style="top:75%; left:65%; height:auto; width:31%; position:absolute;">
+ 			</br><input type="radio" name="tipoboleta" onClick="chequeaEsto(1);" value="1" checked>Hospitalización 
+			<input type="radio" name="tipoboleta"  onClick="chequeaEsto(2);" value="2">Emergencia
+</div>
+
+<div id="botonImprimirBoleta" onClick="printBoleta();" style="top:65%; left:95%; width:5%; height:auto; position:absolute;">
+  		 <img src="botones/impresora.png" style="left:0; top:0; width:100%; height:auto; position:relative;">
+</div>
+        
+<!--<label>
+      <input type="button" name="bt6" id="bt6" value="Ok" style="left:80%; top:98%; width:20%; position:absolute;">
+</label>-->
+<label>
+      <input type="button" name="bt7" id="bt7" value="Eliminar" style="left:68%; top:98%; width:10%; position:absolute;">
+</label>
+
+<label>
+      <input type="button" name="bt72" id="bt72" value="Dar por Finalizada" style="left:80%; top:98%; width:10%; position:absolute;">
+</label>
+
+</form>
+<div id='' onClick="outNuevaEstadia();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+
+
+
+<!--==============================ESCOGER PACIENTE=====================================-->
+<div id="divPacientesSelect" class="shadow">
+
+	<div id="buscador2" style="top:0%; left:0%; height:99%; width:35%;">
+		<form method="get" action="">
+		<input type="text" id="boxpaciselect" name="boxpaciselect"  onkeypress="if (event.keyCode == 13) return false"/>
+		
+		</form>    
+                  
+         <div id="resultsPacientesSelect"></div>        
+	</div>
+    
+    
+  
+<div id="contenidog" style="top:0%; left:36%; height:100%; width:63%;">   
+ 		<form id="formNuevoPacienteSelect" name="formNuevoPacienteSelect" method="post" action="">
+
+  <p>
+    <label>Nombres: 
+      <input name="nombres" type="text" id="nombres" size="50" maxlength="200" style="width:25%"  onkeypress="if (event.keyCode == 13) grabarNuevoPacienteSelect()">
+    </label>
+     <br /><label>Apellidos:
+      <input name="apellidos" type="text" id="apellidos" size="50" maxlength="200" style="width:25%"  onkeypress="if (event.keyCode == 13) grabarNuevoPacienteSelect()">
+    </label>
+    <br /><label>Estado Civil:
+      <input name="estadocivil" type="text" id="estadocivil" size="50" maxlength="200" style="width:25%" onkeypress="if (event.keyCode == 13) grabarNuevoPacienteSelect()">
+    </label>
+     <br /><label>Direccion:
+      <input name="direccion" type="text" id="direccion" size="100" maxlength="200" style="width:25%" onkeypress="if (event.keyCode == 13) grabarNuevoPacienteSelect()">
+    </label>
+     <br /><label>Edad:
+      <input name="edad" type="text" id="edad" size="20" maxlength="200" style="width:25%" onkeypress="if (event.keyCode == 13) grabarNuevoPacienteSelect()">
+    </label>
+     <br /><label>Ocupación:
+      <input name="ocupacion" type="text" id="ocupacion" size="50" maxlength="200" style="width:25%" onkeypress="if (event.keyCode == 13) grabarNuevoPacienteSelect()">
+    </label>
+  </p>
+    
+  <p>&nbsp;</p>
+   
+<div id="separador" style="top:60%; height:37%; width:100%;">
+Números Telefónicos
+   <div id="divsubprecio" style="left:2%; top:40%">
+   Celular
+      <input name="celular" type="text" id="celular" size="10" style="width:90%; margin-bottom: 3%;"  onkeypress="if (event.keyCode == 13) grabarNuevoPacienteSelect()"/>
+  </div>
+  
+  <div id="divsubprecio" style="left:35%; top:40%">
+  Casa
+    <input name="casa" type="text" id="casa" size="10" style="width:90%; margin-bottom: 3%;"  onkeypress="if (event.keyCode == 13) grabarNuevoPacienteSelect()"/>
+  </div>
+  
+  <div id="divsubprecio" style="left:68%; top:40%">
+  Otro
+    <input name="otro" type="text" id="otro" size="10" style="width:90%; margin-bottom: 3%;"  onkeypress="if (event.keyCode == 13) grabarNuevoPacienteSelect()"/>
+  </div>
+</div>
+
+  <p>
+    <label><br>
+    </label>
+    <label>
+      <input type="button" name="bt8" id="bt8" value="Crear" style="left:30%; top:98%">
+    </label>
+  </p>
+
+</form>
+
+</div>
+
+<div id='' onClick="outPacientesSelect();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+<script type="text/JavaScript">
+
+
+document.getElementById("bt8").onclick = function () {
+	grabarNuevoPacienteSelect();
+}
+
+function grabarNuevoPacienteSelect(){
+	//envío peticion a un .php, el cual comprueba el usuario y la contraseña, y devuelve la funcion conectar() con los permisos que este usuario tiene
+	//de acuerdo a los permisos que devuelva este se imprimira en pantalla el menú. Si no conecta php devuelve la funcion noConecto()
+	
+	//enviamos formulario a yoconecto.php, por medio de ajax
+	var datos = $(formNuevoPacienteSelect).serialize();
+	$.ajax({
+        type: "POST",
+		dataType: "json", 
+        url:"phpHosp/nuevo_paciente.php",
+		data: datos,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		   outPacientesSelect();	
+		   
+		   escogiPaciente(recibo.nuevoid);
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+function escogiPaciente(recibo){
+		outPacientesSelect();	
+				
+		var datosocho = $(formNuevaEstadia).serialize();
+	$.ajax({
+        type: "POST",
+        url:"phpHosp/escogiPaciente.php?paciente="+recibo,
+		data: datosocho,
+        async: true,
+        success: function(respuesta){    
+		   	mostrarPacienteEscogido(recibo);
+		 
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+function mostrarPacienteEscogido(recibo){
+	document.getElementById("botonImprimirBoleta").style.visibility ="hidden";
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/getDatosPaciente.php", 
+        success: function(data){ 
+						
+			vhtml='';
+			vhtml+="<br><b>"+data.nombres+"&nbsp"+data.apellidos+"</b>";
+			if (data.edad!=false)
+			vhtml+="<br><b>Edad:</b>"+data.edad;
+			if(data.estadocivil!=false)
+			vhtml+="<br><b>Estado Civil:</b>"+data.estadocivil;
+			if(data.ocupacion!=false)
+			vhtml+="<br><b>Ocupación:</b>"+data.ocupacion;
+			if(data.direccion!=false)
+			vhtml+="<br><b>Direccion:</b>"+data.direccion;
+			vhtml+="<br><b>****TELEFONOS****</b>";
+			if(data.casa!=false)
+			vhtml+="<br><b>Casa:</b>"+data.casa+"&nbsp";
+			if(data.celular!=false)
+			vhtml+="<b>Celular:</b>"+data.celular+"&nbsp";
+			if(data.otro!=false)
+			vhtml+="<b>Otro:</b>"+data.otro+"&nbsp";
+			
+			$('div#estePaciente').html(vhtml);
+		
+        } 
+    }); 
+	
+}
+
+function mostrarPacienteEscogidoBoleta(recibo){
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/getDatosPacienteBoleta.php", 
+        success: function(data){ 
+						
+			vhtml='';
+			vhtml+="<br><b>"+data.nombres+"&nbsp"+data.apellidos+"</b>";
+			if (data.edad!=false)
+			vhtml+="<br><b>Edad:</b>"+data.edad;
+			if(data.estadocivil!=false)
+			vhtml+="<br><b>Estado Civil:</b>"+data.estadocivil;
+			if(data.ocupacion!=false)
+			vhtml+="<br><b>Ocupación:</b>"+data.ocupacion;
+			if(data.direccion!=false)
+			vhtml+="<br><b>Direccion:</b>"+data.direccion;
+			vhtml+="<br><b>****TELEFONOS****</b>";
+			if(data.casa!=false)
+			vhtml+="<br><b>Casa:</b>"+data.casa+"&nbsp";
+			if(data.celular!=false)
+			vhtml+="<b>Celular:</b>"+data.celular+"&nbsp";
+			if(data.otro!=false)
+			vhtml+="<b>Otro:</b>"+data.otro+"&nbsp";
+			document.formNuevaEstadia.fecha_creacion.value=data.fecha_creacion;
+			
+			$('div#estePaciente').html(vhtml);
+			$('div#nombrePestana').html("<b>"+data.nombres+"&nbsp"+data.apellidos+"</b>");
+			
+		
+        } 
+    }); 
+	
+}
+
+var runningRequestPaciSelect = false;
+var requestPaciSelect; //Identify the typing action
+$('#boxpaciselect').keyup(function(ePaciSelect){
+	ePaciSelect.preventDefault();
+	var $qPaciSelect = $(this);
+	
+	if($qPaciSelect.val() == ""){
+		$('div#resultsPacientesSelect').html("Escoja un Paciente. Si aún no lo ha creado, llene el formulario de la derecha.");
+		return false;
+	}
+//Abort opened requests to speed it up
+	if(runningRequestPaciSelect){
+		requestPaciSelect.abort();
+	}
+
+	runningRequestPaciSelect=true;
+	requestPaciSelect = $.getJSON('phpHosp/searchpacientes.php',{q:$qPaciSelect.val()},function(data){showResults(data,$qPaciSelect.val());runningRequestPaciSelect=false;});
+	
+//Create HTML structure for the results and insert it on the result div
+function showResults(data, highlight){
+	var resultHtml = '';
+	$.each(data, function(i,item){
+		resultHtml+="<div onClick=escogiPaciente("+item.idpaciente+") id='despliegue'>&nbsp&nbsp"+item.nombres+"&nbsp&nbsp"+item.apellidos+"</div>";
+		//"+item.nombre_comercial+"','"+item.idmedicamento+"','divDatosProducto
+		//getDatosProducto(id)
+		//escogimedicamento();
+		//resultHtml+=item.idmedicamento+"<br>";
+	});
+	
+	$('div#resultsPacientesSelect').html(resultHtml);
+}
+
+$('form').submit(function(e){
+	ePaci.preventDefault();
+});
+
+});
+
+
+
+
+
+</script>
+
+
+<!--==============================ESCOGER FAMILIAR=====================================-->
+<div id="divFamiliarSelect" class="shadow">
+
+	<div id="buscador2" style="top:0%; left:0%; height:99%; width:35%;">
+		<form method="get" action="">
+		<input type="text" id="boxfamselect" name="boxfamselect"  onkeypress="if (event.keyCode == 13) return false"/>
+		
+		</form>    
+                  
+         <div id="resultsFamiliaresSelect"></div>        
+	</div>
+    
+    
+  
+<div id="contenidog" style="top:0%; left:36%; height:100%; width:63%;">   
+ 		<form id="formNuevoFamiliarSelect" name="formNuevoFamiliarSelect" method="post" action="">
+
+  <p>
+    <label>Nombres: 
+      <input name="nombres" type="text" id="nombres" size="50" maxlength="200" style="width:25%" onkeypress="if (event.keyCode == 13) grabarNuevoFamiliarSelect()">
+    </label>
+     <br /><label>Apellidos:
+      <input name="apellidos" type="text" id="apellidos" size="50" maxlength="200" style="width:25%" onkeypress="if (event.keyCode == 13) grabarNuevoFamiliarSelect()">
+    </label>
+    <br /><label>Estado Civil:
+      <input name="estadocivil" type="text" id="estadocivil" size="50" maxlength="200" style="width:25%" onkeypress="if (event.keyCode == 13) grabarNuevoFamiliarSelect()">
+    </label>
+     <br /><label>Direccion:
+      <input name="direccion" type="text" id="direccion" size="100" maxlength="200" style="width:25%" onkeypress="if (event.keyCode == 13) grabarNuevoFamiliarSelect()">
+    </label>
+     <br /><label>Edad:
+      <input name="edad" type="text" id="edad" size="20" maxlength="200" style="width:25%" onkeypress="if (event.keyCode == 13) grabarNuevoFamiliarSelect()">
+    </label>
+     <br /><label>Ocupación:
+      <input name="ocupacion" type="text" id="ocupacion" size="50" maxlength="200" style="width:25%" onkeypress="if (event.keyCode == 13) grabarNuevoFamiliarSelect()">
+    </label>
+  </p>
+    
+  <p>&nbsp;</p>
+   
+<div id="separador" style="top:60%; height:37%; width:100%;">
+Números Telefónicos
+   <div id="divsubprecio" style="left:2%; top:40%">
+   Celular
+      <input name="celular" type="text" id="celular" size="10" style="width:90%; margin-bottom: 3%;"  onkeypress="if (event.keyCode == 13) grabarNuevoFamiliarSelect()"/>
+  </div>
+  
+  <div id="divsubprecio" style="left:35%; top:40%">
+  Casa
+    <input name="casa" type="text" id="casa" size="10" style="width:90%; margin-bottom: 3%;"  onkeypress="if (event.keyCode == 13) grabarNuevoFamiliarSelect()"/>
+  </div>
+  
+  <div id="divsubprecio" style="left:68%; top:40%">
+  Otro
+    <input name="otro" type="text" id="otro" size="10" style="width:90%; margin-bottom: 3%;" onkeypress="if (event.keyCode == 13) grabarNuevoFamiliarSelect()" />
+  </div>
+</div>
+
+  <p>
+    <label><br>
+    </label>
+    <label>
+      <input type="button" name="bt10" id="bt10" value="Crear" style="left:30%; top:98%">
+    </label>
+  </p>
+
+</form>
+
+</div>
+
+<div id='' onClick="outFamiliarSelect();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+<script type="text/JavaScript">
+
+
+document.getElementById("bt10").onclick = function () {
+	grabarNuevoFamiliarSelect();
+}
+
+function grabarNuevoFamiliarSelect(){
+	//envío peticion a un .php, el cual comprueba el usuario y la contraseña, y devuelve la funcion conectar() con los permisos que este usuario tiene
+	//de acuerdo a los permisos que devuelva este se imprimira en pantalla el menú. Si no conecta php devuelve la funcion noConecto()
+	
+	//enviamos formulario a yoconecto.php, por medio de ajax
+	var datos = $(formNuevoFamiliarSelect).serialize();
+	$.ajax({
+        type: "POST",
+		dataType: "json", 
+        url:"phpHosp/nuevo_paciente.php",
+		data: datos,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		   outFamiliarSelect();	
+		   
+		   escogiFamiliar(recibo.nuevoid);
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+function escogiFamiliar(recibo){
+		outFamiliarSelect();	
+				
+		var datosocho = $(formNuevaEstadia).serialize();
+	$.ajax({
+        type: "POST",
+        url:"phpHosp/escogiFamiliar.php?paciente="+recibo,
+		data: datosocho,
+        async: true,
+        success: function(respuesta){    
+		   	mostrarFamiliarEscogido(recibo);
+		 
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+function mostrarFamiliarEscogido(recibo){
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/getDatosPaciente.php", 
+        success: function(data){ 
+						
+			vhtml='';
+			vhtml+="<br><b>"+data.nombres+"&nbsp"+data.apellidos+"</b>";
+			if (data.edad!=false)
+			vhtml+="<br><b>Edad:</b>"+data.edad;
+			if(data.estadocivil!=false)
+			vhtml+="<br><b>Estado Civil:</b>"+data.estadocivil;
+			if(data.ocupacion!=false)
+			vhtml+="<br><b>Ocupación:</b>"+data.ocupacion;
+			if(data.direccion!=false)
+			vhtml+="<br><b>Direccion:</b>"+data.direccion;
+			vhtml+="<br><b>****TELEFONOS****</b>";
+			if(data.casa!=false)
+			vhtml+="<br><b>Casa:</b>"+data.casa+"&nbsp";
+			if(data.celular!=false)
+			vhtml+="<b>Celular:</b>"+data.celular+"&nbsp";
+			if(data.otro!=false)
+			vhtml+="<b>Otro:</b>"+data.otro+"&nbsp";
+			
+			$('div#esteFamiliar').html(vhtml);
+		
+        } 
+    }); 
+	
+}
+function mostrarFamiliarEscogidoBoleta(recibo){
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/getDatosPacienteBoletaFam.php", 
+        success: function(data){ 
+						
+			vhtml='';
+			vhtml+="<br><b>"+data.nombres+"&nbsp"+data.apellidos+"</b>";
+			if (data.edad!=false)
+			vhtml+="<br><b>Edad:</b>"+data.edad;
+			if(data.estadocivil!=false)
+			vhtml+="<br><b>Estado Civil:</b>"+data.estadocivil;
+			if(data.ocupacion!=false)
+			vhtml+="<br><b>Ocupación:</b>"+data.ocupacion;
+			if(data.direccion!=false)
+			vhtml+="<br><b>Direccion:</b>"+data.direccion;
+			vhtml+="<br><b>****TELEFONOS****</b>";
+			if(data.casa!=false)
+			vhtml+="<br><b>Casa:</b>"+data.casa+"&nbsp";
+			if(data.celular!=false)
+			vhtml+="<b>Celular:</b>"+data.celular+"&nbsp";
+			if(data.otro!=false)
+			vhtml+="<b>Otro:</b>"+data.otro+"&nbsp";
+			
+			$('div#esteFamiliar').html(vhtml);
+		
+        } 
+    }); 
+	
+}
+
+var runningRequestFamSelect = false;
+var requestFamSelect; //Identify the typing action
+$('#boxfamselect').keyup(function(eFamSelect){
+	eFamSelect.preventDefault();
+	var $qFamSelect = $(this);
+	
+	if($qFamSelect.val() == ""){
+		$('div#resultsFamiliaresSelect').html("Escoja un Familiar. Si aún no lo ha creado, llene el formulario de la derecha.");
+		return false;
+	}
+//Abort opened requests to speed it up
+	if(runningRequestFamSelect){
+		requestFamSelect.abort();
+	}
+
+	runningRequestFamSelect=true;
+	requestFamSelect = $.getJSON('phpHosp/searchpacientes.php',{q:$qFamSelect.val()},function(data){showResults(data,$qFamSelect.val());runningRequestFamSelect=false;});
+	
+//Create HTML structure for the results and insert it on the result div
+function showResults(data, highlight){
+	var resultHtml = '';
+	$.each(data, function(i,item){
+		resultHtml+="<div onClick=escogiFamiliar("+item.idpaciente+") id='despliegue'>&nbsp&nbsp"+item.nombres+"&nbsp&nbsp"+item.apellidos+"</div>";
+		//"+item.nombre_comercial+"','"+item.idmedicamento+"','divDatosProducto
+		//getDatosProducto(id)
+		//escogimedicamento();
+		//resultHtml+=item.idmedicamento+"<br>";
+	});
+	
+	$('div#resultsFamiliaresSelect').html(resultHtml);
+}
+
+$('form').submit(function(e){
+	ePaci.preventDefault();
+});
+
+});
+
+
+
+
+
+</script>
+
+<!--add info-->
+<div id="divNuevaInfo" class="shadow">
+
+<form id="formInfoAdicional" name="formInfoAdicional" method="post" action="">
+
+  <p>
+    <label>Fecha:
+      <input type="text" name="fecha" id="fecha" style="width:15%" onkeypress="if (event.keyCode == 13) grabarNuevaInfo()">
+    </label>
+    
+    <label>Hora:
+      <input type="text" name="hora" id="hora" style="width:15%" onkeypress="if (event.keyCode == 13) grabarNuevaInfo()">
+    </label>
+    
+    <br/> <label>Expediente No:
+      <input type="text" name="expediente" id="expediente" style="width:15%" onkeypress="if (event.keyCode == 13) grabarNuevaInfo()">
+    </label>
+    
+    
+   <br/> <label>Motivo de Ingreso:<br />
+      <textarea name="motivo_consulta" cols="46" id="motivo_consulta" style="width:90%" onkeypress="if (event.keyCode == 13) grabarNuevaInfo()"></textarea>
+    </label>
+   
+  </p>
+  <p>&nbsp;</p>
+  <p>
+    
+     
+    
+    <br/><label>Diagnósticos Provisionales:<br />
+      <textarea name="diagnosticos_provisionales" cols="46" id="diagnosticos_provisionales" style="width:90%" onkeypress="if (event.keyCode == 13) grabarNuevaInfo()"></textarea>
+    </label>
+  </p>
+ <p>
+    <label><br>
+    </label>
+    <label>
+      <input type="button" name="bt12" id="bt12" value="Agregar" style="left:30%; top:98%">
+    </label>
+  </p>
+
+  
+  
+</form>
+
+<div id='' onClick="outNuevaInfo();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+<script type="text/JavaScript"> 
+
+
+document.getElementById("bt12").onclick = function () {
+	grabarNuevaInfo();
+}
+
+document.getElementById("bt13").onclick = function () {
+	grabarNuevaInfo();
+}
+
+function grabarNuevaInfo(){
+	//envío peticion a un .php, el cual comprueba el usuario y la contraseña, y devuelve la funcion conectar() con los permisos que este usuario tiene
+	//de acuerdo a los permisos que devuelva este se imprimira en pantalla el menú. Si no conecta php devuelve la funcion noConecto()
+	
+	//enviamos formulario a yoconecto.php, por medio de ajax
+	var datos = $(formInfoAdicional).serialize();
+	$.ajax({
+        type: "POST",
+		dataType: "json", 
+        url:"phpHosp/nueva_info.php?boleta="+document.formNuevaEstadia.codigo_boleta.value,
+		data: datos,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		   outNuevaInfo();	
+		   
+		   cargarInfo(recibo.nuevoid);
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+function cargarInfo(recibo){
+		outNuevaInfo();	
+				
+		  
+		mostrarNuevaInfo(recibo);
+		 
+        
+}
+
+function mostrarNuevaInfo(recibo){
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/getDatosNuevaInfo.php", 
+        success: function(data){ 
+						
+			vhtml='';
+			vhtml+="<br><b>Fecha:</b>"+data.fecha;
+			vhtml+="<br><b>Hora:</b>"+data.hora;
+			vhtml+="<br><b>Expediente:</b>"+data.expediente;
+			vhtml+="&nbsp&nbsp<b>Motivo Ingreso:</b>"+data.motivo_consulta;
+			vhtml+="&nbsp&nbsp<b>Diagnósticos Provisionales:</b>"+data.diagnosticos_provisionales;
+		
+			
+		
+			$('div#datosAdicionales').html(vhtml);
+		
+        } 
+    }); 
+	
+}
+
+function mostrarNuevaInfoBoleta(recibo){
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/getDatosNuevaInfoBoleta.php", 
+        success: function(data){ 
+						
+			vhtml='';
+			vhtml+="<br><b>Fecha:</b>"+data.fecha;
+			vhtml+="<br><b>Hora:</b>"+data.hora;
+			vhtml+="<br><b>Expediente:</b>"+data.expediente;
+			vhtml+="&nbsp&nbsp<b>Motivo Ingreso:</b>"+data.motivo_consulta;
+			vhtml+="&nbsp&nbsp<b>Diagnósticos Provisionales:</b>"+data.diagnosticos_provisionales;
+			
+		
+			$('div#datosAdicionales').html(vhtml);
+		
+        } 
+    }); 
+	
+}
+</script>
+
+<!--add medico-->
+<div id="divSelectMedico" class="shadow">
+
+	<div id="buscador2" style="top:0%; left:0%; height:99%; width:35%;">
+		<form method="get" action="">
+		<input type="text" id="boxmedicoselect" name="boxmedicoselect"  onkeypress="if (event.keyCode == 13) return false"/>
+	
+		</form>    
+                  
+         <div id="resultsMedicosSelect"></div>        
+	</div>
+    
+    
+  
+<div id="contenidog" style="top:0%; left:36%; height:100%; width:63%;">   
+ 		<form id="formNuevoMedicoSelect" name="formNuevoMedicoSelect" method="post" action="">
+
+  <p>
+    <label>Nombre: 
+      <input name="nombres" type="text" id="nombres" size="50" maxlength="200" style="width:25%" onkeypress="if (event.keyCode == 13) grabarNuevoMedicoSelect()">
+    </label>
+     <br /><label>Direccion:
+      <input name="direccion" type="text" id="direccion" size="100" maxlength="200" style="width:25%" onkeypress="if (event.keyCode == 13) grabarNuevoMedicoSelect()">
+    </label>
+     <br /><label>Especialidad:
+      <input name="especialidad" type="text" id="especialidad" size="50" maxlength="200" style="width:25%" onkeypress="if (event.keyCode == 13) grabarNuevoMedicoSelect()">
+    </label>
+
+  </p>
+    
+  <p>&nbsp;</p>
+   
+<div id="separador" style="top:60%; height:37%; width:100%;">
+Números Telefónicos
+   <div id="divsubprecio" style="left:2%; top:40%">
+   Celular
+      <input name="celular" type="text" id="celular" size="10" style="width:90%; margin-bottom: 3%;"  onkeypress="if (event.keyCode == 13) grabarNuevoMedicoSelect()"/>
+  </div>
+  
+  <div id="divsubprecio" style="left:35%; top:40%">
+  Casa
+    <input name="casa" type="text" id="casa" size="10" style="width:90%; margin-bottom: 3%;"  onkeypress="if (event.keyCode == 13) grabarNuevoMedicoSelect()"/>
+  </div>
+  
+  <div id="divsubprecio" style="left:68%; top:40%">
+  Otro
+    <input name="otro" type="text" id="otro" size="10" style="width:90%; margin-bottom: 3%;"  onkeypress="if (event.keyCode == 13) grabarNuevoMedicoSelect()"/>
+  </div>
+</div>
+
+  <p>
+    <label><br>
+    </label>
+    <label>
+      <input type="button" name="bt13" id="bt13" value="Crear Nuevo" style="left:30%; top:98%">
+    </label>
+  </p>
+
+
+</form>
+
+</div>
+
+<div id='' onClick="outMedicosSelectDos();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+<!-------------------------------------------------------------------------------------------------------------->
+
+<div id="divDetalleHonorario" class="shadow">
+<form id="detalleHonorario" name="detalleHonorario" method="post" action="">
+
+  <div id="divsubprecio" style="left:0%; top:-50%">
+   Cod. en Sistema
+      </br><input name="boleta" type="text" id="boleta" size="10"  readonly="TRUE" style="width:20%; margin-bottom: 1%;" />
+      - <input name="medico" type="text" id="medico" size="10"  readonly="TRUE" style="width:20%; margin-bottom: 1%;" />
+       - <input name="medicoenboleta" type="text" id="medicoenboleta" size="10" readonly="TRUE"  style="width:20%; margin-bottom: 1%;" />
+  </div>
+  
+ <div id="divsubprecio" style="left:40%; top:110%">
+   Precio
+      </br>Q.<input name="precio" type="text" id="precio" size="10" style="width:80%; margin-bottom: 3%;"  onkeypress="if (event.keyCode == 13) dijoSi()"/>
+  </div>
+   <label>Descripción:<br />
+      <textarea name="descripcion" cols="46" id="descripcion" style="width:90%" onkeypress="if (event.keyCode == 13) dijoSi()"></textarea>
+    </label>
+    
+<label>
+     <input type="button" name="bt14" id="bt14" value="SÍ" style="left:90%; top:98%">
+   </label>
+   
+   <label>
+     <input type="button" name="bt15" id="bt15" value="NO" style="left:78%; top:98%">
+   </label>
+   
+</form>
+
+</div>
+
+<!--asignar medicamento-->
+<div id="divAsignarMedicamento" class="shadow">
+
+	<div id="buscador2" style="top:0%; left:0%; height:99%; width:34%;">
+		 <form id="formPedidoPendiente" name="formPedidoPendiente" method="post" action=""> 
+			ID Este Pedido: 
+   		 	<input name="id" type="text" id="id" size="10" readonly="TRUE" style="width:20%; margin-bottom: 3%;" />
+		</form>    
+        <div id="visualizoPedido"> </div>
+	</div>
+    
+    
+  
+	<div id="contenidog" style="top:0%; left:46%; height:100%; width:54%;overflow-y: auto;">   
+		 Pacientes actualmente en el Hospital:    
+         <div id="resultsPacientesActivos"  ></div>     
+	</div>
+
+<div id='' onClick="outAsignarMedicamento();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+
+
+<!--add servicio-->
+<div id="divSelectServicio" class="shadow">
+
+	<div id="buscador2" style="top:0%; left:0%; height:99%; width:35%;">
+		<form method="get" action="">
+		<input type="text" id="boxservicioselect" name="boxservicioselect"   onkeypress="if (event.keyCode == 13) return false"/>
+		
+		</form>    
+                  
+         <div id="resultsServiciosSelect"></div>        
+	</div>
+    
+    
+  
+<div id="contenidog" style="top:0%; left:36%; height:100%; width:63%;">   
+ 		<form id="formNuevoServicioSelect" name="formNuevoServicioSelect" method="post" action="">
+
+  <p>
+    <label>Nombre: 
+      <input name="nombre" type="text" id="nombre" size="70" maxlength="200" style="width:25%"   onkeypress="if (event.keyCode == 13) grabarNuevoServicioSelect()">
+    </label>
+     <br /><label>Descripción:<br />
+      <textarea name="descripcion" cols="46" id="descripcion" style="width:90%"  onkeypress="if (event.keyCode == 13) grabarNuevoServicioSelect()"></textarea>
+    </label>
+     <br /><label>Precio Sugerido: Q.
+      <input name="precio" type="text" id="precio" size="50" maxlength="200" style="width:25%"  onkeypress="if (event.keyCode == 13) grabarNuevoServicioSelect()">
+    </label>
+
+  </p>
+  
+  <p>&nbsp;</p>
+ 
+  <p>
+    <label><br>
+    </label>
+    <label>
+      <input type="button" name="bt16" id="bt16" value="Crear Nuevo" style="left:30%; top:98%">
+    </label>
+  </p>
+</form>
+</div>
+<div id='' onClick="outServicioSelectDos();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+<!-------------------------------------------------------------------------------------------------------------->
+
+<div id="divConfirmServicio" class="shadow">
+<form id="formConfirmServicio" name="formConfirmServicio" method="post" action="">
+
+   <p>
+     <br /><label>Cod. en sistema:
+      <input name="codigo" type="text" id="codigo" size="50"  readonly="TRUE" maxlength="200" style="width:25%">
+    </label>
+    
+   <br /> <label>Nombre: 
+      <input name="nombre" type="text" id="nombre" size="50" readonly="TRUE"  maxlength="200" style="width:25%">
+    </label>
+     <br /><label>Descripción:<br />
+      <textarea name="descripcion" cols="46" id="descripcion"  style="width:90%" onkeypress="if (event.keyCode == 13) confirmarServicioSeleccionado(document.formConfirmServicio.codigo.value)"></textarea>
+    </label>
+     <br /><label>Precio Sugerido: Q.
+      <input name="precio" type="text" id="precio" size="50" maxlength="200" style="width:25%" onkeypress="if (event.keyCode == 13) confirmarServicioSeleccionado(document.formConfirmServicio.codigo.value)">
+    </label>
+   
+
+  </p>
+  
+  <p>&nbsp;</p>
+ 
+  <p>
+    <label><br>
+    </label>
+    <label>
+      <input type="button" name="bt17" id="bt17" value="Listo" style="left:30%; top:98%">
+    </label>
+  </p>
+   
+</form>
+
+</div>
+
+<!--add medicamento-->
+<div id="divSelectMedicamento" class="shadow">
+
+	<div id="buscador2" style="top:0%; left:0%; height:99%; width:35%;">
+		<form method="get" action="">
+		<input type="text" id="boxmedicamentoselect" name="boxmedicamentoselect"  onkeypress="if (event.keyCode == 13) return false"/>
+		
+		</form>    
+                  
+         <div id="resultsMedicamentosSelect"></div>        
+	</div>
+    
+    
+  
+<div id="contenidog" style="top:0%; left:36%; height:100%; width:63%;">   
+ 		<form id="formNuevoMedicamentoSelect" name="formNuevoMedicamentoSelect" method="post" action="">
+
+  <p>
+    <label>Nombre: 
+      <input name="nombre" type="text" id="nombre" size="70" maxlength="200" style="width:25%" onkeypress="if (event.keyCode == 13) grabarNuevoMedicamentoSelect()">
+    </label>
+     <br /><label>Descripción:<br />
+      <textarea name="descripcion" cols="46" id="descripcion" style="width:90%" onkeypress="if (event.keyCode == 13) grabarNuevoMedicamentoSelect()"></textarea>
+    </label>
+     <br /><label>Precio: Q.
+      <input name="precio" type="text" id="precio" size="50" maxlength="200" style="width:25%" onkeypress="if (event.keyCode == 13) grabarNuevoMedicamentoSelect()">
+    </label>
+    
+    </label>
+     <br /><label>Precio Farmacia: Q.
+      <input name="precio_farmacia" type="text" id="precio_farmacia" size="50" maxlength="200" style="width:25%" onkeypress="if (event.keyCode == 13) grabarNuevoMedicamentoSelect()">
+    </label>
+
+  </p>
+  
+  <p>&nbsp;</p>
+ 
+  <p>
+    <label><br>
+    </label>
+    <label>
+      <input type="button" name="bt1001" id="bt1001" value="Crear Nuevo" style="left:30%; top:98%">
+    </label>
+  </p>
+</form>
+</div>
+<div id='' onClick="outMedicamentoSelectDos();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+<!-------------------------------------------------------------------------------------------------------------->
+
+<div id="divConfirmMedicamento" class="shadow">
+<form id="formConfirmMedicamento" name="formConfirmMedicamento" method="post" action="">
+
+   <p>
+     <br /><label>Cod. en sistema:
+      <input name="codigo" type="text" id="codigo" size="50"  readonly="TRUE" maxlength="200" style="width:25%">
+    </label>
+    
+   <br /> <label>Nombre: 
+      <input name="nombre" type="text" id="nombre" size="50" readonly="TRUE"  maxlength="200" style="width:25%">
+    </label>
+     <br /><label>Descripción:<br />
+      <textarea name="descripcion" cols="46" id="descripcion"  style="width:90%" onkeypress="if (event.keyCode == 13) confirmarMedicamentoSeleccionado(document.formConfirmMedicamento.codigo.value)"></textarea>
+    </label>
+     <br /><label>Cantidad.
+      <input name="cantidad" type="text" id="cantidad" size="50" maxlength="200" style="width:10%" value="1"  onkeypress="if (event.keyCode == 13) confirmarMedicamentoSeleccionado(document.formConfirmMedicamento.codigo.value)">
+    </label>
+     <label>Precio Sugerido: Q.
+      <input name="precio" type="text" id="precio" size="50" maxlength="200" style="width:25%" onkeypress="if (event.keyCode == 13) confirmarMedicamentoSeleccionado(document.formConfirmMedicamento.codigo.value)">
+    </label>
+   
+
+  </p>
+  
+  <p>&nbsp;</p>
+ 
+  <p>
+    <label><br>
+    </label>
+    <label>
+      <input type="button" name="bt1002" id="bt1002" value="Listo" style="left:30%; top:98%">
+    </label>
+  </p>
+   
+</form>
+
+</div>
+
+<!--permisos para eliminar-->
+
+<div id="divConfirmEliminado" class="shadow">
+<form id="formConfirmEliminado" name="formConfirmEliminado" method="post" action="">
+	NECESITA PERMISOS PARA ELIMINAR 
+   <p>
+   
+   <label>Cod. Procedimiento
+      <input name="codigo_procedimiento" type="text" id="codigo_procedimiento" size="5"  readonly="TRUE" maxlength="200" style="width:25%">
+    </label>
+    
+    <label>Tipo
+      <input name="tipo" type="text" id="tipo" size="20"  readonly="TRUE" maxlength="200" style="width:25%">
+    </label>
+    
+     <br /><br /><label>Clave de autorización:
+      <input name="clave"  type="password"   id="clave" size="50"  maxlength="200" style="width:25%" onkeypress="if (event.keyCode == 13) corroborarPeticion(document.formConfirmEliminado.codigo_procedimiento.value, document.formConfirmEliminado.tipo.value)">
+    </label>
+  </p>
+  
+  <p>&nbsp;</p>
+ 
+  <p>
+    <label><br>
+    </label>
+    <label>
+      <input type="button" name="bt1003" id="bt1003" value="Ok" style="left:30%; top:98%">
+    </label>
+  </p>
+   
+</form>
+<div id='' onClick="outConfirmProcedimiento();" style='position:absolute; top:-2%; left:-9%; width:20%; height:25%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+<SCRIPT>
+/////VARIABLES GLOBALES//////
+var global_tipo;
+var global_idmedico;
+var global_nombre;
+var global_idusus;
+var este_tipo;
+</SCRIPT> 
+
+
+<!--SCRIP PARA CONTROL DE BOLETA-->
+<script type="text/JavaScript">
+//funcion de permitir borrado
+function solicitarBorrado(recibo, tipo){
+inConfirmProcedimiento();
+document.formConfirmEliminado.codigo_procedimiento.value=recibo;
+document.formConfirmEliminado.tipo.value=tipo;
+}
+
+
+function corroborarPeticion(codigo, tipo){
+	clavepermiso="alpinadesk";
+	
+	if(tipo=="servicio"){
+		if(document.formConfirmEliminado.clave.value==clavepermiso){
+			borrarServiciodeLista(codigo);
+			outConfirmProcedimiento();
+		}else{
+			alert('Clave Incorrecta.');	
+		}
+	}
+	
+	if(tipo=="medicamento"){
+		if(document.formConfirmEliminado.clave.value==clavepermiso){
+			borrarMedicamentodeLista(codigo);
+			outConfirmProcedimiento();
+		}else{
+			alert('Clave Incorrecta.');	
+		}		
+	}
+	
+	if(tipo=="medico"){
+		if(document.formConfirmEliminado.clave.value==clavepermiso){
+			borrarMedicodeLista(codigo);
+			outConfirmProcedimiento();
+		}else{
+			alert('Clave Incorrecta.');	
+		}		
+	}
+
+	
+}
+
+//--------------------------------------MEDICAMENTOS------------------------------------------
+document.getElementById("bt1001").onclick = function () {
+	grabarNuevoMedicamentoSelect();
+}
+
+document.getElementById("bt1002").onclick = function () {
+	confirmarMedicamentoSeleccionado(document.formConfirmMedicamento.codigo.value);
+}
+
+document.getElementById("bt1003").onclick = function () {
+	corroborarPeticion(document.formConfirmEliminado.codigo_procedimiento.value, document.formConfirmEliminado.tipo.value);
+}
+
+
+
+
+var runningRequestMecSelect = false;
+var requestMecSelect; //Identify the typing action
+$('#boxmedicamentoselect').keyup(function(eMecSelect){
+	eMecSelect.preventDefault();
+	var $qMecSelect = $(this);
+	
+	if($qMecSelect.val() == ""){
+		$('div#resultsMedicamentosSelect').html("Escoja un Medicamento. Si aún no lo ha creado, llene el formulario de la derecha.");
+		return false;
+	}
+//Abort opened requests to speed it up
+	if(runningRequestMecSelect){
+		requestMecSelect.abort();
+	}
+
+	runningRequestMecSelect=true;
+	requestMecSelect = $.getJSON('phpHosp/searchmedicamentos.php',{q:$qMecSelect.val()},function(data){showResults(data,$qMecSelect.val());runningRequestMecSelect=false;});
+	
+//Create HTML structure for the results and insert it on the result div
+function showResults(data, highlight){
+	var resultHtml = '';
+	$.each(data, function(i,item){
+		resultHtml+="<div onClick=getDatosMedicamentoSelect("+item.idmedicamento+") id='despliegue'>&nbsp&nbsp"+item.nombre+"&nbsp&nbspQ."+item.precio_sugerido+"</div>";
+		//"+item.nombre_comercial+"','"+item.idmedicamento+"','divDatosProducto
+		//getDatosProducto(id)
+		//escogimedicamento();
+		//resultHtml+=item.idmedicamento+"<br>";
+	});
+	
+	$('div#resultsMedicamentosSelect').html(resultHtml);
+}
+
+$('form').submit(function(e){
+	eMec.preventDefault();
+});
+
+});
+
+
+function grabarNuevoMedicamentoSelect(){
+	
+	var datos = $(formNuevoMedicamentoSelect).serialize();
+	$.ajax({
+        type: "POST",
+		dataType: "json", 
+        url:"phpHosp/nuevo_medicamento.php",
+		data: datos,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		   
+		   //confirmarMedicamentoSeleccionado(recibo.nuevoid, recibo.precio, recibo.descripcion);
+		   getDatosMedicamentoSelect(recibo.nuevoid);
+		   
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+function getDatosMedicamentoSelect(recibo){
+	outMedicamentoSelect();	
+	inConfirmMedicamento();
+	
+	//request = $.getJSON('php/getDatosProducto.php',{id:recibo},llegadadatos);
+	
+	
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/getDatosMedicamento.php",
+        success: function(data){ 
+						
+			document.formConfirmMedicamento.nombre.value = data.nombre; 
+			document.formConfirmMedicamento.descripcion.value = data.descripcion; 
+			document.formConfirmMedicamento.precio.value = data.precio; 
+			document.formConfirmMedicamento.codigo.value = data.idmedicamento; 
+
+	
+		
+        } 
+    }); 
+	
+}
+
+
+
+function confirmarMedicamentoSeleccionado(codigomedicamento){
+	if(parseInt(global_tipo)!=2){
+	$.ajax({
+        type: "GET",
+		dataType: "json", 
+        url:"phpHosp/escogiMedicamento.php?boleta="+document.formNuevaEstadia.codigo_boleta.value+"&codigo="+codigomedicamento+"&precio="+document.formConfirmMedicamento.precio.value+"&descripcion="+document.formConfirmMedicamento.descripcion.value+"&cantidad="+document.formConfirmMedicamento.cantidad.value, 
+		data: "mm=0",
+        async: true,
+        success: function(recibo){    
+          		outConfirmMedicamento();
+ 				rellenarMedicamentosBoleta();
+				
+				calculoTotal(document.formNuevaEstadia.codigo_boleta.value);
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+	
+	}else{
+		outMedicamentoSelectDos();
+		rellenarMedicamentosBoleta();		
+		calculoTotal(document.formNuevaEstadia.codigo_boleta.value);
+	}
+	
+}
+
+function confirmarMedicamentoSeleccionadoDos(codigomedicamento, precio, descripcion){
+	if(parseInt(global_tipo)!=2){
+	$.ajax({
+        type: "GET",
+		dataType: "json", 
+        url:"phpHosp/escogiMedicamento.php?boleta="+document.formNuevaEstadia.codigo_boleta.value+"&codigo="+codigomedicamento+"&precio="+precio+"&descripcion="+descripcion, 
+		data: "mm=0",
+        async: true,
+        success: function(recibo){    
+          		//outConfirmServicio();
+				
+				outMedicamentoSelectDos();
+				rellenarMedicamentosBoleta();
+				
+				calculoTotal(document.formNuevaEstadia.codigo_boleta.value);
+ 
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+	}else{
+		outMedicamentoSelectDos();
+		rellenarMedicamentosBoleta();		
+		calculoTotal(document.formNuevaEstadia.codigo_boleta.value);
+	}
+	
+}
+
+function rellenarMedicamentosBoleta(){
+recibo=document.formNuevaEstadia.codigo_boleta.value;
+
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/getMedicamentosBoleta.php", 
+        success: function(data){ 
+			cosa=0.00;
+			var resultHtml = '';
+			
+			$.each(data, function(i,item){
+								  
+				if(global_tipo==0 || global_tipo==1  || global_tipo==4){
+								  
+				resultHtml+="<br/><div id='despliegueDetalle' style='font-size:"+document.body.clientWidth/110 + 'px' + ";'> ";
+				
+				resultHtml+="<div onClick=solicitarBorrado("+item.idboleta_medicamentos+",'medicamento') id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:9%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'><img src='botones/x.png' style='width:50%; height:auto;'> </div> ";
+				
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:60%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.nombre+"</div>";
+				
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:10%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.cantidad+"</div>";
+		
+				resultHtml+="<div id='divpTextoDetallePrecio' style='position:static; top:1%; left:1%; width:30; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp Q."+item.total+"</div>";	
+				
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:99%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp"+item.descripcion+"</div> </div>";
+				}
+				
+								
+				if(global_tipo==2){
+				resultHtml+="<br/><div id='despliegueDetalle' style='font-size:"+document.body.clientWidth/110 + 'px' + ";'> ";
+				
+				//resultHtml+="<div onClick=solicitarBorrado("+item.idboleta_medicamentos+",'medicamento') id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:8%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				//resultHtml+="'><img src='botones/x.png' style='width:50%; height:auto;'> </div> ";
+				
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:60%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.nombre+"</div>";
+				
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:20%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbspCant. "+item.cantidad+"</div>";
+		
+				resultHtml+="<div id='divpTextoDetallePrecio' style='position:static; top:1%; left:1%; width:30; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp Q."+item.total+"</div>";	
+				
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:99%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp"+item.descripcion+"</div> </div>";
+				}
+				
+				if(global_tipo==3){
+								  
+				resultHtml+="<br/><div id='despliegueDetalle' style='font-size:"+document.body.clientWidth/110 + 'px' + ";'> ";
+				
+				//resultHtml+="<div onClick=solicitarBorrado("+item.idboleta_medicamentos+",'medicamento') id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:8%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				//resultHtml+="'><img src='botones/x.png' style='width:50%; height:auto;'> </div> ";
+				
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:70%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.nombre+"</div>";
+				
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:30%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbspCant. "+item.cantidad+"</div>";
+		
+				//resultHtml+="<div id='divpTextoDetallePrecio' style='position:static; top:1%; left:1%; width:30; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				//resultHtml+="'>&nbsp&nbsp&nbsp Q."+item.total+"</div>";	
+				
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:99%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp"+item.descripcion+"</div> </div>";
+				}
+				
+				
+				
+				cosa+=parseFloat(item.total);
+				
+				
+			});
+			
+					if(global_tipo==0 || global_tipo==1 || global_tipo==2){
+					resultHtml+="<div id='divpTextoDetalleDos' style='width:100%;'>";
+					resultHtml+="<div id='separadorEste' style='position:static; top:1%; left:1%; width:100%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+					resultHtml+="'>&nbsp&nbsp&nbspTOTAL MEDICAMENTOS Q."+((Math.round(cosa)*100)/100);
+					resultHtml+="</div>";
+					resultHtml+="</div>";
+					}
+			
+			$('div#divListoMedicamentos').html(resultHtml);		
+			
+        } 
+		
+    }); 
+
+	
+}
+
+function borrarMedicamentodeLista(recibo){
+	
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/borrarMedicamentoBoleta.php", 
+        success: function(data){ 
+				rellenarMedicamentosBoleta();
+				calculoTotal(document.formNuevaEstadia.codigo_boleta.value);	
+        } 
+		
+    }); 
+	
+}
+
+
+//--------------------------------------SERVICIOS------------------------------------------
+document.getElementById("bt16").onclick = function () {
+	grabarNuevoServicioSelect();
+}
+
+document.getElementById("bt17").onclick = function () {
+	confirmarServicioSeleccionado(document.formConfirmServicio.codigo.value);
+}
+
+
+var runningRequestServSelect = false;
+var requestServSelect; //Identify the typing action
+$('#boxservicioselect').keyup(function(eServSelect){
+	eServSelect.preventDefault();
+	var $qServSelect = $(this);
+	
+	if($qServSelect.val() == ""){
+		$('div#resultsServiciosSelect').html("Escoja un Servicio. Si aún no lo ha creado, llene el formulario de la derecha.");
+		return false;
+	}
+//Abort opened requests to speed it up
+	if(runningRequestServSelect){
+		requestServSelect.abort();
+	}
+
+	runningRequestServSelect=true;
+	requestServSelect = $.getJSON('phpHosp/searchservicios.php',{q:$qServSelect.val()},function(data){showResults(data,$qServSelect.val());runningRequestServSelect=false;});
+	
+//Create HTML structure for the results and insert it on the result div
+function showResults(data, highlight){
+	var resultHtml = '';
+	$.each(data, function(i,item){
+		resultHtml+="<div onClick=getDatosServicioSelect("+item.idservicio+") id='despliegue'>&nbsp&nbsp"+item.nombre+"&nbsp&nbspQ."+item.precio_sugerido+"</div>";
+		//"+item.nombre_comercial+"','"+item.idmedicamento+"','divDatosProducto
+		//getDatosProducto(id)
+		//escogimedicamento();
+		//resultHtml+=item.idmedicamento+"<br>";
+	});
+	
+	$('div#resultsServiciosSelect').html(resultHtml);
+}
+
+$('form').submit(function(e){
+	ePaci.preventDefault();
+});
+
+});
+
+
+function grabarNuevoServicioSelect(){
+	//envío peticion a un .php, el cual comprueba el usuario y la contraseña, y devuelve la funcion conectar() con los permisos que este usuario tiene
+	//de acuerdo a los permisos que devuelva este se imprimira en pantalla el menú. Si no conecta php devuelve la funcion noConecto()
+	
+	//enviamos formulario a yoconecto.php, por medio de ajax
+	
+	var datos = $(formNuevoServicioSelect).serialize();
+	$.ajax({
+        type: "POST",
+		dataType: "json", 
+        url:"phpHosp/nuevo_servicio.php",
+		data: datos,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		   
+		   confirmarServicioSeleccionadoDos(recibo.nuevoid, recibo.precio, recibo.descripcion);
+		   
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+	
+}
+
+function getDatosServicioSelect(recibo){
+	outServicioSelect();	
+	inConfirmServicio();
+	
+	//request = $.getJSON('php/getDatosProducto.php',{id:recibo},llegadadatos);
+	
+	
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/getDatosServicio.php",
+        success: function(data){ 
+						
+			document.formConfirmServicio.nombre.value = data.nombre; 
+			document.formConfirmServicio.descripcion.value = data.descripcion; 
+			document.formConfirmServicio.precio.value = data.precio_sugerido; 
+			document.formConfirmServicio.codigo.value = data.idservicio; 
+
+	
+		
+        } 
+    }); 
+	
+}
+
+
+
+function confirmarServicioSeleccionado(codigoservicio){
+	if(parseInt(global_tipo)!=2){
+	$.ajax({
+        type: "GET",
+		dataType: "json", 
+        url:"phpHosp/escogiServicio.php?boleta="+document.formNuevaEstadia.codigo_boleta.value+"&codigo="+codigoservicio+"&precio="+document.formConfirmServicio.precio.value+"&descripcion="+document.formConfirmServicio.descripcion.value, 
+		data: "mm=0",
+        async: true,
+        success: function(recibo){    
+          		outConfirmServicio();
+ 				rellenarServiciosBoleta();
+				
+				calculoTotal(document.formNuevaEstadia.codigo_boleta.value);
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+	}else{
+		outConfirmServicio();
+ 		rellenarServiciosBoleta();
+				
+		calculoTotal(document.formNuevaEstadia.codigo_boleta.value);
+	}
+	
+}
+
+function confirmarServicioSeleccionadoDos(codigoservicio, precio, descripcion){
+	if(parseInt(global_tipo)!=2){
+	$.ajax({
+        type: "GET",
+		dataType: "json", 
+        url:"phpHosp/escogiServicio.php?boleta="+document.formNuevaEstadia.codigo_boleta.value+"&codigo="+codigoservicio+"&precio="+precio+"&descripcion="+descripcion, 
+		data: "mm=0",
+        async: true,
+        success: function(recibo){    
+          		//outConfirmServicio();
+				
+				outServicioSelectDos();
+				rellenarServiciosBoleta();
+				
+				calculoTotal(document.formNuevaEstadia.codigo_boleta.value);
+ 
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+	}else{
+		outConfirmServicio();
+ 		rellenarServiciosBoleta();
+				
+		calculoTotal(document.formNuevaEstadia.codigo_boleta.value);
+	}
+	
+}
+
+function rellenarServiciosBoleta(){
+recibo=document.formNuevaEstadia.codigo_boleta.value;
+
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/getServiciosBoleta.php", 
+        success: function(data){ 
+			cosa=0.00;
+			var resultHtml = '';
+			
+			$.each(data, function(i,item){
+								  
+				if(global_tipo==0 || global_tipo==1 || global_tipo==4){
+								  
+				resultHtml+="<br/><div id='despliegueDetalle' style='font-size:"+document.body.clientWidth/110 + 'px' + ";'> ";
+				
+				resultHtml+="<div onClick=solicitarBorrado("+item.idboleta_servicios+",'servicio') id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:10%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'><img src='botones/x.png' style='width:50%; height:auto;'> </div> ";
+				
+				resultHtml+="<div onClick=cargoDetalle() id='divpTextoDetalle' style='position:static; left:1%; top:1%; height:10%; width:10%;'><img src='botones/minu.png' style='width:100%; height:5%; '> </div>";
+				
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:50%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.nombre+"</div>";
+	
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:30%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp Q."+item.precio+"</div>";	
+				
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:100%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp"+item.descripcion+"</div> </div>";
+				}
+				
+				if(global_tipo==2){
+								  
+				resultHtml+="<br/><div id='despliegueDetalle' style='font-size:"+document.body.clientWidth/110 + 'px' + ";'> ";
+				
+				//resultHtml+="<div onClick=solicitarBorrado("+item.idboleta_servicios+",'servicio') id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:10%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				//resultHtml+="'><img src='botones/x.png' style='width:50%; height:auto;'> </div> ";
+				
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:70%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.nombre+"</div>";
+		
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:30%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp Q."+item.precio+"</div>";	
+				
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:100%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp"+item.descripcion+"</div> </div>";
+				}
+				
+				if(global_tipo==3){
+								  
+				resultHtml+="<br/><div id='despliegueDetalle' style='font-size:"+document.body.clientWidth/110 + 'px' + ";'> ";
+				
+				//resultHtml+="<div onClick=solicitarBorrado("+item.idboleta_servicios+",'servicio') id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:10%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				//resultHtml+="'><img src='botones/x.png' style='width:50%; height:auto;'> </div> ";
+				
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:100%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.nombre+"</div>";
+		
+				//resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:30%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				//resultHtml+="'>&nbsp&nbsp&nbsp Q."+item.precio+"</div>";	
+				
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:100%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp"+item.descripcion+"</div> </div>";
+				}
+				
+				cosa+=parseFloat(item.precio);
+				
+			});
+			
+				if(global_tipo==0 || global_tipo==1 || global_tipo==2){
+					resultHtml+="<div id='divpTextoDetalleDos' style='width:100%;'>";
+					resultHtml+="<div id='separadorEste' style='position:static; top:1%; left:1%; width:100%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+					resultHtml+="'>&nbsp&nbsp&nbspTOTAL SERVICIOS Q."+((Math.round(cosa)*100)/100);
+					resultHtml+="</div>";
+					resultHtml+="</div>";
+				}
+			
+			
+			$('div#divListoServicios').html(resultHtml);		
+			
+        } 
+		
+    }); 
+
+	
+}
+
+
+
+function borrarServiciodeLista(recibo){
+	
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/borrarServicioBoleta.php", 
+        success: function(data){ 
+				rellenarServiciosBoleta();
+				calculoTotal(document.formConfirmEliminado.codigo_procedimiento.value);	
+        } 
+		
+    }); 
+	
+}
+
+/*function obtendoMedicamentoBoleta(){
+	
+	$.ajax({ 
+        data: "id="+document.formNuevaEstadia.codigo_boleta.value, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/getMedicamentosPendientesUno.php", 
+        success: function(data){ 
+			
+			var resultHtml = '';
+			resultHtml+="<div id='divMedicamentosFaltantes'" ;	
+			grabo=0;
+			cosa=0;
+			
+			$.each(data, function(i,item){
+
+				if(parseInt(item.idfactura)==parseInt(grabo) || parseInt(grabo)==0){	
+				
+					if(parseInt(grabo)==0){	resultHtml+="onClick=preguntarAsignacionMedicamento("+item.idfactura+") >";	}	
+				
+				//resultHtml+="<div onClick=borrarMedicodeLista("+item.idboleta_medicos+") id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:10%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				//resultHtml+="'><img src='botones/x.png' style='width:50%; height:auto;'> </div> ";
+				
+				resultHtml+="<div id='divpTextoDetalleDos' style='width:100%;'>";
+				
+				resultHtml+="<div id='divpTextoDetalleDos' style='position:static; top:1%; left:1%; width:10%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.cantidad+"</div>";
+				
+				resultHtml+="<div id='divpTextoDetalleDos' style='position:static; top:1%; left:1%; width:68%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp"+item.nombre_comercial+"</div>";
+				
+				resultHtml+="<div id='divpTextoDetalleDos' style='position:static; top:1%; left:1%; width:20%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp Q."+item.subtotal+"</div> ";	
+				cosa+=parseInt(item.subtotal);
+				
+				resultHtml+="</div>";
+				
+				}else{
+					resultHtml+="<div id='divpTextoDetalleDos' style='width:100%;'>";
+					resultHtml+="<div id='separadorEste' style='position:static; top:1%; left:1%; width:100%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+					resultHtml+="'>MONTO Q."+cosa;
+					resultHtml+="</div>";
+					resultHtml+="</div>";
+					
+					resultHtml+="</div>";
+					
+					
+					cosa=0;
+					resultHtml+="<div id='divMedicamentosFaltantes' onClick=preguntarAsignacionMedicamento("+item.idfactura+") >";	
+					
+				
+				//resultHtml+="<div onClick=borrarMedicodeLista("+item.idboleta_medicos+") id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:10%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				//resultHtml+="'><img src='botones/x.png' style='width:50%; height:auto;'> </div> ";
+				resultHtml+="<div id='divpTextoDetalleDos' style='width:100%;'>";
+				
+				resultHtml+="<div id='divpTextoDetalleDos' style='position:static; top:1%; left:1%; width:10%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.cantidad+"</div>";
+				
+				resultHtml+="<div id='divpTextoDetalleDos' style='position:static; top:1%; left:1%; width:68%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp"+item.nombre_comercial+"</div>";
+				
+				resultHtml+="<div id='divpTextoDetalleDos' style='position:static; top:1%; left:1%; width:20%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp Q."+item.subtotal+"</div> ";
+				cosa+=parseInt(item.subtotal);
+				
+				resultHtml+="</div>";
+					
+				}
+				
+				grabo=item.idfactura;
+				
+				
+			
+				
+			});
+					resultHtml+="<div id='divpTextoDetalleDos' style='width:100%;'>";
+					resultHtml+="<div id='separadorEste' style='position:static; top:1%; left:1%; width:100%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+					resultHtml+="'>&nbsp&nbsp&nbspMONTO Q."+cosa;
+					resultHtml+="</div>";
+					resultHtml+="</div>";
+					
+			resultHtml+="</div>";
+			
+			
+			$('div#divListoMedicamentos').html(resultHtml);		
+			
+        } 
+		
+    }); 
+
+	
+}*/
+
+
+//----------------------------MEDICOS----------------------------------------------
+
+document.getElementById("bt13").onclick = function () {
+	grabarNuevoMedicoSelect();
+}
+
+document.getElementById("bt14").onclick = function () {
+	dijoSi();
+}
+
+document.getElementById("bt15").onclick = function () {
+	dijoNo();
+}
+
+
+
+
+var runningRequestMedSelect = false;
+var requestMedSelect; //Identify the typing action
+$('#boxmedicoselect').keyup(function(eMedSelect){
+	eMedSelect.preventDefault();
+	var $qMedSelect = $(this);
+	
+	if($qMedSelect.val() == ""){
+		$('div#resultsMedicosSelect').html("Escoja un Médico. Si aún no lo ha creado, llene el formulario de la derecha.");
+		return false;
+	}
+//Abort opened requests to speed it up
+	if(runningRequestMedSelect){
+		requestMedSelect.abort();
+	}
+
+	runningRequestMedSelect=true;
+	requestMedSelect = $.getJSON('phpHosp/searchdoctores.php',{q:$qMedSelect.val()},function(data){showResults(data,$qMedSelect.val());runningRequestMedSelect=false;});
+	
+//Create HTML structure for the results and insert it on the result div
+function showResults(data, highlight){
+	var resultHtml = '';
+	$.each(data, function(i,item){
+		
+		resultHtml+="<div onClick=escogiMedicoSel("+item.idmedico+") id='despliegue'>&nbsp&nbsp"+item.nombre+"</div>";
+		//"+item.nombre_comercial+"','"+item.idmedicamento+"','divDatosProducto
+		//getDatosProducto(id)
+		//escogimedicamento();
+		//resultHtml+=item.idmedicamento+"<br>";
+	});
+	
+	$('div#resultsMedicosSelect').html(resultHtml);
+}
+
+$('form').submit(function(e){
+	ePaci.preventDefault();
+});
+
+});
+
+
+function grabarNuevoMedicoSelect(){
+	//envío peticion a un .php, el cual comprueba el usuario y la contraseña, y devuelve la funcion conectar() con los permisos que este usuario tiene
+	//de acuerdo a los permisos que devuelva este se imprimira en pantalla el menú. Si no conecta php devuelve la funcion noConecto()
+	
+	//enviamos formulario a yoconecto.php, por medio de ajax
+	var datos = $(formNuevoMedicoSelect).serialize();
+	$.ajax({
+        type: "POST",
+		dataType: "json", 
+        url:"phpHosp/nuevo_doctor.php",
+		data: datos,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		   outMedicosSelect();	
+		   
+		   escogiMedicoSel(recibo.nuevoid);
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+function escogiMedicoSel(recibo){
+	if(parseInt(global_tipo)!=2){
+	//request = $.getJSON('php/getDatosProducto.php',{id:recibo},llegadadatos);
+	outMedicosSelect();	
+				
+		var datosnine = $(formNuevoMedicoSelect).serialize();
+	$.ajax({
+        type: "POST",
+		dataType: "json", 
+        url:"phpHosp/escogiMedico.php?medico="+recibo+"&codigo_boleta="+document.formNuevaEstadia.codigo_boleta.value,
+		data: datosnine,
+        async: true,
+        success: function(respuesta){ 
+			outMedicosSelect();	
+			document.detalleHonorario.medicoenboleta.value=respuesta.nuevoid;
+			
+		   	//mostrarMedicoEscogido(recibo);
+			if(parseInt(global_tipo)==0){
+			preguntarDetalleHonorario(recibo);
+			}
+			
+			/*if(parseInt(global_tipo)==2 || parseInt(global_tipo)==0){
+			preguntarDetalleHonorario(recibo);
+			}*/
+		 
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+	
+	}
+	
+}
+
+
+function rellenarMedicosBoleta(){
+recibo=document.formNuevaEstadia.codigo_boleta.value;
+
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/getMedicosBoleta.php", 
+        success: function(data){ 
+
+			var resultHtml = '';
+			
+			$.each(data, function(i,item){
+								  
+				if( parseInt(global_tipo)==2 && (parseInt(global_idmedico)==parseInt(item.idmedico)) ){
+				resultHtml+="<br/><div id='despliegueDetalle' style='font-size:"+document.body.clientWidth/110 + 'px' + ";'> ";
+				
+				resultHtml+="<div onClick=solicitarBorrado("+item.idboleta_medicos+",'medico') id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:10%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'><img src='botones/x.png' style='width:50%; height:auto;'> </div> ";
+				
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:60%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.nombre+"</div>";
+		
+				resultHtml+="<div onClick=preguntarDetalleHonorarioDos("+item.idboleta_medicos+") id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:30%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp Q."+item.precio_honorario+"</div>";	
+				
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:100%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp"+item.descripcion+"</div> </div>";
+				}
+				
+				if(parseInt(global_tipo)==0 || parseInt(global_tipo)==1){
+				resultHtml+="<br/><div id='despliegueDetalle' style='font-size:"+document.body.clientWidth/110 + 'px' + ";'> ";
+				
+				resultHtml+="<div onClick=solicitarBorrado("+item.idboleta_medicos+",'medico') id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:10%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'><img src='botones/x.png' style='width:50%; height:auto;'> </div> ";
+				
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:60%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.nombre+"</div>";
+		
+				resultHtml+="<div onClick=preguntarDetalleHonorarioDos("+item.idboleta_medicos+") id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:30%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp Q."+item.precio_honorario+"</div>";	
+				
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:100%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp"+item.descripcion+"</div> </div>";
+				}
+				
+			/*	if(parseInt(global_tipo)==1){////guardar por si acaso......
+				resultHtml+="<br/><div id='despliegueDetalle' style='font-size:"+document.body.clientWidth/110 + 'px' + ";'> ";
+				
+				resultHtml+="<div onClick=solicitarBorrado("+item.idboleta_medicos+",'medico') id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:10%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'><img src='botones/x.png' style='width:50%; height:auto;'> </div> ";
+				
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:60%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.nombre+"</div>";
+		
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:30%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp Q."+item.precio_honorario+"</div>";	
+				
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:100%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp"+item.descripcion+"</div> </div>";
+				}*/
+				
+				if(parseInt(global_tipo)==3 || parseInt(global_tipo)==4){
+				resultHtml+="<br/><div id='despliegueDetalle' style='font-size:"+document.body.clientWidth/110 + 'px' + ";'> ";
+				
+				resultHtml+="<div onClick=solicitarBorrado("+item.idboleta_medicos+",'medico') id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:10%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'><img src='botones/x.png' style='width:50%; height:auto;'> </div> ";
+				
+				resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:60%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.nombre+"</div>";
+		
+				//resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:30%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				//resultHtml+="'>&nbsp&nbsp&nbsp Q."+item.precio_honorario+"</div>";	
+				
+				//resultHtml+="<div id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:100%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				//resultHtml+="'>&nbsp&nbsp&nbsp"+item.descripcion+"</div> </div>";
+				
+				resultHtml+="</div>";
+				}
+				
+				
+				
+				
+			});
+			
+			
+			$('div#doctoresImplicados').html(resultHtml);		
+			
+        } 
+		
+    }); 
+
+	
+}
+
+function borrarMedicodeLista(recibo){
+	
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/borrarMedicoBoleta.php", 
+        success: function(data){ 
+				rellenarMedicosBoleta();
+				calculoTotal(document.formNuevaEstadia.codigo_boleta.value);	
+        } 
+		
+    }); 
+	
+}
+
+
+function preguntarDetalleHonorario(recibo){
+	inDetalleHonorario();
+	
+	document.detalleHonorario.boleta.value=document.formNuevaEstadia.codigo_boleta.value;
+	document.detalleHonorario.medico.value=parseInt(recibo);
+	
+}
+
+function preguntarDetalleHonorarioDos(recibo){
+	inDetalleHonorario();
+	
+	document.detalleHonorario.medicoenboleta.value=parseInt(recibo);
+	document.detalleHonorario.boleta.value=document.formNuevaEstadia.codigo_boleta.value;
+	//document.detalleHonorario.medico.value=parseInt(recibo);
+	
+}
+
+function dijoSi(){
+	var datosocho = $(detalleHonorario).serialize();
+	$.ajax({
+        type: "POST",
+        url:"phpHosp/addDetalleHonorario.php",
+		data: datosocho,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		   //llenarFactura_Detalle(document.formNuevaFact.greciboNuevoId.value);
+		  outDetalleHonorario();
+		  
+		  rellenarMedicosBoleta();
+		  
+		  calculoTotal(document.formNuevaEstadia.codigo_boleta.value);
+		 // alert('Cambios realizados!');
+		  
+		 // getDatosPaciente(document.formEditDoctor.codigo.value);
+		 
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+function dijoNo(){
+	outDetalleHonorario();
+	rellenarMedicosBoleta();
+}
+
+
+
+function actualizarDoctor(){
+	var datosocho = $(formEditDoctor).serialize();
+	$.ajax({
+        type: "POST",
+        url:"phpHosp/actualizarDoctor.php",
+		data: datosocho,
+        async: true,
+        success: function(recibo){    
+          //eval(recibo);	
+		   //llenarFactura_Detalle(document.formNuevaFact.greciboNuevoId.value);
+		  
+		  alert('Cambios realizados!');
+		  
+		  getDatosPaciente(document.formEditDoctor.codigo.value);
+		 
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+/////////PARTE DE MEDICAMENTOS QUE YA NO SE USARÁ
+//setInterval("obtendoMedicamentoPendiente()",30000);
+//obtendoMedicamentoPendiente();
+function obtendoMedicamentoPendiente(){
+
+	$.ajax({ 
+        data: "id=0", 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/getMedicamentosPendientes.php", 
+        success: function(data){ 
+
+			var resultHtml = '';
+			resultHtml+="<div id='divMedicamentosFaltantes' class='shadowTres'" ;	
+			grabo=0;
+			cosa=0;
+			
+			$.each(data, function(i,item){
+
+				if(parseInt(item.idfactura)==parseInt(grabo) || parseInt(grabo)==0){	
+				
+					if(parseInt(grabo)==0){	resultHtml+="onClick=preguntarAsignacionMedicamento("+item.idfactura+") >";	}	
+				
+				//resultHtml+="<div onClick=borrarMedicodeLista("+item.idboleta_medicos+") id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:10%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				//resultHtml+="'><img src='botones/x.png' style='width:50%; height:auto;'> </div> ";
+				
+				resultHtml+="<div id='divpTextoDetalleDos'  style='width:100%;'>";
+				
+				resultHtml+="<div id='divpTextoDetalleDos' style='position:static; top:1%; left:1%; width:10%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.cantidad+"</div>";
+				
+				resultHtml+="<div id='divpTextoDetalleDos' style='position:static; top:1%; left:1%; width:68%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp"+item.nombre_comercial+"</div>";
+				
+				resultHtml+="<div id='divpTextoDetalleDos' style='position:static; top:1%; left:1%; width:20%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp Q."+item.subtotal+"</div> ";	
+				cosa+=parseInt(item.subtotal);
+				
+				resultHtml+="</div>";
+				
+				}else{
+					resultHtml+="<div id='divpTextoDetalle' style='width:100%;'>";
+					resultHtml+="<div id='separadorEste' style='position:static; top:1%; left:1%; width:100%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+					resultHtml+="'>MONTO Q."+cosa;
+					resultHtml+="</div>";
+					resultHtml+="</div>";
+					
+					resultHtml+="</div>";
+					
+					cosa=0;
+					resultHtml+="<div id='divMedicamentosFaltantes' class='shadowTres' onClick=preguntarAsignacionMedicamento("+item.idfactura+") >";	
+					
+				
+				//resultHtml+="<div onClick=borrarMedicodeLista("+item.idboleta_medicos+") id='divpTextoDetalle' style='position:static; top:1%; left:1%; width:10%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				//resultHtml+="'><img src='botones/x.png' style='width:50%; height:auto;'> </div> ";
+				resultHtml+="<div id='divpTextoDetalleDos' style='width:100%;'>";
+				
+				resultHtml+="<div id='divpTextoDetalleDos' style='position:static; top:1%; left:1%; width:10%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.cantidad+"</div>";
+				
+				resultHtml+="<div id='divpTextoDetalleDos' style='position:static; top:1%; left:1%; width:68%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp"+item.nombre_comercial+"</div>";
+				
+				resultHtml+="<div id='divpTextoDetalleDos' style='position:static; top:1%; left:1%; width:20%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp Q."+item.subtotal+"</div> ";
+				cosa+=parseInt(item.subtotal);
+				
+				resultHtml+="</div>";
+					
+				}
+				
+				grabo=item.idfactura;
+				
+			});
+					resultHtml+="<div id='divpTextoDetalleDos' style='width:100%;'>";
+					resultHtml+="<div id='separadorEste' style='position:static; top:1%; left:1%; width:100%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+					resultHtml+="'>&nbsp&nbsp&nbspMONTO Q."+cosa;
+					resultHtml+="</div>";
+					resultHtml+="</div>";
+					
+			resultHtml+="</div>";
+			
+			$('div#divContenedorMedicamentoPendiente').html(resultHtml);		
+			
+        } 
+		
+    }); 
+
+	
+}
+
+
+function preguntarAsignacionMedicamento(recibo){
+	document.formPedidoPendiente.id.value=recibo;
+	
+	inAsignarMedicamento();	
+	
+	obtenerPacientesActivos();
+	visualizarPedidoPendiente();
+	
+}
+
+function obtenerPacientesActivos(){
+
+	$.ajax({ 
+        data: "id=0", 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/getPacientesActivos.php", 
+        success: function(data){ 
+
+			var resultHtml = '';
+			
+			$.each(data, function(i,item){
+								 
+			
+				resultHtml+="<div onClick=AsignarMedicamentoA("+item.idboleta+","+document.formPedidoPendiente.id.value+") id='despliegue'>&nbsp&nbsp"+item.nombres+"&nbsp"+item.apellidos+"</div>";
+							
+				
+				
+				
+			});
+			
+			
+			$('div#resultsPacientesActivos').html(resultHtml);		
+			
+        } 
+		
+    }); 
+
+	
+}
+
+function visualizarPedidoPendiente(){
+
+	$.ajax({ 
+        data: "id="+document.formPedidoPendiente.id.value, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/getMedicamentosPententesUno.php", 
+        success: function(data){ 
+			cosa=0;
+			var resultHtml = '';
+			resultHtml+="<b> ESTE MEDICAMENTO: </b>";
+			
+			$.each(data, function(i,item){
+								  
+				resultHtml+="<div id='divpTextoDetalleDos' style='width:100%;'>";
+				
+				resultHtml+="<div id='divpTextoDetalleDos' style='position:static; top:1%; left:1%; width:10%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.cantidad+"</div>";
+				
+				resultHtml+="<div id='divpTextoDetalleDos' style='position:static; top:1%; left:1%; width:68%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp"+item.nombre_comercial+"</div>";
+				
+				resultHtml+="<div id='divpTextoDetalleDos' style='position:static; top:1%; left:1%; width:20%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp Q."+item.subtotal+"</div> ";
+				cosa+=parseInt(item.subtotal);
+				
+				resultHtml+="</div>";
+			
+			});
+			
+					resultHtml+="<div id='divpTextoDetalleDos' style='width:100%;'>";
+					resultHtml+="<div id='separadorEste' style='position:static; top:1%; left:1%; width:100%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+					resultHtml+="'>&nbsp&nbsp&nbspMONTO Q."+cosa;
+					resultHtml+="</div>";
+					resultHtml+="</div>";
+			
+			$('div#visualizoPedido').html(resultHtml);		
+			
+        } 
+		
+    }); 
+
+	
+}
+
+function visualizarPedidoPendienteBoleta(){
+
+	$.ajax({ 
+        data: "id="+document.formNuevaEstadia.codigo_boleta.value, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/getMedicamentosPententesUnoBoleta.php", 
+        success: function(data){ 
+			cosa=0;
+			var resultHtml = '';
+			resultHtml+="<b> ESTE MEDICAMENTO: </b>";
+			
+			$.each(data, function(i,item){
+								  
+				resultHtml+="<div id='divpTextoDetalleDos' style='width:100%;'>";
+				
+				resultHtml+="<div id='divpTextoDetalleDos' style='position:static; top:1%; left:1%; width:10%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.cantidad+"</div>";
+				
+				resultHtml+="<div id='divpTextoDetalleDos' style='position:static; top:1%; left:1%; width:68%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp"+item.nombre_comercial+"</div>";
+				
+				resultHtml+="<div id='divpTextoDetalleDos' style='position:static; top:1%; left:1%; width:20%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+				resultHtml+="'>&nbsp&nbsp&nbsp Q."+item.subtotal+"</div> ";
+				cosa+=parseInt(item.subtotal);
+				
+				resultHtml+="</div>";
+			
+			});
+			
+					resultHtml+="<div id='divpTextoDetalleDos' style='width:100%;'>";
+					resultHtml+="<div id='separadorEste' style='position:static; top:1%; left:1%; width:100%; height:10%; font-size:"+document.body.clientWidth/110 + "px";
+					resultHtml+="'>&nbsp&nbsp&nbspMONTO Q."+cosa;
+					resultHtml+="</div>";
+					resultHtml+="</div>";
+			
+			$('div#divListoMedicamentos').html(resultHtml);		
+			
+        } 
+		
+    }); 
+
+	
+}
+
+function AsignarMedicamentoA(idboleta, idfactura){
+	$.ajax({ 
+        data: "id=0", 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/leAsigneMedicamento.php?boleta="+idboleta+"&factura="+idfactura, 
+        success: function(data){ 
+				
+			obtendoMedicamentoPendiente();
+			outAsignarMedicamento();
+			
+			calculoTotal(document.formNuevaEstadia.codigo_boleta.value);
+			
+        } 
+		
+    }); 
+}
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////SOBRE BOLETA EN GENERAL//////////////////////////////////////////////////////////////////////////////////
+setInterval("obtendoPacientesPendientes()",120000);
+obtendoPacientesPendientes();
+function obtendoPacientesPendientes(){
+	
+	
+
+	$.ajax({ 
+        data: "id=0", 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/getPacientesActivos.php", 
+        success: function(data){ 
+			
+			resultHtml='';
+			
+			$.each(data, function(i,item){
+				
+			/*if( parseInt(global_tipo)==2 && (parseInt(item.idmedico)==parseInt(global_idmedico) )){
+				
+					
+				if(parseInt(item.tipo)==1 || item.tipo==""){
+				resultHtml+="<div class='shadowDos' onClick=cargarBoleta('"+item.idboleta+"') id='cajaPaciente' style='height:25%; width:20%; float:left;'> <div id='despliegueImgText' class='centrar-imagen'><img src='botones/usuario.png' style='height:60%; width:auto;'></div><div id='divpNombre' style='position:static; top:1%; left:1%; width:100%; height:35%; font-size:"+document.body.clientWidth/130 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.nombres+"&nbsp"+item.apellidos+"</div></div>";
+				}
+				
+				if(parseInt(item.tipo)==2){
+				resultHtml+="<div class='shadowDos' onClick=cargarBoleta('"+item.idboleta+"') id='cajaPaciente' style='height:25%; width:20%; float:left;'> <div id='despliegueImgText' class='centrar-imagen'><img src='botones/usuario.png' style='height:60%; width:auto;'></div><div id='divpNombreEmergencia' style='position:static; top:1%; left:1%; width:100%; height:35%; font-size:"+document.body.clientWidth/130 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.nombres+"&nbsp"+item.apellidos+"</div></div>";
+				}
+				
+			}*/
+			
+			//if( parseInt(global_tipo)!=2 ){
+				if(parseInt(item.tipo)==1 || item.tipo==""){
+				resultHtml+="<div class='shadowDos' onClick=cargarBoleta('"+item.idboleta+"') id='cajaPaciente' style='height:25%; width:20%; float:left;'> <div id='despliegueImgText' class='centrar-imagen'><img src='botones/usuario.png' style='height:60%; width:auto;'></div><div id='divpNombre' style='position:static; top:1%; left:1%; width:100%; height:35%; font-size:"+document.body.clientWidth/130 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.nombres+"&nbsp"+item.apellidos+"</div></div>";
+				}
+				
+				if(parseInt(item.tipo)==2){
+				resultHtml+="<div class='shadowDos' onClick=cargarBoleta('"+item.idboleta+"') id='cajaPaciente' style='height:25%; width:20%; float:left;'> <div id='despliegueImgText' class='centrar-imagen'><img src='botones/usuario.png' style='height:60%; width:auto;'></div><div id='divpNombreEmergencia' style='position:static; top:1%; left:1%; width:100%; height:35%; font-size:"+document.body.clientWidth/130 + "px";
+				resultHtml+="'>&nbsp&nbsp"+item.nombres+"&nbsp"+item.apellidos+"</div></div>";
+				}
+			//}
+				
+				
+			});
+				
+			
+			$('div#divContenedorPacientesPendientesDesk').html(resultHtml);		
+			
+        } 
+		
+    }); 
+
+	
+}
+
+
+//*******************************************************cargar boleta PERFILES**********************************************************************************************************************************
+
+function perfilRecepcion(){
+	document.getElementById("btAddMedicamento").style.visibility ="hidden";
+	document.getElementById("btAddServicio").style.visibility ="hidden";
+	document.getElementById("botonImprimirBoleta").style.visibility ="hidden";
+	document.getElementById("divTotalBoleta").style.visibility ="hidden";
+	document.getElementById("bt7").style.visibility ="hidden";
+	document.getElementById("bt72").style.visibility ="hidden";
+	document.getElementById("btAddMedicoBoleta").style.visibility ="visible";
+	
+	document.getElementById("bt1001b").style.visibility ="hidden";
+	document.getElementById("bt1001c").style.visibility ="hidden";
+	document.getElementById("bt5").style.visibility ="hidden";
+	document.getElementById("bt52").style.visibility ="hidden";
+	
+	
+		
+}
+
+function perfilEmergencia(){
+	document.getElementById("btAddMedicamento").style.visibility ="visible";
+	document.getElementById("btAddServicio").style.visibility ="visible";
+	document.getElementById("botonImprimirBoleta").style.visibility ="visible";
+	document.getElementById("divTotalBoleta").style.visibility ="visible";
+	document.getElementById("bt7").style.visibility ="visible";
+	document.getElementById("bt72").style.visibility ="visible";
+	document.getElementById("btAddMedicoBoleta").style.visibility ="visible";
+	
+	document.getElementById("bt1001b").style.visibility ="hidden";
+	document.getElementById("bt1001c").style.visibility ="hidden";
+	document.getElementById("bt5").style.visibility ="hidden";
+	document.getElementById("bt52").style.visibility ="hidden";
+	
+}
+
+function perfilCaja(){
+	document.getElementById("btAddMedicamento").style.visibility ="visible";
+	document.getElementById("btAddServicio").style.visibility ="visible";
+	document.getElementById("botonImprimirBoleta").style.visibility ="visible";
+	document.getElementById("divTotalBoleta").style.visibility ="visible";
+	document.getElementById("bt7").style.visibility ="visible";
+	document.getElementById("bt72").style.visibility ="visible";
+	document.getElementById("btAddMedicoBoleta").style.visibility ="visible";
+	
+	document.getElementById("bt1001b").style.visibility ="visible";
+	document.getElementById("bt1001c").style.visibility ="visible";
+	document.getElementById("bt5").style.visibility ="visible";
+	document.getElementById("bt52").style.visibility ="visible";
+}
+
+function perfilMedico(){
+	document.getElementById("btAddMedicamento").style.visibility ="hidden";
+	document.getElementById("btAddServicio").style.visibility ="hidden";
+	document.getElementById("botonImprimirBoleta").style.visibility ="hidden";
+	document.getElementById("divTotalBoleta").style.visibility ="hidden";
+	document.getElementById("bt7").style.visibility ="hidden";
+	document.getElementById("bt72").style.visibility ="hidden";
+	document.getElementById("btAddMedicoBoleta").style.visibility ="visible";
+	
+	document.getElementById("bt1001b").style.visibility ="hidden";
+	document.getElementById("bt1001c").style.visibility ="hidden";
+	document.getElementById("bt5").style.visibility ="hidden";
+	document.getElementById("bt52").style.visibility ="hidden";
+	
+}
+
+	
+
+function perfilEnfermera(){
+	document.getElementById("btAddMedicamento").style.visibility ="visible";
+	document.getElementById("btAddServicio").style.visibility ="visible";
+	document.getElementById("botonImprimirBoleta").style.visibility ="hidden";
+	document.getElementById("divTotalBoleta").style.visibility ="hidden";
+	document.getElementById("bt7").style.visibility ="hidden";
+	document.getElementById("bt72").style.visibility ="hidden";
+	document.getElementById("btAddMedicoBoleta").style.visibility ="hidden";
+	
+	document.getElementById("bt1001b").style.visibility ="hidden";
+	document.getElementById("bt1001c").style.visibility ="hidden";
+	document.getElementById("bt5").style.visibility ="hidden";
+	document.getElementById("bt52").style.visibility ="hidden";
+	
+}
+
+function perfilLibre(){
+	document.getElementById("btAddMedicamento").style.visibility ="visible";
+	document.getElementById("btAddServicio").style.visibility ="visible";
+	document.getElementById("botonImprimirBoleta").style.visibility ="visible";
+	document.getElementById("divTotalBoleta").style.visibility ="visible";
+	document.getElementById("bt7").style.visibility ="visible";
+	document.getElementById("bt72").style.visibility ="visible";
+	document.getElementById("btAddMedicoBoleta").style.visibility ="visible";
+	
+	document.getElementById("bt1001b").style.visibility ="visible";
+	document.getElementById("bt1001c").style.visibility ="visible";
+	document.getElementById("bt5").style.visibility ="visible";
+	document.getElementById("bt52").style.visibility ="visible";
+	
+}
+
+
+function chequeaEsto(recibo){
+	$.ajax({ 
+        data: "esto="+recibo+"&boleta="+document.formNuevaEstadia.codigo_boleta.value, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/chequeaEsto.php", 
+        success: function(data){ 
+		alert('listo');
+			cargarBoleta(document.formNuevaEstadia.codigo_boleta.value);
+        } 
+    }); 
+}
+function cargarBoleta(recibo){
+	
+		
+	
+	$.ajax({
+        type: "POST",
+		dataType: "json", 
+        url:"phpHosp/solicitoTipo.php?boleta="+recibo,
+        async: true,
+        success: function(respuesta){ 
+			este_tipo=respuesta.tipo;
+			if(respuesta.tipo==1){
+				document.formNuevaEstadia.tipoboleta[0].checked=1;
+				document.formNuevaEstadia.tipoboleta[1].checked=0;
+			}
+			
+			if(respuesta.tipo==2){
+				document.formNuevaEstadia.tipoboleta[0].checked=0;
+				document.formNuevaEstadia.tipoboleta[1].checked=1;
+			}
+			
+			if(respuesta.pagada==0 && global_tipo!=0){
+				document.getElementById("botonImprimirBoleta").style.visibility ="hidden";
+				
+			}
+			if(respuesta.pagada==1 && global_tipo!=0){
+				document.getElementById("botonImprimirBoleta").style.visibility ="visible";
+				
+				document.getElementById("btAddMedicamento").style.visibility ="hidden";
+				document.getElementById("btAddServicio").style.visibility ="hidden";
+				document.getElementById("btAddMedicoBoleta").style.visibility ="hidden";
+				document.getElementById("bt72").style.visibility ="hidden";
+			}
+		 
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+	
+	
+	if(global_tipo==0)
+	perfilLibre();
+	
+	if(global_tipo==1)
+	perfilCaja();
+	
+	if(global_tipo==2)
+	perfilMedico();
+	
+	if(global_tipo==3)
+	perfilRecepcion();
+	
+	if(global_tipo==4)
+	perfilEnfermera();
+	
+if(parseInt(global_tipo)==2){
+	$.ajax({
+        type: "POST",
+		dataType: "json", 
+        url:"phpHosp/solicitoPermisosDr.php?boleta="+recibo+"&dr="+global_idmedico,
+        async: true,
+        success: function(respuesta){ 
+			if(parseInt(respuesta.existencia)>0){
+				inBoletaEstadia();				
+				document.formNuevaEstadia.codigo_boleta.value=recibo;
+				calculoTotal(recibo);
+				//visualizarPedidoPendienteBoleta()
+				rellenarMedicosBoleta();
+				rellenarServiciosBoleta();
+				mostrarPacienteEscogidoBoleta(recibo);
+				mostrarFamiliarEscogidoBoleta(recibo);
+				mostrarNuevaInfoBoleta(recibo);
+				rellenarMedicamentosBoleta();
+				
+				
+			}else{
+				alert('Usted no está asignado a este paciente.');	
+				outBoleta();
+			}
+		 
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}else{
+	inBoletaEstadia();
+	document.formNuevaEstadia.codigo_boleta.value=recibo;
+	calculoTotal(recibo);
+	//visualizarPedidoPendienteBoleta()
+	rellenarMedicosBoleta();
+	rellenarServiciosBoleta();
+	mostrarPacienteEscogidoBoleta(recibo);
+	mostrarFamiliarEscogidoBoleta(recibo);
+	mostrarNuevaInfoBoleta(recibo);
+	rellenarMedicamentosBoleta();
+}
+
+}
+
+function calculoTotal(recibo){
+	$.ajax({ 
+        data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/calculoTotal.php", 
+        success: function(data){ 
+		//formNuevaCompra
+			document.formNuevaEstadia.reciboTotal.value = Math.round( (parseFloat(data.honorarios)+parseFloat(data.servicios)+parseFloat(data.medicamentos)) *100)/100 ; 
+			//$('div#reciboTotal').html("Q."+data.total);
+			//inPacientesSelect();
+        } 
+    }); 
+	
+}
+
+document.getElementById("bt72").onclick = function () {
+	preguntarFinalizar();
+}
+
+function preguntarFinalizar(){
+	confirmar=confirm("¿Seguro desea volver permanente esta boleta?"); 
+	if (confirmar) 
+	confirmarPermanencia();
+}
+
+function confirmarPermanencia(){
+	var datossiete = $(formNuevaEstadia).serialize();
+	$.ajax({
+        type: "POST",
+        url:"phpHosp/finalizarBoleta.php",
+		data: datossiete,
+        async: true,
+        success: function(recibo){    
+          	cargarBoleta(document.formNuevaEstadia.codigo_boleta.value);
+		   		//outNuevaEstadia();
+		   //$('div#divCargoFactura').html("FACTURA BORRADA!");
+		  // $('div#contenedor_detalleFactura').html("");
+		   
+		  // document.formNuevaFact2.greciboNuevoId.value=0;
+		 
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+
+
+document.getElementById("bt7").onclick = function () {
+	preguntarEliminar();
+}
+
+
+function preguntarEliminar(){
+	confirmar=confirm("¿Seguro que desea eliminar esta boleta de forma permanente?"); 
+	if (confirmar) 
+	confirmarEliminar();
+}
+
+function confirmarEliminar(){
+	var datossiete = $(formNuevaEstadia).serialize();
+	$.ajax({
+        type: "POST",
+        url:"phpHosp/eliminarBoleta.php",
+		data: datossiete,
+        async: true,
+        success: function(recibo){    
+          
+		   		outNuevaEstadia();
+		   //$('div#divCargoFactura').html("FACTURA BORRADA!");
+		  // $('div#contenedor_detalleFactura').html("");
+		   
+		  // document.formNuevaFact2.greciboNuevoId.value=0;
+		 
+        },
+        error: function (){
+             alert("error");
+        }
+	});
+}
+
+function printBoleta(){
+	window.open("phpHosp/dompdf/b.php?permiso="+document.formNuevaEstadia.codigo_boleta.value+"&us="+global_nombre, "_blank"); 
+	return false;
+	
+	
+}
+
+function reportePacientesDoctor(){
+	window.open("phpHosp/dompdf/r.php?de="+document.reporteForm.fechaDe.value+"&a="+document.reporteForm.fechaA.value+"&us="+global_nombre, "_blank"); 
+	return false;
+	
+	
+}
+
+function reporteBoletas(){
+	window.open("phpHosp/dompdf/bo.php?de="+document.reporteForm.fechaDe.value+"&a="+document.reporteForm.fechaA.value+"&us="+global_nombre, "_blank"); 
+	return false;
+	
+	
+}
+
+function reporteServicios(){
+	window.open("phpHosp/dompdf/s.php?de="+document.reporteForm.fechaDe.value+"&a="+document.reporteForm.fechaA.value+"&us="+global_nombre, "_blank"); 
+	return false;
+	
+	
+}
+
+function reporteMedicamento(){
+	window.open("phpHosp/dompdf/m.php?de="+document.reporteForm.fechaDe.value+"&a="+document.reporteForm.fechaA.value+"&us="+global_nombre, "_blank"); 
+	return false;
+	
+	
+}
+
+
+//---------------------------------------------/control de Reportes/ LOGIN etc-----------------------------------------------------------
+document.getElementById("bt66").onclick = function () {
+	generarReporte();
+}
+
+
+
+function generarReporte(){
+	var datosseis = $(reporteForm).serialize();
+	
+	$.ajax({ 
+        data: datosseis, 
+        type: "POST", 
+        dataType: "json", 
+        url: "phpHosp/generarReporte.php", 
+        success: function(data){ 
+		
+			var resultHtml = '';
+			
+			$.each(data, function(i,item){
+								  
+				resultHtml+="<div class='shadowDos' onClick=cargarBoletaDesdeReporte('"+item.idboleta+"') id='cajaPaciente' style='height:28%; width:23%; float:left;'>";
+				
+				resultHtml+="<div id='fechina' style='position:static; top:1%; left:80%; text-align:right; font-size:"+document.body.clientWidth/100 + "px";
+				resultHtml+="'>"+item.fecha_salida+"&nbsp&nbsp</div>";
+				
+				resultHtml+="<div id='despliegueImgTextboleta' class='centrar-imagen' style='font-size:"+document.body.clientWidth/77 + "px";
+				resultHtml+="'><img src='botones/usuario.png' style='height:30%; width:auto;'>"; 
+				resultHtml+=item.nombres+"&nbsp"+item.apellidos+"</div>";
+				
+				
+				
+				resultHtml+="<div id='divpPrecioReporte' style='position:static; top:1%; left:1%; width:100%; height:35%; font-size:"+document.body.clientWidth/50 + "px";
+				resultHtml+="'>&nbsp&nbsp Q."+item.total+"</div>";
+				resultHtml+="&nbsp&nbsp ID BOLETA: "+item.idboleta+"</div>";
+				
+			});
+		
+			$('div#resultadoReporte').html(resultHtml);
+			
+        } 
+    }); 
+	
+	
+}
+
+
+function cargarBoletaDesdeReporte(recibo){
+	cargarBoleta(recibo);
+	outReporteador();
+	
+}
+$(window).load(function() {
+    outLoadingBarra();
+	informLogin();
+	//conectar();
+});
+
+
+document.getElementById("btLogin").onclick = function () {
+	solicitarLogin();
+}
+
+function solicitarLogin(){
+	
+	
+		var datosnueve = $(form2).serialize();
+		$.ajax({
+        type: "POST",
+		dataType: "json",
+        url:"phpHosp/solicitarLogin.php",
+		data: datosnueve,
+        async: true,
+        success: function(recibo){    
+         
+		 
+		 	if( recibo.contrasena == (document.form2.contrasena.value) ){
+				
+					
+					global_tipo=recibo.tipo;
+					global_idmedico=recibo.idmedico;
+					global_nombre=recibo.nombre;
+					global_idusus=recibo.idusus;
+					
+					
+					obtendoPacientesPendientes();
+				
+					
+					$('div#divContenedorMedicamentoPendiente').html('Sesión activa como: '+recibo.nombre+"&nbsp&nbsp&nbsp&nbsp[[CERRAR SESIÓN]]");
+
+				conectar();
+				
+			}else{
+				$('div#yodigo').html('&nbsp&nbspDatos incorrectos!');
+				
+			}
+			
+	
+		 
+        },
+        error: function (){
+             alert("error");
+        }
+		});
+		
+	
+
+}
+
+function desconectar(){
+	window.location.reload();  
+}
+function conectar(){
+	outLoading();	
+	outformLogin();
+}
+</script>
+
+
+<script type="text/JavaScript">//ESTO ES PARA LA FUNCION DE NUEVA ESTANCIA EN GENERAL
+document.getElementById("bt6").onclick = function () {
+	grabarNuevoServicio();
+}
+
+document.getElementById("bt7").onclick = function () {
+	actualizarServicio();
+}
+
+
+function solicitarNuevaEstadia(){
+	$.ajax({ 
+        //data: "id="+recibo, 
+        type: "GET", 
+        dataType: "json", 
+        url: "phpHosp/solicitarNuevaEstadia.php", 
+        success: function(data){ 
+		//formNuevaCompra
+			document.formNuevaEstadia.codigo_boleta.value = data.nuevoid; 
+			document.formNuevaEstadia.fecha_creacion.value = data.fecha_creacion;
+			inPacientesSelect();
+        } 
+    }); 
+	
+}
+
+
+
+//setInterval("obtendoMedicamentoPendiente()",5000);
+
+
+
+</script>
+
+<!--==============================================================================================================================================================================-->
+<!--==============================================================================================================================================================================-->
+
+<div id='' onClick="outNuevoPaciente();" style='position:absolute; top:-2%; left:-3%; width:8%; height:10%'><img src='botones/x.png' style='height:66%; width:auto;'> </div>
+</div>
+
+<script type="text/JavaScript">
+calculo();
+<!--=====================================MOVIMIENTOS=========================================================-->
+function informNuevoProd(){
+	inTapador();
+	$("#divNuevoProd").animate({
+         "top": hcentronp+"px"
+      }, 777, "easeOutQuint")	
+	
+}
+
+function outformNuevoProd(){
+	outTapador();
+/*	$("#divNuevoProd").animate({
+         "top": "-"+parseInt(document.getElementById("divNuevoProd").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divNuevoProd").style.top="-"+parseInt(document.getElementById("divNuevoProd").offsetHeight)+"%";
+	
+	jQuery('#form2b').clearForm();  
+}
+
+
+function inMedicamentos(){
+	outBoxbusqueda();
+	//alert(global_nombre);///esto solo era para probar...
+	inTapadorLeve();
+	$("#divMedicamentos").animate({
+         "top": hcentroMedicamentos+"px"
+      }, 777, "easeOutQuint")	
+}
+
+function outMedicamentos(){
+	outTapadorLeve();
+	/*$("#divMedicamentos").animate({
+         "top": "-"+parseInt(document.getElementById("divMedicamentos").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divMedicamentos").style.top="-"+parseInt(document.getElementById("divMedicamentos").offsetHeight)+"%";
+	
+	jQuery('#formEditProd').clearForm();  
+}
+
+
+function inConfirmProcedimiento(){
+	inTapador();
+	$("#divConfirmEliminado").animate({
+         "top": hcentroconfirmeliminado+"px"
+      }, 777, "easeOutQuint")	
+	
+}
+
+function outConfirmProcedimiento(){ //////////////////////////////
+	outTapador();
+	/*$("#divConfirmEliminado").animate({
+         "top": "-"+parseInt(document.getElementById("divConfirmEliminado").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divConfirmEliminado").style.top="-"+parseInt(document.getElementById("divConfirmEliminado").offsetHeight)+"%";
+	
+	jQuery('#formConfirmEliminado').clearForm();  
+}
+
+
+function inMedicamentoSelect(){
+	inTapador();
+	$("#divSelectMedicamento").animate({
+         "top": hcentromedicamentoselect+"px"
+      }, 777, "easeOutQuint")	
+	
+}
+
+function outMedicamentoSelect(){//////////////////////////////
+	//outTapador();
+	/*$("#divSelectMedicamento").animate({
+         "top": "-"+parseInt(document.getElementById("divSelectMedicamento").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divSelectMedicamento").style.top="-"+parseInt(document.getElementById("divSelectMedicamento").offsetHeight)+"%";
+	
+	jQuery('#formNuevoMedicamentoSelect').clearForm();  
+}
+
+function outMedicamentoSelectDos(){//////////////////////////////
+	outTapador();
+	/*$("#divSelectMedicamento").animate({
+         "top": "-"+parseInt(document.getElementById("divSelectMedicamento").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divSelectMedicamento").style.top="-"+parseInt(document.getElementById("divSelectMedicamento").offsetHeight)+"%";
+	
+	jQuery('#formNuevoMedicamentoSelect').clearForm();  
+}
+
+function inConfirmMedicamento(){
+	//inTapador();
+	/*$("#divConfirmMedicamento").animate({
+         "top": hcentroconfirmmedicamento+"px"
+      }, 777, "easeOutQuint")	*/
+	
+	document.getElementById("divConfirmMedicamento").style.top=hcentroconfirmmedicamento+"px";
+	
+}
+
+function outConfirmMedicamento(){//////////////////////////////
+	outTapador();
+	/*$("#divConfirmMedicamento").animate({
+         "top": "-"+parseInt(document.getElementById("divConfirmMedicamento").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divConfirmMedicamento").style.top="-"+parseInt(document.getElementById("divConfirmMedicamento").offsetHeight)+"%";
+	
+	jQuery('#formConfirmMedicamento').clearForm();  
+}
+
+////////
+
+function inServicioSelect(){
+	inTapador();
+	$("#divSelectServicio").animate({
+         "top": hcentroservicioselect+"px"
+      }, 777, "easeOutQuint")
+	
+	//document.getElementById("divSelectServicio").style.top=hcentroservicioselect+"px";
+	
+}
+
+function outServicioSelect(){//////////////////////////////
+	//outTapador();
+	/*$("#divSelectServicio").animate({
+         "top": "-"+parseInt(document.getElementById("divSelectServicio").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divSelectServicio").style.top="-"+parseInt(document.getElementById("divSelectServicio").offsetHeight)+"%";
+	
+	jQuery('#formNuevoServicioSelect').clearForm();  
+}
+
+function outServicioSelectDos(){//////////////////////////////
+	outTapador();
+	/*$("#divSelectServicio").animate({
+         "top": "-"+parseInt(document.getElementById("divSelectServicio").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divSelectServicio").style.top="-"+parseInt(document.getElementById("divSelectServicio").offsetHeight)+"%";
+	
+
+	
+	jQuery('#formNuevoServicioSelect').clearForm(); ////////////////////////////// 
+}
+
+function inConfirmServicio(){
+	//inTapador();
+	/*$("#divConfirmServicio").animate({
+         "top": hcentroconfirmservicio+"px"
+      }, 777, "easeOutQuint")	*/
+	
+	document.getElementById("divConfirmServicio").style.top=hcentroconfirmservicio+"px";
+	
+}
+
+function outConfirmServicio(){//////////////////////////////
+	outTapador();
+	/*$("#divConfirmServicio").animate({
+         "top": "-"+parseInt(document.getElementById("divConfirmServicio").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divConfirmServicio").style.top="-"+parseInt(document.getElementById("divConfirmServicio").offsetHeight)+"%";
+	
+	jQuery('#formConfirmServicio').clearForm(); ////////////////////////////// 
+}
+
+
+function inAsignarMedicamento(){
+	inTapador();
+	$("#divAsignarMedicamento").animate({
+         "top": hcentroasignarmedicamento+"px"
+      }, 777, "easeOutQuint")	
+	
+}
+
+function outAsignarMedicamento(){
+	outTapador();
+	/*$("#divAsignarMedicamento").animate({
+         "top": "-"+parseInt(document.getElementById("divAsignarMedicamento").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divAsignarMedicamento").style.top="-"+parseInt(document.getElementById("divAsignarMedicamento").offsetHeight)+"%";
+	
+	
+}
+
+
+function inDetalleHonorario(){
+	//inTapador();
+	$("#divDetalleHonorario").animate({
+         "top": hcentrodetallehonorario+"px"
+      }, 777, "easeOutQuint")	
+	
+}
+
+function outDetalleHonorario(){
+	outTapador();
+	/*$("#divDetalleHonorario").animate({
+         "top": "-"+parseInt(document.getElementById("divDetalleHonorario").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divDetalleHonorario").style.top="-"+parseInt(document.getElementById("divDetalleHonorario").offsetHeight)+"%";
+	
+	jQuery('#detalleHonorario').clearForm(); ////////////////////////////// 
+}
+
+
+function inMedicosSelect(){
+	if(global_tipo==0 || global_tipo==1){
+	inTapador();
+	$("#divSelectMedico").animate({
+         "top": hcentromedicosselect+"px"
+      }, 777, "easeOutQuint")
+	}else{
+		alert('Acceso Denegado');
+	}
+	
+}
+
+function outMedicosSelect(){
+	//outTapador();
+	$("#divSelectMedico").animate({
+         "top": "-"+parseInt(document.getElementById("divSelectMedico").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	
+	
+	jQuery('#formNuevoMedicoSelect').clearForm(); ////////////////////////////// 
+}
+
+function outMedicosSelectDos(){
+	outTapador();
+	/*$("#divSelectMedico").animate({
+         "top": "-"+parseInt(document.getElementById("divSelectMedico").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divSelectMedico").style.top="-"+parseInt(document.getElementById("divSelectMedico").offsetHeight)+"%";
+	
+	jQuery('#formNuevoMedicoSelect').clearForm(); ////////////////////////////// 
+}
+
+
+
+function inNuevaInfo(){
+	inTapador();
+	$("#divNuevaInfo").animate({
+         "top": hcentronuevainfo+"px"
+      }, 777, "easeOutQuint")	
+	
+}
+
+function outNuevaInfo(){
+	outTapador();
+	/*$("#divNuevaInfo").animate({
+         "top": "-"+parseInt(document.getElementById("divNuevaInfo").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divNuevaInfo").style.top="-"+parseInt(document.getElementById("divNuevaInfo").offsetHeight)+"%";
+	
+	jQuery('#formInfoAdicional').clearForm(); ////////////////////////////// 
+}
+
+
+function inFamiliarSelect(){
+	inTapador();
+	$("#divFamiliarSelect").animate({
+         "top": hcentrofamiliarselect+"px"
+      }, 777, "easeOutQuint")	
+	
+}
+
+function outFamiliarSelect(){
+	outTapador();
+	/*$("#divFamiliarSelect").animate({
+         "top": "-"+parseInt(document.getElementById("divFamiliarSelect").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divFamiliarSelect").style.top="-"+parseInt(document.getElementById("divFamiliarSelect").offsetHeight)+"%";
+	
+	jQuery('#formNuevoFamiliarSelect').clearForm(); ////////////////////////////// 
+}
+
+
+
+function inPacientesSelect(){
+	inTapador();
+	$("#divPacientesSelect").animate({
+         "top": hcentropacientesselect+"px"
+      }, 777, "easeOutQuint")	
+	
+}
+
+function outPacientesSelect(){
+	outTapador();
+	/*$("#divPacientesSelect").animate({
+         "top": "-"+parseInt(document.getElementById("divPacientesSelect").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divPacientesSelect").style.top="-"+parseInt(document.getElementById("divPacientesSelect").offsetHeight)+"%";
+	
+	jQuery('#formNuevoPacienteSelect').clearForm(); ////////////////////////////// 
+}
+
+
+
+function inNuevaEstadia(){
+	outBoxbusqueda();
+	solicitarNuevaEstadia();
+	inTapadorLeve();
+	$("#divNuevaEstadia").animate({
+         "top": hcentronestadia+"px"
+      }, 777, "easeOutQuint")	
+	
+	
+	
+}
+
+function inBoletaEstadia(){
+	outBoxbusqueda();
+	//solicitarNuevaEstadia();
+	inTapadorLeve();
+	$("#divNuevaEstadia").animate({
+         "top": hcentronestadia+"px"
+      }, 777, "easeOutQuint")	
+	
+}
+
+function outNuevaEstadia(){
+	obtendoPacientesPendientes();
+	outTapadorLeve();
+	/*$("#divNuevaEstadia").animate({
+         "top": "-"+parseInt(document.getElementById("divNuevaEstadia").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divNuevaEstadia").style.top="-"+parseInt(document.getElementById("divNuevaEstadia").offsetHeight)+"%";
+
+	jQuery('#formNuevaEstadia').clearForm(); ////////////////////////////// 
+	
+	$('div#estePaciente').html("");
+	$('div#esteFamiliar').html("");
+	$('div#datosAdicionales').html("");
+	$('div#doctoresImplicados').html("");
+	$('div#divListoMedicamentos').html("");
+	$('div#divListoServicios').html("");
+}
+
+function inServicios(){
+	outBoxbusqueda();
+	inTapadorLeve();
+	$("#divServicios").animate({
+         "top": hcentroservicios+"px"
+      }, 777, "easeOutQuint")	
+	
+}
+
+function outServicios(){
+	outTapadorLeve();
+	/*$("#divServicios").animate({
+         "top": "-"+parseInt(document.getElementById("divServicios").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divServicios").style.top="-"+parseInt(document.getElementById("divServicios").offsetHeight)+"%";
+	
+	jQuery('#formEditServicio').clearForm(); ////////////////////////////// 
+}
+
+function inNuevoServicio(){
+	inTapador();
+	$("#divNuevoServicio").animate({
+         "top": hcentronuevoservicio+"px"
+      }, 777, "easeOutQuint")	
+	
+}
+
+function outNuevoServicio(){
+	outTapador();
+	/*$("#divNuevoServicio").animate({
+         "top": "-"+parseInt(document.getElementById("divNuevoServicio").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divNuevoServicio").style.top="-"+parseInt(document.getElementById("divNuevoServicio").offsetHeight)+"%";
+	
+	jQuery('#form5').clearForm(); ////////////////////////////// 
+}
+
+function inNuevoDoctor(){
+	inTapador();
+	$("#divNuevoDoctor").animate({
+         "top": hcentronuevodoctor+"px"
+      }, 777, "easeOutQuint")	
+	
+}
+
+function outNuevoDoctor(){
+	outTapador();
+	/*$("#divNuevoDoctor").animate({
+         "top": "-"+parseInt(document.getElementById("divNuevoDoctor").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divNuevoDoctor").style.top="-"+parseInt(document.getElementById("divNuevoDoctor").offsetHeight)+"%";
+	
+	jQuery('#form4').clearForm(); ////////////////////////////// 
+}
+
+function inDoctores(){
+	outBoxbusqueda();
+	inTapadorLeve();
+	$("#divDoctores").animate({
+         "top": hcentrodoctores+"px"
+      }, 777, "easeOutQuint")	
+	
+}
+
+function outDoctores(){
+	outTapadorLeve();
+	/*$("#divDoctores").animate({
+         "top": "-"+parseInt(document.getElementById("divDoctores").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divDoctores").style.top="-"+parseInt(document.getElementById("divDoctores").offsetHeight)+"%";
+	jQuery('#formEditDoctor').clearForm(); ////////////////////////////// 
+}
+
+
+
+function inNuevoPaciente(){
+	inTapador();
+	$("#divNuevoPaciente").animate({
+         "top": hcentronp+"px"
+      }, 777, "easeOutQuint")	
+	
+}
+
+function outNuevoPaciente(){
+	outTapador();
+	/*$("#divNuevoPaciente").animate({
+         "top": "-"+parseInt(document.getElementById("divNuevoPaciente").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divNuevoPaciente").style.top="-"+parseInt(document.getElementById("divNuevoPaciente").offsetHeight)+"%";
+	
+	jQuery('#form3').clearForm(); ////////////////////////////// 
+}
+
+function inPacientes(){
+	outBoxbusqueda();
+	inTapadorLeve();
+	$("#divPacientes").animate({
+         "top": hcentropacientes+"px"
+      }, 777, "easeOutQuint")	
+	
+}
+
+function outPacientes(){
+	outTapadorLeve();
+	/*$("#divPacientes").animate({
+         "top": "-"+parseInt(document.getElementById("divPacientes").offsetHeight)+"%"
+      }, 1500, "easeInOutExpo")	*/
+	
+	document.getElementById("divPacientes").style.top="-"+parseInt(document.getElementById("divPacientes").offsetHeight)+"%";
+	jQuery('#formEditPaciente').clearForm(); ////////////////////////////// 
+}
+
+
+
+function inTapador(){
+	document.getElementById("tapador").style.zIndex=701;
+	$("#tapador").animate({
+         "opacity": 100
+      }, 666, "easeOutBack")	
+}
+
+function outTapador(){
+	document.getElementById("tapador").style.zIndex=200;
+	$("#tapador").animate({
+         "opacity": 0
+      }, 666, "easeOutBack")	
+}
+
+function inTapadorLeve(){
+	document.getElementById("tapadorLeve").style.zIndex=600;
+	$("#tapadorLeve").animate({
+         "opacity": 0.66
+      }, 666, "easeOutBack")	
+}
+
+function outTapadorLeve(){
+	document.getElementById("tapadorLeve").style.zIndex=200;
+	$("#tapadorLeve").animate({
+         "opacity": 0
+      }, 666, "easeOutBack")	
+}
+
+
+
+function inReporteador(){
+	if(global_tipo==0){
+		outBoxbusqueda();
+		var f = new Date();
+		document.reporteForm.fechaDe.value=(f.getFullYear() + "/" + (f.getMonth() +1) + "/" + f.getDate());
+		document.reporteForm.fechaA.value=(f.getFullYear() + "/" + (f.getMonth() +1) + "/" + f.getDate());
+	
+		document.getElementById("divReporteador").style.zIndex=701;
+		$("#divReporteador").animate({
+       		  "opacity": 100
+     	 }, 666, "easeOutBack")
+	}else{
+		alert('Acceso Denegado.');	
+	}
+}
+
+function outReporteador(){
+	document.getElementById("divReporteador").style.zIndex=200;
+	$("#divReporteador").animate({
+         "opacity": 0
+      }, 666, "easeOutBack")	
+}
+
+function outLoading(){
+	document.getElementById("preloader").style.zIndex=0;
+	$("#preloader").animate({
+         "opacity": 0
+      }, 666, "easeOutBack")	
+}
+
+function outLoadingBarra(){
+	
+	$("#contenedorLoader").animate({
+         "opacity": 0
+      }, 666, "easeOutBack")	
+}
+
+
+function informLogin(){
+	$("#divLogin").animate({
+         "top": 35+"%"
+      }, 666, "easeOutBack")	
+}
+
+function outformLogin(){
+	$("#divLogin").animate({
+         "top": "-"+50+"%"
+      }, 1500, "easeInOutExpo")
+	
+	jQuery('#form2').clearForm(); ////////////////////////////// 
+}
+
+function inBoxbusqueda(){
+	$("#resultsBusquedaGeneral").animate({
+         "left": 70+"%"
+      }, 666, "easeOutBack")	
+}
+
+function outBoxbusqueda(){
+	$("#resultsBusquedaGeneral").animate({
+         "left": 140+"%"
+      }, 1500, "easeOutBack");
+	
+	$('div#resultsBusquedaGeneral').html("");		
+}
+
+
+
+//========================================VARIABLES DE INTERFAZ======================================================================================
+
+
+function calculo(){
+		
+	
+	hcentronp=(parseInt(window.innerHeight )-parseInt(document.getElementById("divNuevoPaciente").offsetHeight))/2;
+	hcentropacientes=(parseInt(window.innerHeight )-parseInt(document.getElementById("divPacientes").offsetHeight))/2;
+	hcentronuevodoctor=(parseInt(window.innerHeight )-parseInt(document.getElementById("divNuevoDoctor").offsetHeight))/2;
+	hcentrodoctores=(parseInt(window.innerHeight )-parseInt(document.getElementById("divDoctores").offsetHeight))/2;
+	hcentroservicios=(parseInt(window.innerHeight )-parseInt(document.getElementById("divServicios").offsetHeight))/2;
+	hcentronuevoservicio=(parseInt(window.innerHeight )-parseInt(document.getElementById("divNuevoServicio").offsetHeight))/2;
+	hcentronestadia=(parseInt(window.innerHeight )-parseInt(document.getElementById("divNuevaEstadia").offsetHeight))/2;
+	hcentropacientesselect=(parseInt(window.innerHeight )-parseInt(document.getElementById("divPacientesSelect").offsetHeight))/2;
+	hcentrofamiliarselect=(parseInt(window.innerHeight )-parseInt(document.getElementById("divFamiliarSelect").offsetHeight))/2;
+	hcentronuevainfo=(parseInt(window.innerHeight )-parseInt(document.getElementById("divNuevaInfo").offsetHeight))/2;
+	hcentromedicosselect=(parseInt(window.innerHeight )-parseInt(document.getElementById("divSelectMedico").offsetHeight))/2;
+	hcentrodetallehonorario=(parseInt(window.innerHeight )-parseInt(document.getElementById("divDetalleHonorario").offsetHeight))/2;
+	hcentroasignarmedicamento=(parseInt(window.innerHeight )-parseInt(document.getElementById("divAsignarMedicamento").offsetHeight))/2;
+	hcentroservicioselect=(parseInt(window.innerHeight )-parseInt(document.getElementById("divSelectServicio").offsetHeight))/2;
+	hcentroconfirmservicio=(parseInt(window.innerHeight )-parseInt(document.getElementById("formConfirmServicio").offsetHeight))/2;
+	
+	hcentromedicamentoselect=(parseInt(window.innerHeight )-parseInt(document.getElementById("divSelectMedicamento").offsetHeight))/2;
+	hcentroconfirmmedicamento=(parseInt(window.innerHeight )-parseInt(document.getElementById("formConfirmMedicamento").offsetHeight))/2;
+	
+	hcentroconfirmeliminado=(parseInt(window.innerHeight )-parseInt(document.getElementById("divConfirmEliminado").offsetHeight))/2;
+	
+	hcentronp=(parseInt(window.innerHeight )-parseInt(document.getElementById("divNuevoProd").offsetHeight))/2;
+	wcentronp=(parseInt(window.innerWidth )-parseInt(document.getElementById("divNuevoProd").offsetWidth))/2;
+	hcentroMedicamentos=(parseInt(window.innerHeight )-parseInt(document.getElementById("divMedicamentos").offsetHeight))/2;
+	wcentroMedicamentos=(parseInt(window.innerWidth )-parseInt(document.getElementById("divMedicamentos").offsetWidth))/2;
+	
+	
+	document.getElementById("divNuevoPaciente").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("bt3").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("bt32").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("divPacientes").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("divMedicamentos").style.fontSize = document.body.clientWidth/80 + 'px';
+	
+	document.getElementById("divNuevoDoctor").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("bt4").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("bt42").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("divDoctores").style.fontSize = document.body.clientWidth/80 + 'px';
+	
+	document.getElementById("divNuevoServicio").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("bt5").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("bt52").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("divServicios").style.fontSize = document.body.clientWidth/80 + 'px';
+	
+	document.getElementById("divNuevaEstadia").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("buscador2").style.fontSize = document.body.clientWidth/110 + 'px';
+	document.getElementById("buscador3").style.fontSize = document.body.clientWidth/110 + 'px';
+	document.getElementById("buscador4").style.fontSize = document.body.clientWidth/110 + 'px';
+	document.getElementById("buscador5").style.fontSize = document.body.clientWidth/110 + 'px';
+	document.getElementById("bt6").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("bt7").style.fontSize = document.body.clientWidth/120 + 'px';
+	document.getElementById("bt72").style.fontSize = document.body.clientWidth/120 + 'px';
+	document.getElementById("doctoresImplicados").style.fontSize = document.body.clientWidth/110 + 'px';
+	
+	
+	document.getElementById("divPacientesSelect").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("bt8").style.fontSize = document.body.clientWidth/80 + 'px';
+	
+	document.getElementById("divFamiliarSelect").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("bt10").style.fontSize = document.body.clientWidth/80 + 'px';
+	
+	document.getElementById("divNuevaInfo").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("bt12").style.fontSize = document.body.clientWidth/120 + 'px';
+	
+	document.getElementById("divSelectMedico").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("bt13").style.fontSize = document.body.clientWidth/80 + 'px';
+	
+	document.getElementById("divDetalleHonorario").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("bt14").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("bt15").style.fontSize = document.body.clientWidth/80 + 'px';
+	
+	document.getElementById("divAsignarMedicamento").style.fontSize = document.body.clientWidth/80 + 'px';
+	//document.getElementById("bt16").style.fontSize = document.body.clientWidth/80 + 'px';
+	
+	document.getElementById("divSelectServicio").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("formConfirmServicio").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("bt16").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("bt17").style.fontSize = document.body.clientWidth/80 + 'px';
+	
+	document.getElementById("divSelectMedicamento").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("formConfirmMedicamento").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("bt1001").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("bt1002").style.fontSize = document.body.clientWidth/80 + 'px';
+	
+	document.getElementById("bt1003").style.fontSize = document.body.clientWidth/80 + 'px';
+	
+	
+	
+	
+	document.getElementById("bt66").style.fontSize = document.body.clientWidth/20 + 'px';
+	
+	document.getElementById("bt1001b").style.fontSize = document.body.clientWidth/80 + 'px';
+	document.getElementById("bt1001c").style.fontSize = document.body.clientWidth/80 + 'px';
+
+
+	
+
+
+}
+
+function refrescartodo(){
+	$("div#divNuevoPaciente").load("forms/nuevoPaciente.html");	
+}
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,527 @@
+@charset "utf-8";
+/* CSS Document */
+#preloader {
+    text-align: center; 
+    background-color:#FBFBFB;   
+    color:#959595;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+    position: fixed;
+    z-index:5000;
+    width: 100%;
+    height: 100%;
+    
+    opacity:100; 
+    
+    display: table;
+    
+    vertical-align:middle;
+    
+    top:0%;
+    left:0%;
+}
+
+#divDepartamentoCreate {
+    text-align: center; 
+    background-color:#FBFBFB;   
+    color:#959595;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+    position: fixed;
+    z-index:1000;
+    width: 20%;
+    height: 50%;
+    
+    -webkit-border-radius:10px;  
+    
+    top:105%;
+    left:60%;
+}
+
+#divDepartamentoSelect {
+    text-align: center; 
+    background-color:#FBFBFB;   
+    color:#959595;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+    position: fixed;
+    z-index:1000;
+    width: 20%;
+    height: 50%;
+    
+    -webkit-border-radius:10px;  
+    
+    top:105%;
+    left:40%;
+}
+
+#buscador2{
+    background-color:#FBFBFB;
+    -webkit-border-radius:10px;  
+    position:absolute;
+    
+    color:#333333;
+    overflow: auto; 
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+}
+
+#ModuloDepartamento {
+    text-align: center; 
+    background-color:#c5c5c5;   
+    color:#FFFFFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 16px;
+   
+    position: fixed;
+    z-index:10;
+    width: 60%;
+    height: 50%;
+    
+    -webkit-border-radius:10px;  
+    
+    top:5%;
+    left:5%;
+}
+
+#Conenedor_form_Departamento {
+    text-align: center; 
+    background-color:#f8f8f8;   
+    color:#313131;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 16px;
+   
+    position: absolute;
+    z-index:10;
+    width: 33%;
+    height: 100%
+    
+    -webkit-border-radius:10px;  
+    
+    top:0%;
+    left:1%;
+}
+
+#buscadorDepartamentos {
+    text-align: center; 
+    background-color:#ffffff;   
+    color:#9f9f9f;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 16px;
+   
+    position: absolute;
+    z-index:10;
+    width: 33%;
+    height: 47%;
+    
+    -webkit-border-radius:10px;  
+    
+    top:0%;
+    left:1%;
+
+    overflow: auto; 
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#contenedorInfoEmpleado{
+    left:15%; 
+    top:4%; 
+    height:50%; 
+    width:30%; 
+    position:absolute; 
+    text-align; 
+    z-index:200;
+    text-align: left; 
+    color:#202020;
+    font-size: 18px;
+    overflow: auto; 
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#contenedorFormEmpleado{
+    left:15%; 
+    top:4%; 
+    height:50%; 
+    width:30%; 
+    position:absolute; 
+    text-align; 
+    z-index:200;
+    text-align: left; 
+    color:#202020;
+    font-size: 18px;
+    overflow: auto; 
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#divNuevaEstadia {
+    text-align: center; 
+    background-color:#F6DD84;   
+    color:#FFFFFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+   
+    position: fixed;
+    z-index:700;
+    width: 76%;
+    height: 70%;
+    
+    -webkit-border-radius:10px;  
+    
+    top:115%;
+    left:12%;
+}
+
+#buscador2, #buscador3, #buscador4, #buscador5{
+    background-color:#FBFBFB;
+    -webkit-border-radius:10px;  
+    position:absolute;
+    
+    color:#333333;
+    overflow: auto; 
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+}
+
+#contenidoestadiaServicios{
+    background-color:#2B2B2B;
+    -webkit-border-radius:30px;  
+    position:absolute;
+    
+    
+}
+
+#contenidoestadia{
+    background-color:#339999;
+    -webkit-border-radius:30px;  
+    position:absolute;
+    
+    
+}
+
+/*BOTON GENERAL ACEPTAR*/
+#crear_acta_falta{
+	width:20%;  
+	background-color:#c7ecff;
+	-webkit-border-radius:10px;  
+	position:absolute;
+	align:center;
+    font-size: 16px;
+    color:#313131;
+    top:98%;
+    left:60%;
+    z-index:11;
+	
+}
+
+/*BOTON GENERAL CANCELAR*/
+#cancelar_creacion{
+    width:15%;  
+    background-color:#ff4646;
+    -webkit-border-radius:10px;  
+    position:absolute;
+    align:center;
+    font-size: 16px;
+    color:#ffffff;
+    top:98%;
+    left:82%;
+    z-index:11;
+    
+}
+
+
+/*CAJA AGREGAR ALGO*/
+#ModuloAgregarActaFalta {
+    text-align: center; 
+    background-color:#c5c5c5;   
+    color:#FFFFFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 16px;
+   
+    position: fixed;
+    z-index:5;
+    width: 60%;
+    height: 50%;
+    
+    -webkit-border-radius:10px;  
+    
+    top:5%;
+    left:5%;
+}
+
+
+/*IN - CAJITA AGREGAR ALGO - izquierda*/
+#Conenedor_form_Acta {
+    text-align: center; 
+    background-color:#f8f8f8;   
+    color:#313131;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 16px;
+   
+    position: absolute;
+    z-index:10;
+    width: 33%;
+    height: 100%
+    
+    -webkit-border-radius:10px;  
+    
+    top:0%;
+    left:1%;
+}
+
+/*IN - CAJITA AGREGAR ALGO - centro*/
+#cargadorPoliticasActa {
+    text-align: center; 
+    background-color:#a4a4a4;   
+    color:#313131;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 16px;
+   
+    position: absolute;
+    z-index:10;
+    width: 32%;
+    height: 100%;
+    
+    -webkit-border-radius:10px;  
+    
+    top:0%;
+    left:34%;
+}
+
+/*IN - CAJITA AGREGAR ALGO - derecha*/
+#ninguno {
+    text-align: center; 
+    background-color:#ffffff;   
+    color:#9f9f9f;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 16px;
+   
+    position: absolute;
+    z-index:10;
+    width: 33%;
+    height: 100%;
+    
+    -webkit-border-radius:10px;  
+    
+    top:0%;
+    left:66%;
+}
+
+
+/*IN - CAJITA 1/4 derecha arriba*/
+#buscadorCatalogoPoliticas {
+    text-align: center; 
+    background-color:#ffffff;   
+    color:#9f9f9f;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 16px;
+   
+    position: absolute;
+    z-index:10;
+    width: 33%;
+    height: 47%;
+    
+    -webkit-border-radius:10px;  
+    
+    top:0%;
+    left:66%;
+
+    overflow: auto; 
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/*IN - CAJITA 1/4 derecha abajo*/
+#contenedor_form_nuevaPolica {
+    text-align: center; 
+    background-color:#ffffff;   
+    color:#950b35;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 16px;
+   
+    position: absolute;
+    z-index:10;
+    width: 33%;
+    height: 48%;
+    
+    -webkit-border-radius:10px;  
+    
+    top:48%;
+    left:66%;
+
+    overflow: auto; 
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+
+
+
+.shadow {
+    -moz-box-shadow: 0px 50px 50px #111;
+    -webkit-box-shadow: 0px 50px 50px #111;
+    box-shadow: 0px 50px 50px #111;
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=15, Direction=0, Color='#111111')";
+    /* IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=15, Direction=0, Color='#111111');
+    
+    
+    
+}
+
+
+.shadowDos {
+    -moz-box-shadow: 0px 10px 10px #2F2F2F;
+    -webkit-box-shadow: 0px 10px 10px #2F2F2F;
+    box-shadow: 0px 10px 10px #2F2F2F;
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=15, Direction=0, Color='#2F2F2F')";
+    /* IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=10, Direction=0, Color='#2F2F2F');
+    
+    
+    
+}
+
+.shadowTres {
+    -moz-box-shadow: 0px 5px 5px #2F2F2F;
+    -webkit-box-shadow: 0px 5px 5px #2F2F2F;
+    box-shadow: 0px 5px 5px #2F2F2F;
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=15, Direction=0, Color='#2F2F2F')";
+    /* IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=10, Direction=0, Color='#2F2F2F');
+    
+    
+    
+}
+
+
+
+/*LISTA - NEGRA*/
+#ninguno{
+    -moz-box-shadow: 0px 10px 10px #2F2F2F;
+    -webkit-box-shadow: 0px 10px 10px #2F2F2F;
+    box-shadow: 0px 10px 10px #2F2F2F;
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=15, Direction=0, Color='#2F2F2F')";
+    /* IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=10, Direction=0, Color='#2F2F2F');
+    
+    
+    
+    
+    background-color:#000;  
+    color:#FFF;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 14px;
+    margin-top: 1%;
+    position:static;
+
+    margin-right:1%;
+    margin-left:1%;
+    
+    
+    height: auto;
+    -webkit-border-radius:3px;  
+        
+    width:100%;
+}
+
+
+/*LISTA - NEGRA*/
+#ninguno{
+    -moz-box-shadow: 0px 10px 10px #2F2F2F;
+    -webkit-box-shadow: 0px 10px 10px #2F2F2F;
+    box-shadow: 0px 10px 10px #2F2F2F;
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=15, Direction=0, Color='#2F2F2F')";
+    /* IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=10, Direction=0, Color='#2F2F2F');
+    
+    
+    
+    
+    background-color:#e9e9e9;  
+    color:#212121;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 16px;
+    margin-top: 1%;
+    position:static;
+
+    margin-right:1%;
+    margin-left:1%;
+    
+    
+    height: auto;
+    -webkit-border-radius:3px;  
+        
+    width:100%;
+}
+
+
+/*LISTA - NEGRA*/
+#despliegue{
+       
+    background-color:#a24f69;  
+    color:#ffffff;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+    font-size: 16px;
+    margin-top: 1%;
+    position:static;
+
+    margin-right:1%;
+    margin-left:1%;
+    
+    height: auto;
+    -webkit-border-radius:3px;  
+    
+    
+}
+
+#despliegueGeneral{
+    background-color:#FFFFFF;   
+    display: table;
+    text-align:left; 
+   
+    color:#EAEAEA;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+  
+    margin-top: 1%;
+    position:static;
+
+    margin-right:1%;
+    margin-left:1%;
+    width:95%;
+    
+    height: auto;
+    -webkit-border-radius:10px;  
+    
+}
+
+#listadoGeneral{
+    display: table-cell;
+    vertical-align: middle;
+    text-align:left; 
+ 
+    color:#333333;
+    font-family: "trebuchet ms", tahoma, sans-serif;   
+ 
+    margin-top: 1%;
+
+    margin-right:1%;
+    margin-left:1%;
+    
+    height: auto;
+    
+    
+}
