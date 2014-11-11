@@ -59,5 +59,15 @@ class Persona
 			return false;	
 		}
 	}
+	
+	public function mostrar_puestos($idd = null){
+		$consulta = "Call mostrar_tipo_puesto()";
+		$valores = null; //array("id"=>$this->idd);
+		
+		$oConexion = new conectorDB;
+		$this->puestos = $oConexion->consultaBD($consulta,$valores);
+
+		return $this->puestos;
+	}
 }
 ?>
