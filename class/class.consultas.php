@@ -42,7 +42,7 @@ class Persona
 	public $puesto;
 	public $descripcion;
 	
-	public function inserta_datos($idd = null, $puesto = null , $descripcion = null){
+	public function inserta_datos(){
 		$registrar = false;
 		
 		$consulta = "Call insertar_tipo_puesto(:id,:puesto, :descripcion)";
@@ -60,9 +60,9 @@ class Persona
 		}
 	}
 	
-	public function mostrar_puestos($idd = null){
-		$consulta = "Call mostrar_tipo_puesto()";
-		$valores = null; //array("id"=>$this->idd);
+	public function mostrar_puestos(){
+		$consulta = "Call mostrar_tipo_puesto(:id)";
+		$valores = array("id"=>$this->idd);
 		
 		$oConexion = new conectorDB;
 		$this->puestos = $oConexion->consultaBD($consulta,$valores);

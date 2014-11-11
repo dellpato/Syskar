@@ -16,8 +16,9 @@
 <div id="divModulomostrarPuestos"> 
 <?php
 require_once("../class/class.consultas.php");
-$id = 1; 
+
 $oDatosPersona = new Persona;
+$oDatosPersona->idd = 1; // probando a extraer uno 
 $mostrarpuesto = $oDatosPersona->mostrar_puestos();
     foreach ($mostrarpuesto as $indice) {
         print_r($indice);
