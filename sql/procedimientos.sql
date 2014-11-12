@@ -132,3 +132,21 @@ select apellido_casada into resultado from empleado where estado = 'Activo' and 
     
 end
 //
+
+CREATE PROCEDURE datos_empleado (
+codigo INT)
+BEGIN
+SELECT e.id_empleado AS Codigo, CONCAT(e.primer_nombre,' ',e.segundo_nombre) AS Nombres, 
+       CONCAT(e.primer_apellido,' ',e.segundo_apellido) AS Apellidos, tp.nombre_puesto AS Puesto,
+     CONCAT(jp.nombre,' ',jp.apellido) AS Jefe
+FROM empleado AS e, tipo_puesto AS tp, empleado_puesto AS ep, departamento_area AS da,
+   jefe_depto AS jd, jefe AS j
+WHERE e.id_empleado = codigo
+AND e.id_empleado = ep.id_empleado
+AND ep.id_puesto = tp.id_puesto
+AND e.id_empleado = da.id_empleado
+AND da.id_jefe_inmediato = jp.id_departamento;
+END
+
+ALTER TABLE tipo_puesto ADD COLUMN id_departamento_area INT;
+
