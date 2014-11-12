@@ -18,7 +18,7 @@
 require_once("../class/class.consultas.php");
 
 $oDatosPersona = new Persona;
-$oDatosPersona->idd = 1; // probando a extraer uno 
+$oDatosPersona->idd = 1; // probando a extraer uno de la base de datos
 $mostrarpuesto = $oDatosPersona->mostrar_puestos();
     foreach ($mostrarpuesto as $indice) {
         print_r($indice);

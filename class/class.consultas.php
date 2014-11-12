@@ -41,6 +41,7 @@ class Persona
 	public $idd;
 	public $puesto;
 	public $descripcion;
+	public $dato;
 	
 	public function inserta_datos(){
 		$registrar = false;
@@ -68,6 +69,17 @@ class Persona
 		$this->puestos = $oConexion->consultaBD($consulta,$valores);
 
 		return $this->puestos;
+	}
+	
+	
+	public function mostrar_datos_contratos(){
+		$consulta = "Call datos_para_contrato(:nombres)";
+		$valores = array("nombres"=>$this->dato);
+		
+		$oConexion = new conectorDB;
+		$this->datoscontrato = $oConexion->consultaBD($consulta,$valores);
+
+		return $this->datoscontrato;
 	}
 }
 ?>
