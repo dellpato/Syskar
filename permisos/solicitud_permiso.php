@@ -2,27 +2,33 @@
 <?php
  	
  	require_once("../class/class.permisos.php");
- 	
-	if(isset($_POST["btn_buscar"])){
-		
+ 	require('../fpdf/fpdf.php');
+	
+	if(isset($_POST["btn_aceptar"])){
 		$Consulta = new realizar_consulta;
 		$Consulta->codigo = $_POST['txt_codigoempleado'];
 		$mostrar_empleado = $Consulta->consulta();
 		
-    	foreach ($mostrar_empleado as $indice) {
-			$nombre = $indice['Nombres'];
-			$apellido = $indice['Apellidos'];
-			$puesto = $indice['Puesto'];
-			$jefe = $indice['Jefe'];
-			$depto = $indice['Depto'];
+		foreach ($mostrar_empleado as $indice) {
+			$vnombre = $indice['Nombres'];
+			$vapellido = $indice['Apellidos'];
+			$vpuesto = $indice['Puesto'];
+			$vjefe = $indice['Jefe'];
+			$vdepto = $indice['Depto'];
     	}
+		
 	
-	}
+	}//Fin del if de busqueda
 	if(isset($_POST["btn_guardar"])){
 		echo "Esta Guardando";
 	}
+	
+	if(isset($_POST["btn_buscar"])){
+		
+		echo "Esta Buscando";
+	}
 ?>
-<html lang="es">
+<html>
 <head>
 	<title>Solicitud Permiso</title>
 </head>
@@ -37,9 +43,15 @@
 							<label>C&oacute;digo de Empleado</label>
 						</td>
 						<td>
-							<input type="text" name="txt_codigoempleado"> 
-							<input type="submit" name="btn_buscar" value="Buscar"><br>
+							<input type="text" name="txt_codigoempleado" size="10"> 
+							<input type="submit" name="btn_aceptar" value="Aceptar">
+							<input type="submit" name="btn_buscar" value="Buscar">
 						</td>
+					</tr>
+					<tr>
+						<td>
+							<br><br>
+						</td>	
 					</tr>
 					<tr>
 						<td><label>Nombres</label><br>
