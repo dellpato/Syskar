@@ -235,10 +235,10 @@ return $numce;
 
 function miles($nummero){
 if ($nummero >= 1000 && $nummero < 2000){
-$numm = "MIL ".(centena($nummero%1000));
+$numm = "mil ".(centena($nummero%1000));
 }
 if ($nummero >= 2000 && $nummero <10000){
-$numm = unidad(Floor($nummero/1000))." MIL ".(centena($nummero%1000));
+$numm = unidad(Floor($nummero/1000))." mil ".(centena($nummero%1000));
 }
 if ($nummero < 1000)
 $numm = centena($nummero);
@@ -248,12 +248,12 @@ return $numm;
 
 function decmiles($numdmero){
 if ($numdmero == 10000)
-$numde = "DIEZ MIL";
+$numde = "diez mil";
 if ($numdmero > 10000 && $numdmero <20000){
-$numde = decena(Floor($numdmero/1000))."MIL ".(centena($numdmero%1000));
+$numde = decena(Floor($numdmero/1000))."mil ".(centena($numdmero%1000));
 }
 if ($numdmero >= 20000 && $numdmero <100000){
-$numde = decena(Floor($numdmero/1000))." MIL ".(miles($numdmero%1000));
+$numde = decena(Floor($numdmero/1000))." mil ".(miles($numdmero%1000));
 }
 if ($numdmero < 10000)
 $numde = miles($numdmero);
@@ -263,9 +263,9 @@ return $numde;
 
 function cienmiles($numcmero){
 if ($numcmero == 100000)
-$num_letracm = "CIEN MIL";
+$num_letracm = "cien mill";
 if ($numcmero >= 100000 && $numcmero <1000000){
-$num_letracm = centena(Floor($numcmero/1000))." MIL ".(centena($numcmero%1000));
+$num_letracm = centena(Floor($numcmero/1000))." mil ".(centena($numcmero%1000));
 }
 if ($numcmero < 100000)
 $num_letracm = decmiles($numcmero);
@@ -274,10 +274,10 @@ return $num_letracm;
 
 function millon($nummiero){
 if ($nummiero >= 1000000 && $nummiero <2000000){
-$num_letramm = "UN MILLON ".(cienmiles($nummiero%1000000));
+$num_letramm = "un millon ".(cienmiles($nummiero%1000000));
 }
 if ($nummiero >= 2000000 && $nummiero <10000000){
-$num_letramm = unidad(Floor($nummiero/1000000))." MILLONES ".(cienmiles($nummiero%1000000));
+$num_letramm = unidad(Floor($nummiero/1000000))." millones ".(cienmiles($nummiero%1000000));
 }
 if ($nummiero < 1000000)
 $num_letramm = cienmiles($nummiero);
@@ -287,12 +287,12 @@ return $num_letramm;
 
 function decmillon($numerodm){
 if ($numerodm == 10000000)
-$num_letradmm = "DIEZ MILLONES";
+$num_letradmm = "diez millones";
 if ($numerodm > 10000000 && $numerodm <20000000){
-$num_letradmm = decena(Floor($numerodm/1000000))."MILLONES ".(cienmiles($numerodm%1000000));
+$num_letradmm = decena(Floor($numerodm/1000000))."millones ".(cienmiles($numerodm%1000000));
 }
 if ($numerodm >= 20000000 && $numerodm <100000000){
-$num_letradmm = decena(Floor($numerodm/1000000))." MILLONES ".(millon($numerodm%1000000));
+$num_letradmm = decena(Floor($numerodm/1000000))." millones ".(millon($numerodm%1000000));
 }
 if ($numerodm < 10000000)
 $num_letradmm = millon($numerodm);
@@ -302,9 +302,9 @@ return $num_letradmm;
 
 function cienmillon($numcmeros){
 if ($numcmeros == 100000000)
-$num_letracms = "CIEN MILLONES";
+$num_letracms = "cien millones";
 if ($numcmeros >= 100000000 && $numcmeros <1000000000){
-$num_letracms = centena(Floor($numcmeros/1000000))." MILLONES ".(millon($numcmeros%1000000));
+$num_letracms = centena(Floor($numcmeros/1000000))." millones ".(millon($numcmeros%1000000));
 }
 if ($numcmeros < 100000000)
 $num_letracms = decmillon($numcmeros);
@@ -313,10 +313,10 @@ return $num_letracms;
 
 function milmillon($nummierod){
 if ($nummierod >= 1000000000 && $nummierod <2000000000){
-$num_letrammd = "MIL ".(cienmillon($nummierod%1000000000));
+$num_letrammd = "mil ".(cienmillon($nummierod%1000000000));
 }
 if ($nummierod >= 2000000000 && $nummierod <10000000000){
-$num_letrammd = unidad(Floor($nummierod/1000000000))." MIL ".(cienmillon($nummierod%1000000000));
+$num_letrammd = unidad(Floor($nummierod/1000000000))." mil ".(cienmillon($nummierod%1000000000));
 }
 if ($nummierod < 1000000000)
 $num_letrammd = cienmillon($nummierod);
@@ -333,7 +333,7 @@ $num = (int)$num;
 
 $numf = milmillon($num);
 
-return $numf." años ";
+return $numf;
 
 }
 
