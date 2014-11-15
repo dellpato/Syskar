@@ -20,7 +20,7 @@
 	
 	}//Fin del if de busqueda
 	if(isset($_POST["btn_guardar"])){
-		header("location:guarda_vacaciones.php")
+		header("location:guarda_vacaciones.php");
 	}
 	
 	if(isset($_POST["btn_buscar"])){
@@ -73,9 +73,9 @@
 						<td><label>D&iacute;a de Permiso</label><br>
 							<input type="date" name="txt_fechapermiso"></td>
 						<td><label>Tipo de Permiso</label><br>
-							<select name="txt_tipopermiso">
-								<option name="permiso1">Particular</option>
-								<option name="permiso2">Salud</option>
+							<select name="txt_tipovacaciones">
+								<option name="tipo_vacaciones1">Particular</option>
+								<option name="tipo_vacaciones2">Salud</option>
 							</select> </td>
 					</tr>
 					<tr>
