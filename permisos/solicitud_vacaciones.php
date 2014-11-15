@@ -20,7 +20,7 @@
 	
 	}//Fin del if de busqueda
 	if(isset($_POST["btn_guardar"])){
-		echo "Esta Guardando";
+		header("location:guarda_vacaciones.php")
 	}
 	
 	if(isset($_POST["btn_buscar"])){
@@ -30,13 +30,13 @@
 ?>
 <html>
 <head>
-	<title>Solicitud Permiso</title>
+	<title>Solicitud Vacaciones</title>
 </head>
 <body>
-	<header><h2>Ingreso de Solicitud de Permiso</h2></header>
+	<header><h2>Ingreso de Solicitud de Vacaciones</h2></header>
 	<nav>
 		<div id="solicitud_permiso">
-			<form name="frm_solicitud_permiso" method="post" action="solicitud_permiso.php">
+			<form name="frm_solicitud_permiso" method="post" action="solicitud_vacaciones.php">
 				<table>
 					<tr>
 						<td align="right">
