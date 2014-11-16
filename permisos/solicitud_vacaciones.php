@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <?php
  	
  	require_once("../class/class.permisos.php");
@@ -7,17 +8,20 @@
 	$dia = $hoy['mday'];
 	$mes = $hoy['mon'];
 	$annio = $hoy['year'];
+	$fecha = $annio."-".$mes."-".$dia;
 	
 	$nombre = "";
 	$apellido = "";
 	$jefe = "";
 	$puesto = "";
 	$depto = "";
+	$cod_emp = "";
 	
 	if(isset($_POST["btn_aceptar"])){
 		$Consulta = new realizar_consulta;
 		$Consulta->codigo = $_POST['txt_codigoempleado'];
 		$mostrar_empleado = $Consulta->consulta();
+		$cod_emp = $_POST['txt_codigoempleado'];
 		
 		foreach ($mostrar_empleado as $indice) {
 			$nombre = $indice['Nombres'];
@@ -27,14 +31,22 @@
 			$depto = $indice['Depto'];
 			
 		}
+		
 	}//Fin del if de busqueda
 	if(isset($_POST["btn_guardar"])){
-		header("location:guarda_vacaciones.php");
+		
+		$Datos = new guarda_vacaciones;
+		$Datos->codigo = $_POST['txt_codigoempleado'];
+		$Datos->fecha = $fecha;
+		$Datos->observaciones = mysql_real_escape_string($_POST['txt_observacion']);
+
+		$Datos->ingreso_vacaciones();
+		
+		header("location:solicitud_vacaciones.php");
 	}
 	
 	if(isset($_POST["btn_buscar"])){
 		
-		echo "Esta Buscando";
 	}
 ?>
 <html>
@@ -52,7 +64,7 @@
 							<label>C&oacute;digo de Empleado</label>
 						</td>
 						<td>
-							<input type="text" name="txt_codigoempleado" size="10"> 
+							<input type="text" name="txt_codigoempleado" value ="<?php echo $cod_emp; ?>" size="10"> 
 							<input type="submit" name="btn_aceptar" value="Aceptar">
 							<input type="submit" name="btn_buscar" value="Buscar">
 						</td>
@@ -80,7 +92,13 @@
 					</tr>
 					<tr>
 						<td><label>Fecha</label><br>
-							<input type="text" name="txt_fechapermiso" value="<?php echo "$dia/$mes/$annio"; ?>"></td>
+							<input type="text" name="txt_fechasolicitud" value="<?php echo "$dia/$mes/$annio"; ?>"></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<label>Observaciones</label><br>
+							<textarea name="txt_observacion" rows="3" cols="66"></textarea>
+						</td>
 					</tr>
 					<tr>
 						<td><input type="submit" name="btn_guardar" value="Guardar">

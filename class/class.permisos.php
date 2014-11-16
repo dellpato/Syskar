@@ -44,7 +44,7 @@ class realizar_consulta {
 
 	public function consulta(){
 		$consulta = "CALL datos_empleado(:id);";
-		$valores = array("id"=>$this->codigo);
+		$valores = array("id" => $this->codigo);
 		
 		$Conexion = new conectaDB;
 		$this->subconsulta = $Conexion->queryBD($consulta,$valores);
@@ -54,5 +54,23 @@ class realizar_consulta {
 }
 class guarda_vacaciones {
 	public $codigo;
+	public $fecha;
+	public $observaciones;
+	
+	public function ingreso_vacaciones(){
+		$consulta = "CALL ingreso_solicitud_vacaciones(:id_emp,:fec,:obs);";
+		$valor  = array("id_emp" => $this->codigo,
+						"fec" => $this->fecha,
+						"obs" => $this->observaciones);
+		$conex = new conectaDB;
+		$registrar = $conex->queryBD($consulta,$valor);
+		
+		if(empty($registrar) or $registrar != false){
+			return true;
+		}
+		else{
+			return false;	
+		}
+	}
 }
 ?>
