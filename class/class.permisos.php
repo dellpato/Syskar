@@ -52,4 +52,7 @@ class realizar_consulta {
 		return $this->subconsulta;
 	}
 }
+class guarda_vacaciones {
+	public $codigo;
+}
 ?>

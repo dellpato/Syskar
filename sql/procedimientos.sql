@@ -150,3 +150,6 @@ END
 
 ALTER TABLE tipo_puesto ADD COLUMN id_departamento_area INT;
 
+ALTER TABLE tipo_puesto ADD 
+CONSTRAINT fk1_tipo_puesto FOREIGN KEY (id_departamento_area) 
+REFERENCES departamento_area (id_departamento);
