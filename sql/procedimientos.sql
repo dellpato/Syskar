@@ -153,3 +153,84 @@ ALTER TABLE tipo_puesto ADD COLUMN id_departamento_area INT;
 ALTER TABLE tipo_puesto ADD 
 CONSTRAINT fk1_tipo_puesto FOREIGN KEY (id_departamento_area) 
 REFERENCES departamento_area (id_departamento);
+
+
+
+delimiter //
+create procedure insertar_empleado_puesto(p_acuerdo varchar(45),p_estado varchar(45), p_id int)
+begin
+insert into empleado_puesto(acuerdo_no, estado, id_tipo_puesto)
+values (p_acuerdo,p_estado,p_id);
+end
+//
+
+Delimiter //
+create procedure mostrar_permisos_empleados (p_id int)
+begin
+SELECT tp.tipo_permiso, p.id_permiso, p.fecha_permiso, p.fecha_solicitud, p.status, p.motivo 
+FROM Permiso p, tipo_permiso tp 
+WHERE p.id_tipo_permiso=tp.id_tipo_permiso 
+AND p.id_empleado=p_id;
+end
+//
+
+delimiter //
+create procedure insertar_motivo_permiso(p_nom varchar(45))
+begin
+insert into tipo_permiso(tipo_permiso) 
+  values(p_nom);
+end
+//
+
+delimiter //
+create procedure mostrar_codmotivo_permiso()
+begin
+select  max(id_tipo_permiso) as id
+from tipo_permiso;
+end
+//
+
+
+delimiter //
+create procedure mostrar_tipo_permiso(p_id varchar(45))
+begin
+SELECT p.id_tipo_permiso, p.tipo_permiso 
+FROM tipo_permiso as p, permiso as per 
+WHERE p.id_tipo_permiso=per.id_tipo_permiso 
+AND per.id_permiso = p_id;
+end
+//
+
+delimiter //
+create procedure insertar_permiso(p_id int)
+begin
+insert into Permiso(fecha_permiso, id_tipo_permiso, id_empleado)
+values(sysdate(),0,p_id);
+end
+//
+
+delimiter //
+create procedure modificar_tipo_permiso(p_idtipo varchar(45), p_idpermiso varchar(45))
+begin
+UPDATE permiso SET id_tipo_permiso=p_idtipo 
+WHERE id_permiso=p_idpermiso;
+end
+//
+
+delimiter //
+create procedure modificar_permiso (p_fecha date,p_status varchar(45), p_motivo varchar(45) , p_id varchar(45))
+begin
+UPDATE permiso SET  fecha_solicitud= p_fecha, 
+status= p_status,  motivo=p_motivo
+WHERE id_permiso= p_id;
+end  
+//
+
+delimiter //
+create procedure mostrar_permisos (p_id varchar(45))
+begin
+SELECT id_permiso, fecha_permiso, fecha_solicitud, status, motivo 
+FROM Permiso 
+WHERE id_permiso=p_id;
+end
+//
