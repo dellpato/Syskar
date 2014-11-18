@@ -234,3 +234,35 @@ FROM Permiso
 WHERE id_permiso=p_id;
 end
 //
+
+
+///////////////////////////Agregar funcion
+function datoimagen(){
+        $.ajax({
+                      data: "nombre="+document.form_mod_empleado.nombre_empleado_form.value, 
+                      type: "POST",
+                      dataType: "json", 
+                      url:"php/cargar_archivos.php",
+                      async: false,
+                      success: function(data){ 
+                        alert("funciona");
+                      },
+                      error:function(objXMLHttpRequest){alert("Error! Intente de nuevo.");}
+
+                    });
+
+}
+
+/////////////////////////////////////////
+
+delimiter //
+create procedure obtener_puestos_empleado(p_id varchar(45))
+begin
+SELECT tp.nombre_puesto, tp.descripcion_cargo 
+FROM tipo_puesto as tp, empleado_puesto as ep, empleado as e 
+WHERE tp.id_tipo_puesto=ep.id_tipo_puesto 
+AND ep.id_empleado=e.id_empleado 
+AND e.id_empleado=p_id 
+ORDER BY ep.estado ASC;
+end
+//
